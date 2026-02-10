@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben’S Barber | Recherche Modèles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap');
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: #0a0a0a; color: #fff; scroll-behavior: smooth; }
+        h1, h2, .brand-name { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
+        .gold-gradient { background: linear-gradient(45deg, #d4af37, #f2d479); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f2d479); color: black; transition: transform 0.3s ease; border: none; cursor: pointer; }
+        .btn-gold:hover { transform: scale(1.05); }
+        .nav-glass { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); }
+        
+        /* Style pour l'icône du calendrier sur mobile */
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed w-full z-50 nav-glass border-b border-zinc-800 py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/1039/1039011.png" alt="Logo" class="h-10 w-10 object-contain">
+            <span class="brand-name text-2xl gold-gradient">Ben’S Barber</span>
+        </div>
+        <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="text-xs uppercase font-bold border border-yellow-600 px-4 py-2 rounded hover:bg-yellow-600 transition">Contact</a>
+    </nav>
+
+    <header class="h-screen flex flex-col justify-center items-center text-center px-4" style="background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1000') center/cover;">
+        <p class="text-yellow-500 font-bold uppercase tracking-tighter mb-2">Bienvenue chez</p>
+        <h1 class="text-7xl md:text-9xl mb-4 uppercase">Ben’S <span class="gold-gradient">Barber</span></h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-2xl font-light text-gray-300">Barbier passionné à la recherche de nouveaux visages pour perfectionner mon art.</p>
+        
+        <div class="bg-red-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest animate-pulse mb-8 text-sm">
+            Session Modèles : Prestation Offerte 🎁 !
+        </div>
+        
+        <a href="#contact" class="btn-gold px-10 py-4 rounded-md font-bold text-lg uppercase shadow-lg">Devenir Modèle</a>
+    </header>
+
+    <section class="py-24 px-8 max-w-6xl mx-auto">
+        <h2 class="text-5xl text-center mb-20">Le <span class="gold-gradient">Concept</span> Modèle</h2>
+        <div class="grid md:grid-cols-3 gap-12 text-center">
+            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition">
+                <div class="text-5xl mb-6">✂️</div>
+                <h3 class="text-2xl font-bold mb-4">Coupe Offerte</h3>
+                <p class="text-gray-400">Une coupe premium réalisée avec soin, adaptée à ton style et à ta morphologie.</p>
+            </div>
+            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition">
+                <div class="text-5xl mb-6">📸</div>
+                <h3 class="text-2xl font-bold mb-4">Droit à l'image</h3>
+                <p class="text-gray-400">En retour, j'utilise les photos de la coupe pour alimenter mon compte Instagram.</p>
+            </div>
+            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition">
+                <div class="text-5xl mb-6">🤝</div>
+                <h3 class="text-2xl font-bold mb-4">Confiance</h3>
+                <p class="text-gray-400">Un moment de partage et de conseil pour t'aider à entretenir tes cheveux au quotidien.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-zinc-900 py-20 px-8">
+        <div class="max-w-3xl mx-auto border border-zinc-700 p-8 md:p-12 rounded-2xl bg-black shadow-2xl">
+            <h2 class="text-4xl text-center mb-4 uppercase">Choisis ton <span class="gold-gradient">créneau</span></h2>
+            <p class="text-center text-gray-500 mb-10">Laisse tes coordonnées et propose une date pour ta session.</p>
+            
+            <form action="https://formspree.io/f/xbdadjwr" method="POST" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" name="Nom du client" placeholder="Nom & Prénom" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
+                    <input type="text" name="Contact du client" placeholder="@Instagram ou Téléphone" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs text-yellow-500 uppercase font-bold px-1">Date souhaitée</label>
+                        <input type="date" name="Date du RDV" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs text-yellow-500 uppercase font-bold px-1">Heure souhaitée</label>
+                        <input type="time" name="Heure du RDV" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
+                    </div>
+                </div>
+
+                <select name="Coupe souhaitée" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none text-gray-400">
+                    <option value="">Type de coupe souhaité</option>
+                    <option value="Dégradé">Dégradé </option>
+                    <option value="Taper">Taper</option>
+                    <option value="Barbe">Taille de barbe</option>
+                </select>
+                
+                <button type="submit" class="w-full btn-gold py-4 rounded-xl font-bold uppercase text-xl shadow-xl">Envoyer ma candidature</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center border-t border-zinc-900">
+        <div class="mb-6">
+            <span class="brand-name text-3xl gold-gradient uppercase">Ben’S Barber</span>
+        </div>
+        <p class="text-gray-600 text-sm italic">&copy; 2026 Ben’S Barber. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>
