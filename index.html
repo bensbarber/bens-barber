@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ben’S Barber | Prestation Offerte</title>
+    <title>Ben’S Barber | Prestation Offerte - Lyon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap');
@@ -15,11 +15,13 @@
         .btn-gold:hover { transform: scale(1.05); }
         .nav-glass { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); }
         
-        /* Style pour l'icône du calendrier sur mobile */
         input[type="date"]::-webkit-calendar-picker-indicator,
         input[type="time"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
         }
+
+        .social-icon { transition: all 0.3s ease; filter: grayscale(1) brightness(1.5); }
+        .social-icon:hover { filter: grayscale(0) brightness(1); transform: translateY(-3px); }
     </style>
 </head>
 <body>
@@ -34,11 +36,13 @@
 
     <header class="h-screen flex flex-col justify-center items-center text-center px-4" style="background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1000') center/cover;">
         <p class="text-yellow-500 font-bold uppercase tracking-tighter mb-2">Bienvenue chez</p>
-        <h1 class="text-7xl md:text-9xl mb-4 uppercase">Ben’S <span class="gold-gradient">Barber</span></h1>
+        <h1 class="text-7xl md:text-9xl mb-2 uppercase">Ben’S <span class="gold-gradient">Barber</span></h1>
+        <p class="text-yellow-600 font-bold mb-6 tracking-[0.2em] uppercase text-sm md:text-lg">📍 Lyon & alentours</p>
+        
         <p class="text-xl md:text-2xl mb-8 max-w-2xl font-light text-gray-300">Barbier passionné à la recherche de nouveaux visages pour perfectionner mon art.</p>
         
         <div class="bg-red-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest animate-pulse mb-8 text-sm">
-            Session Modèles : Prestation Offerte 🎁 !
+            Recherche Modèles : Prestation Offerte 🎁 !
         </div>
         
         <a href="#contact" class="btn-gold px-10 py-4 rounded-md font-bold text-lg uppercase shadow-lg">Devenir Modèle</a>
@@ -68,7 +72,7 @@
     <section id="contact" class="bg-zinc-900 py-20 px-8">
         <div class="max-w-3xl mx-auto border border-zinc-700 p-8 md:p-12 rounded-2xl bg-black shadow-2xl">
             <h2 class="text-4xl text-center mb-4 uppercase">Choisis ton <span class="gold-gradient">créneau</span></h2>
-            <p class="text-center text-gray-500 mb-10">Laisse tes coordonnées et propose une date pour ta session.</p>
+            <p class="text-center text-gray-400 mb-10 italic">Disponible sur le secteur de Lyon et ses environs.</p>
             
             <form action="https://formspree.io/f/xbdadjwr" method="POST" class="space-y-6">
                 <div class="grid md:grid-cols-2 gap-6">
@@ -101,9 +105,19 @@
 
     <footer class="py-12 text-center border-t border-zinc-900">
         <div class="mb-6">
-            <span class="brand-name text-3xl gold-gradient uppercase">Ben’S Barber</span>
+            <span class="brand-name text-4xl gold-gradient uppercase">Ben’S Barber</span>
         </div>
-        <p class="text-gray-600 text-sm italic">&copy; 2026 Ben’S Barber. Tous droits réservés.</p>
+        
+        <div class="flex justify-center gap-8 mb-8">
+            <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="social-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="w-8 h-8">
+            </a>
+            <a href="https://www.tiktok.com/@bens.barber?_r=1&_t=ZN-93oInyPtZf4" target="_blank" class="social-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" class="w-8 h-8">
+            </a>
+        </div>
+
+        <p class="text-gray-600 text-sm italic">&copy; 2026 Ben’S Barber - Lyon. Tous droits réservés.</p>
     </footer>
 
 </body>
