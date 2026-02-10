@@ -38,11 +38,10 @@
         .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
         .faq-item.active svg { transform: rotate(180deg); }
 
-        /* Style spécifique pour la carte d'avis style image */
         .review-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(59, 130, 246, 0.3); /* Bordure bleue subtile */
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); /* Glow bleu */
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
         }
     </style>
 </head>
@@ -219,6 +218,21 @@
                 </select>
                 <button type="submit" class="w-full btn-gold py-4 rounded-xl font-bold uppercase text-xl shadow-xl">Envoyer ma candidature</button>
             </form>
+
+            <div class="mt-12 p-6 border-t border-zinc-800 text-center">
+                <h4 class="text-xs uppercase tracking-[0.3em] text-zinc-500 mb-4 font-bold">Gestion de ton rendez-vous</h4>
+                <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Un imprévu ou un problème ? Tu peux annuler ou modifier ton créneau à tout moment en me contactant directement :</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://www.instagram.com/bens__barber" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 group-hover:text-yellow-500"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <span class="text-xs font-bold uppercase tracking-widest text-zinc-300 group-hover:text-white transition">Instagram</span>
+                    </a>
+                    <a href="mailto:bens.barber69@gmail.com" class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 group-hover:text-yellow-500"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span class="text-xs font-bold uppercase tracking-widest text-zinc-300 group-hover:text-white transition">E-mail</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
