@@ -37,6 +37,13 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: #a1a1aa; font-size: 0.95rem; line-height: 1.6; }
         .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
         .faq-item.active svg { transform: rotate(180deg); }
+
+        /* Style spécifique pour la carte d'avis style image */
+        .review-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(59, 130, 246, 0.3); /* Bordure bleue subtile */
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); /* Glow bleu */
+        }
     </style>
 </head>
 <body>
@@ -80,7 +87,7 @@
                         <p class="text-xs text-gray-500 uppercase">Remplis le formulaire</p>
                     </div>
                 </div>
-                <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6" data-aos="stretch-x"></div>
+                <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6"></div>
                 <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="300">
                     <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">2</span>
                     <div>
@@ -117,6 +124,42 @@
                 <div class="text-5xl mb-6 group-hover:scale-110 transition">🤝</div>
                 <h3 class="text-2xl font-bold mb-4 uppercase">Confiance</h3>
                 <p class="text-gray-400 text-sm">Merci de faire confiance à Ben’S Barber pour ton style.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-8 bg-black">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="flex justify-center gap-1 mb-4" data-aos="fade-up">
+                <span class="text-yellow-500 text-2xl">★</span>
+                <span class="text-yellow-500 text-2xl">★</span>
+                <span class="text-yellow-500 text-2xl">★</span>
+                <span class="text-yellow-500 text-2xl">★</span>
+                <span class="text-yellow-500 text-2xl">★</span>
+            </div>
+            <p class="text-zinc-400 text-sm uppercase tracking-widest mb-2" data-aos="fade-up" data-aos-delay="100">
+                <span class="text-white font-bold">Excellent</span> — Salons notés 5.0 (20+ avis)
+            </p>
+            <h2 class="text-4xl md:text-5xl mb-16 uppercase italic" data-aos="fade-up" data-aos-delay="200">Ce qu'en pensent nos clients</h2>
+
+            <div class="review-card p-8 rounded-3xl text-left max-w-xl mx-auto relative overflow-hidden" data-aos="zoom-in">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://i.pravatar.cc/150?u=mael" alt="Client" class="w-16 h-16 rounded-full border-2 border-zinc-800">
+                    <div>
+                        <h4 class="font-bold text-xl uppercase tracking-wider">Maël V.</h4>
+                        <p class="text-zinc-500 text-sm">Google reviews</p>
+                    </div>
+                </div>
+                <p class="text-zinc-300 leading-relaxed text-lg italic">
+                    "Client depuis quelques années, je n'ai jamais été déçu d'une prestation. L'accueil est chaleureux, l'hygiène est irréprochable et les prestations sont précises."
+                </p>
+                
+                <div class="flex gap-2 mt-8 justify-center">
+                    <div class="w-2 h-2 rounded-full bg-white"></div>
+                    <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+                    <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+                    <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -175,16 +218,6 @@
                     <option value="Barbe">Taille de barbe</option>
                 </select>
                 <button type="submit" class="w-full btn-gold py-4 rounded-xl font-bold uppercase text-xl shadow-xl">Envoyer ma candidature</button>
-                
-                <div class="pt-4 text-center border-t border-zinc-800 mt-6">
-                    <p class="text-zinc-500 text-xs uppercase tracking-widest mb-3">Un imprévu ?</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        En cas de problème, il est possible d'annuler ou modifier ton rendez-vous directement sur 
-                        <a href="https://www.instagram.com/bens__barber" target="_blank" class="text-yellow-500 hover:underline font-bold">Instagram</a> 
-                        ou par 
-                        <a href="mailto:bens.barber69@gmail.com" class="text-yellow-500 hover:underline font-bold">Mail</a>.
-                    </p>
-                </div>
             </form>
         </div>
     </section>
