@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ben’S Barber | Prestation Offerte - Lyon</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap');
         
-        body { font-family: 'Montserrat', sans-serif; background-color: #0a0a0a; color: #fff; scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #0a0a0a; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
         h1, h2, .brand-name { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
         .gold-gradient { background: linear-gradient(45deg, #d4af37, #f2d479); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .btn-gold { background: linear-gradient(45deg, #d4af37, #f2d479); color: black; transition: transform 0.3s ease; border: none; cursor: pointer; }
@@ -23,7 +24,6 @@
         .social-icon { transition: all 0.3s ease; filter: grayscale(1) brightness(1.5); }
         .social-icon:hover { filter: grayscale(0) brightness(1); transform: translateY(-3px); }
 
-        /* Style du bouton partager moderne */
         .share-btn {
             position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px;
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
@@ -32,7 +32,6 @@
         }
         .share-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: #d4af37; transform: scale(1.1); }
 
-        /* FAQ Accordéon */
         .faq-item { border-bottom: 1px solid #222; }
         .faq-question { cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: #a1a1aa; font-size: 0.95rem; line-height: 1.6; }
@@ -51,30 +50,38 @@
             <img src="https://i.ibb.co/m5Tz7h0m/Gold-Black-Modern-Elegant-Scissors-Barber-Shop-Business-Logo.png" alt="Logo" class="h-10 w-10 object-contain">
             <span class="brand-name text-2xl gold-gradient">Ben’S Barber</span>
         </div>
-        <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="text-xs uppercase font-bold border border-yellow-600 px-4 py-2 rounded hover:bg-yellow-600 transition">Contact</a>
+        
+        <div class="flex items-center gap-3">
+            <a href="mailto:bens.barber69@gmail.com" class="p-2 border border-zinc-700 rounded hover:border-yellow-600 transition group" title="M'envoyer un mail">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-400 group-hover:text-yellow-500 transition"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="text-xs uppercase font-bold border border-yellow-600 px-4 py-2 rounded hover:bg-yellow-600 transition">Contact</a>
+        </div>
     </nav>
 
     <header class="h-screen flex flex-col justify-center items-center text-center px-4" style="background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1000') center/cover;">
-        <p class="text-yellow-500 font-bold uppercase tracking-tighter mb-2">Bienvenue chez</p>
-        <h1 class="text-7xl md:text-9xl mb-2 uppercase leading-none">Ben’S <span class="gold-gradient">Barber</span></h1>
-        <p class="text-yellow-600 font-bold mb-6 tracking-[0.2em] uppercase text-sm md:text-lg">📍 Lyon & alentours</p>
-        <p class="text-xl md:text-2xl mb-8 max-w-2xl font-light text-gray-300">L’art de la coupe, la précision du détail.</p>
-        <div class="bg-red-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest animate-pulse mb-8 text-sm">Recherche Modèles : Prestation Offerte 🎁 !</div>
-        <a href="#contact" class="btn-gold px-10 py-4 rounded-md font-bold text-lg uppercase shadow-lg">Devenir Modèle</a>
+        <div data-aos="fade-up" data-aos-duration="1200">
+            <p class="text-yellow-500 font-bold uppercase tracking-tighter mb-2">Bienvenue chez</p>
+            <h1 class="text-7xl md:text-9xl mb-2 uppercase leading-none">Ben’S <span class="gold-gradient">Barber</span></h1>
+            <p class="text-yellow-600 font-bold mb-6 tracking-[0.2em] uppercase text-sm md:text-lg">📍 Lyon & alentours</p>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl font-light text-gray-300">L’art de la coupe, la précision du détail.</p>
+            <div class="bg-red-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest animate-pulse mb-8 text-sm">Recherche Modèles : Prestation Offerte 🎁 !</div>
+            <a href="#contact" class="btn-gold px-10 py-4 rounded-md font-bold text-lg uppercase shadow-lg">Devenir Modèle</a>
+        </div>
     </header>
 
-    <section class="py-16 bg-zinc-950 border-y border-zinc-900">
+    <section class="py-16 bg-zinc-950 border-y border-zinc-900 overflow-hidden">
         <div class="max-w-5xl mx-auto px-8">
             <div class="flex flex-col md:flex-row justify-between items-start gap-8">
-                <div class="flex gap-4 items-center">
+                <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="100">
                     <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">1</span>
                     <div>
                         <h4 class="font-bold uppercase text-sm tracking-widest">Prendre rendez-vous</h4>
                         <p class="text-xs text-gray-500 uppercase">Remplis le formulaire</p>
                     </div>
                 </div>
-                <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6"></div>
-                <div class="flex gap-4 items-center">
+                <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6" data-aos="stretch-x"></div>
+                <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="300">
                     <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">2</span>
                     <div>
                         <h4 class="font-bold uppercase text-sm tracking-widest">Confirmation</h4>
@@ -82,7 +89,7 @@
                     </div>
                 </div>
                 <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6"></div>
-                <div class="flex gap-4 items-center">
+                <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="500">
                     <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">3</span>
                     <div>
                         <h4 class="font-bold uppercase text-sm tracking-widest">Le Jour J</h4>
@@ -94,19 +101,19 @@
     </section>
 
     <section class="py-24 px-8 max-w-6xl mx-auto">
-        <h2 class="text-5xl text-center mb-20 uppercase">Le <span class="gold-gradient">Concept</span> Modèle</h2>
+        <h2 class="text-5xl text-center mb-20 uppercase" data-aos="fade-up">Le <span class="gold-gradient">Concept</span> Modèle</h2>
         <div class="grid md:grid-cols-3 gap-12 text-center">
-            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
+            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group" data-aos="zoom-in" data-aos-delay="100">
                 <div class="text-5xl mb-6 group-hover:scale-110 transition">✂️</div>
                 <h3 class="text-2xl font-bold mb-4 uppercase">Coupe Offerte</h3>
                 <p class="text-gray-400 text-sm">Une prestation premium réalisée avec soin, adaptée à ton style.</p>
             </div>
-            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
+            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group" data-aos="zoom-in" data-aos-delay="300">
                 <div class="text-5xl mb-6 group-hover:scale-110 transition">📸</div>
                 <h3 class="text-2xl font-bold mb-4 uppercase">Droit à l'image</h3>
                 <p class="text-gray-400 text-sm">En retour, j'utilise les photos de la coupe pour mon compte Instagram.</p>
             </div>
-            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
+            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group" data-aos="zoom-in" data-aos-delay="500">
                 <div class="text-5xl mb-6 group-hover:scale-110 transition">🤝</div>
                 <h3 class="text-2xl font-bold mb-4 uppercase">Confiance</h3>
                 <p class="text-gray-400 text-sm">Merci de faire confiance à Ben’S Barber pour ton style.</p>
@@ -114,7 +121,7 @@
         </div>
     </section>
 
-    <section class="py-24 px-8 max-w-3xl mx-auto">
+    <section class="py-24 px-8 max-w-3xl mx-auto" data-aos="fade-right">
         <h2 class="text-4xl text-center mb-12 uppercase italic gold-gradient tracking-widest">Questions Fréquentes</h2>
         <div class="faq-list">
             <div class="faq-item" onclick="this.classList.toggle('active')">
@@ -142,7 +149,7 @@
     </section>
 
     <section id="contact" class="bg-zinc-900 py-20 px-8 border-t border-zinc-800">
-        <div class="max-w-3xl mx-auto border border-zinc-700 p-8 md:p-12 rounded-2xl bg-black shadow-2xl">
+        <div class="max-w-3xl mx-auto border border-zinc-700 p-8 md:p-12 rounded-2xl bg-black shadow-2xl" data-aos="fade-up">
             <h2 class="text-4xl text-center mb-4 uppercase tracking-widest">Réserve ton <span class="gold-gradient">créneau</span></h2>
             <p class="text-center text-gray-400 mb-10 italic">Prêt pour le changement ? Remplis le formulaire ci-dessous.</p>
             
@@ -181,7 +188,15 @@
         <p class="text-gray-600 text-sm italic">&copy; 2026 Ben’S Barber - Lyon. Tous droits réservés.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
         function shareWebsite() {
             if (navigator.share) {
                 navigator.share({
