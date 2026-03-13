@@ -71,7 +71,7 @@ h1 .s3{color:var(–red2);display:block}
 .h-sub strong{font-style:normal;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.1em;color:rgba(240,236,227,.8);display:block;margin-bottom:6px}
 
 .h-btns{display:flex;gap:16px;margin-top:48px;align-items:center;opacity:0;animation:up .75s 1.15s forwards}
-.btn-a{display:inline-flex;align-items:center;gap:12px;background:var(–red);color:var(–paper);padding:18px 46px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);position:relative;overflow:hidden}
+.btn-a{display:inline-flex;align-items:center;gap:12px;background:var(–red);color:#f0ece3 !important;padding:18px 46px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .3s;position:relative;overflow:hidden;-webkit-appearance:none;border-radius:0}
 .btn-a::before{content:’’;position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-101%) skewX(-12deg);transition:transform .4s}
 .btn-a:hover::before{transform:translateX(120%) skewX(-12deg)}
 .btn-a:hover{background:var(–red2)}
@@ -194,12 +194,13 @@ h1 .s3{color:var(–red2);display:block}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fg{display:flex;flex-direction:column;gap:8px}
 .fg label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(–red)}
-.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(–paper);padding:15px 18px;font-family:‘DM Mono’,monospace;font-size:12px;outline:none;transition:all .3s;cursor:none;width:100%;-webkit-appearance:none}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:#f0ece3;padding:15px 18px;font-family:‘DM Mono’,monospace;font-size:12px;outline:none;transition:all .3s;cursor:none;width:100%;-webkit-appearance:none;appearance:none;border-radius:0}
+.fg select{background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath fill=’%23f0ece3’ d=‘M1 1l5 5 5-5’/%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 16px center}
 .fg input::placeholder,.fg textarea::placeholder{color:rgba(240,236,227,.18)}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(212,43,30,.5);background:rgba(212,43,30,.03)}
 .fg select option{background:#080612}
 .fg textarea{min-height:88px;resize:none}
-.fsub{background:var(–red);color:var(–paper);padding:20px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);margin-top:4px}
+.fsub{background:var(–red) !important;color:#f0ece3 !important;padding:20px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;margin-top:4px;width:100%;-webkit-appearance:none;appearance:none;border-radius:0}
 .fsub:hover{background:var(–red2)}
 .fok{display:none;border:1px solid rgba(100,200,60,.25);background:rgba(100,200,60,.04);padding:15px 18px;font-size:11px;letter-spacing:.1em;color:#7ed957}
 
@@ -306,14 +307,14 @@ footer{background:#020109;padding:30px 56px;display:flex;justify-content:space-b
 
 /* RESPONSIVE */
 @media(max-width:860px){
-/* NAV — plus petit, ne overlap plus */
-nav{padding:16px 20px;position:relative}
-nav::after{background:var(–ink)}
+/* NAV — fixe → statique sur mobile */
+nav{padding:16px 20px;position:relative !important;background:var(–ink)}
+nav::after{display:none}
 .nav-r a:not(.ig-pill){display:none}
-.ig-pill{font-size:10px;padding:8px 14px}
+.ig-pill{font-size:10px !important;padding:8px 14px !important}
 
-/* HERO — padding-top pour compenser la nav */
-.hero{padding:80px 20px 60px;min-height:auto}
+/* HERO */
+.hero{padding:32px 20px 60px;min-height:auto}
 .hero-bgtxt{font-size:52vw;bottom:-20px}
 h1{font-size:clamp(64px,18vw,110px)}
 .h-stats{position:static;opacity:1;animation:none;margin-top:40px;gap:28px}
