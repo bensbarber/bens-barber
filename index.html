@@ -37,15 +37,6 @@ body.hov #ring{width:80px;height:80px}
 /* CANVAS */
 #c{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.3}
 
-/* BARBER POLE */
-.barber-pole{position:fixed;top:0;right:72px;width:16px;height:100vh;z-index:199;overflow:hidden;opacity:.55;border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)}
-.pole-inner{width:100%;height:200%;animation:poleScroll 3s linear infinite}
-@keyframes poleScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.pole-stripe{width:100%;height:28px}
-.pole-red{background:#c0392b}
-.pole-white{background:#f0ece3}
-.pole-blue{background:#2c3e7a}
-
 /* HERO TYPO & DECO */
 .s1{font-size:clamp(72px,14vw,160px);letter-spacing:.02em;line-height:.88;color:rgba(240,236,227,.15);display:block}
 .s2{font-size:clamp(96px,18vw,220px);letter-spacing:-.01em;line-height:.85;display:block;background:linear-gradient(135deg,#f0ece3 0%,#d4a017 40%,#f0ece3 70%,#b8860b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -487,7 +478,6 @@ select option{background:#120e08;color:#f0ece3}
 
   /* FLOATING BTNS */
   .dm-float{bottom:20px;right:16px}
-  .barber-pole{display:none}
   .hero-deco{display:none}
   .admin-trigger{bottom:20px;left:16px}
 
@@ -541,22 +531,20 @@ select option{background:#120e08;color:#f0ece3}
 <div id="ring"></div>
 <canvas id="c"></canvas>
 
-<!-- BARBER POLE -->
+```
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+<div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
+```
 
-<div class="barber-pole">
-  <div class="pole-inner">
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
-    <div class="pole-stripe pole-red"></div><div class="pole-stripe pole-white"></div><div class="pole-stripe pole-blue"></div>
   </div>
 </div>
 
