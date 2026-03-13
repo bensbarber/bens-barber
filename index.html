@@ -816,6 +816,14 @@ a{color:inherit !important}
   window.addEventListener('resize',fixNav);
 })();
 
+// CURSEUR — caché sur mobile/tactile
+if('ontouchstart' in window || navigator.maxTouchPoints > 0){
+  document.getElementById('dot').style.display='none';
+  document.getElementById('ring').style.display='none';
+  document.body.style.cursor='auto';
+  document.querySelectorAll('*').forEach(el=>el.style.cursor='');
+}
+
 // CURSOR
 const dot=document.getElementById('dot'),ring=document.getElementById('ring');
 let mx=0,my=0,rx=0,ry=0;
