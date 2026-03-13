@@ -47,7 +47,7 @@ nav::after{content:’’;position:absolute;inset:0;background:linear-gradient(1
 .ig-pill:hover{background:var(–red) !important;border-color:var(–red) !important}
 
 /* HERO */
-.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 56px;overflow:hidden;z-index:1}
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:100px 56px 80px;overflow:hidden;z-index:1}
 .orb{position:absolute;border-radius:50%;filter:blur(130px);pointer-events:none}
 .orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(212,43,30,.16) 0%,transparent 70%);top:-200px;right:-150px;animation:d1 14s ease-in-out infinite}
 .orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(200,168,80,.07) 0%,transparent 70%);bottom:-100px;left:5%;animation:d2 18s ease-in-out infinite}
@@ -306,23 +306,100 @@ footer{background:#020109;padding:30px 56px;display:flex;justify-content:space-b
 
 /* RESPONSIVE */
 @media(max-width:860px){
-nav{padding:20px 24px}
+/* NAV — plus petit, ne overlap plus */
+nav{padding:16px 20px;position:relative}
+nav::after{background:var(–ink)}
 .nav-r a:not(.ig-pill){display:none}
-.hero,.services,.manifesto,.why,.zone,.ig,.contact{padding-left:24px;padding-right:24px}
-h1{font-size:clamp(68px,20vw,120px)}
-.sh,.why,.zone-wrap,.cgrid{grid-template-columns:1fr}
-.sgrid,.frow{grid-template-columns:1fr}
-.ig-wrap{flex-direction:column;align-items:flex-start;padding:48px 32px}
-.h-stats{position:static;opacity:1;animation:none;margin-top:48px}
-.zl,.zr,.cl,.cr{padding:48px 28px}
-.zl{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
-.mani{padding:48px 32px}
-footer{flex-direction:column;gap:12px;text-align:center;padding:24px}
-.cal-section{padding-left:24px;padding-right:24px}
-.cal-header{padding:32px 24px;flex-direction:column;align-items:flex-start;gap:20px}
+.ig-pill{font-size:10px;padding:8px 14px}
+
+/* HERO — padding-top pour compenser la nav */
+.hero{padding:80px 20px 60px;min-height:auto}
+.hero-bgtxt{font-size:52vw;bottom:-20px}
+h1{font-size:clamp(64px,18vw,110px)}
+.h-stats{position:static;opacity:1;animation:none;margin-top:40px;gap:28px}
+.sv{font-size:36px}
+.scroll-hint{display:none}
+
+/* SECTIONS */
+.services{padding:60px 20px}
+.manifesto{padding:0 20px 60px}
+.why{padding:0 20px 60px;grid-template-columns:1fr;gap:40px}
+.zone{padding:0 20px 60px}
+.ig{padding:0 20px 60px}
+.contact{padding:0 20px 60px}
+.cal-section{padding:0 20px 60px}
+
+/* GRIDS */
+.sh{grid-template-columns:1fr;gap:16px}
+.sgrid{grid-template-columns:1fr}
+.zone-wrap{grid-template-columns:1fr}
+.cgrid{grid-template-columns:1fr}
+.frow{grid-template-columns:1fr}
+
+/* CARDS */
+.sc{padding:36px 28px}
+.sc-name{font-size:32px}
+.sc-free{font-size:44px}
+
+/* MANIFESTO */
+.mani{padding:40px 28px}
+
+/* ZONE */
+.zl{padding:36px 28px;border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+.zr{padding:36px 28px}
+
+/* IG */
+.ig-wrap{flex-direction:column;align-items:flex-start;gap:28px;padding:40px 28px}
+.ig-title{font-size:40px}
+
+/* CONTACT */
+.cl{padding:40px 28px}
+.cr{padding:40px 28px}
+
+/* CALENDAR */
+.cal-header{padding:28px 20px;flex-direction:column;align-items:flex-start;gap:16px}
 .cal-grid{grid-template-columns:repeat(3,1fr)}
-.cal-legend{padding:16px 24px;flex-wrap:wrap}
-.dm-float{bottom:20px;right:20px}
+.cal-legend{padding:16px 20px;flex-wrap:wrap}
+.cal-note{display:none}
+
+/* FOOTER */
+footer{flex-direction:column;gap:12px;text-align:center;padding:20px}
+
+/* FLOATING BTNS */
+.dm-float{bottom:20px;right:16px}
+.admin-trigger{bottom:20px;left:16px}
+
+/* FIX COULEURS iOS — forcer rouge sur boutons */
+.btn-a,.fsub,.cta,.ig-btn,.admin-login button{
+background:var(–red) !important;
+color:#f0ece3 !important;
+-webkit-appearance:none;
+appearance:none;
+}
+.btn-a:active,.fsub:active{background:var(–red2) !important}
+
+/* FIX select bleu iOS */
+select{
+-webkit-appearance:none;
+appearance:none;
+background:rgba(255,255,255,.04) !important;
+color:var(–paper) !important;
+border-color:rgba(255,255,255,.07) !important;
+}
+
+/* FIX liens bleus */
+a{color:inherit !important}
+
+/* WHY box */
+.why-box{aspect-ratio:1;max-width:100%}
+.why-bgn{font-size:40vw}
+.why-badge{bottom:-16px;right:-16px;padding:16px 20px}
+
+/* ADMIN */
+.admin-box{width:95%;max-height:92vh}
+.admin-top{padding:20px 24px}
+.admin-panel{padding:20px 24px}
+.admin-login{padding:32px 24px}
 }
 </style>
 
