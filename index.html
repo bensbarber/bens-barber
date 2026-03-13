@@ -177,6 +177,27 @@ h1 .s3{color:#ff3d2e;display:block}
 .ig-btn:hover{background:#ff3d2e;color:#f0ece3}
 .ig-btn svg{width:18px;height:18px;flex-shrink:0}
 
+/* GALERIE */
+.galerie{padding:0 56px 140px;z-index:1;position:relative}
+.gal-head{margin-bottom:52px}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:2px;background:rgba(255,255,255,.04)}
+.gal-item{position:relative;overflow:hidden;cursor:none;text-decoration:none;display:block}
+.gal-big{grid-column:1;grid-row:1/3}
+.gal-img{aspect-ratio:1;width:100%;position:relative;overflow:hidden;transition:transform .5s}
+.gal-big .gal-img{aspect-ratio:auto;height:100%;min-height:300px}
+.gal-item:hover .gal-img{transform:scale(1.04)}
+.gal-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.gal-placeholder p{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,227,.25);font-family:'DM Mono',monospace}
+.gal-over{position:absolute;inset:0;background:rgba(5,4,10,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;transition:opacity .3s;z-index:2}
+.gal-over span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,227,.7);font-family:'DM Mono',monospace}
+.gal-item:hover .gal-over{opacity:1}
+.gal-info{padding:14px 16px;background:#05040a}
+.gal-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#d42b1e;font-family:'DM Mono',monospace}
+.gal-footer{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.gal-more{display:inline-flex;align-items:center;gap:10px;color:#f0ece3;font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:4px;transition:border-color .3s;font-family:'DM Mono',monospace}
+.gal-more:hover{border-color:#d42b1e;color:#d42b1e}
+.gal-note{font-size:11px;color:rgba(240,236,227,.22);font-family:'Instrument Serif',serif;font-style:italic}
+
 /* CONTACT */
 .contact{padding:0 56px 140px;z-index:1;position:relative}
 .cgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:1px;background:rgba(255,255,255,.06)}
@@ -306,6 +327,36 @@ footer{background:#020109;padding:30px 56px;display:flex;justify-content:space-b
 .admin-slot-btn.taken .admin-slot-dot{background:#ff3d2e}
 .admin-save-note{margin-top:24px;font-size:10px;letter-spacing:.12em;color:rgba(240,236,227,.25);text-align:center;font-family:'Instrument Serif',serif;font-style:italic}
 .admin-day.past-day{opacity:.35}
+.admin-tabs{display:flex;gap:1px;background:rgba(255,255,255,.05);margin-bottom:24px;flex-wrap:wrap}
+.admin-tab{flex:1;padding:12px 8px;background:#0d0b18;border:none;color:rgba(240,236,227,.4);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;cursor:none;transition:all .3s;white-space:nowrap;min-width:0}
+.admin-tab.active{background:#d42b1e;color:#f0ece3}
+.admin-tab:hover:not(.active){background:rgba(255,255,255,.06);color:#f0ece3}
+.admin-tab-content{display:none}
+.admin-tab-content.active{display:block}
+.admin-section-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;margin-bottom:20px;color:#f0ece3}
+.admin-presta-list{display:flex;flex-direction:column;gap:1px}
+.admin-presta-row{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05)}
+.admin-presta-name{font-size:12px;letter-spacing:.1em}
+.admin-presta-row.disabled .admin-presta-name{color:rgba(240,236,227,.3);text-decoration:line-through}
+.admin-toggle{position:relative;display:inline-block;width:44px;height:24px;cursor:none}
+.admin-toggle input{opacity:0;width:0;height:0}
+.admin-toggle-sl{position:absolute;inset:0;background:rgba(255,255,255,.1);transition:.3s;border-radius:24px}
+.admin-toggle-sl::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#f0ece3;transition:.3s;border-radius:50%}
+.admin-toggle input:checked+.admin-toggle-sl{background:#d42b1e}
+.admin-toggle input:checked+.admin-toggle-sl::before{transform:translateX(20px)}
+.admin-toggle-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px;letter-spacing:.08em}
+.admin-msg-wrap{display:flex;flex-direction:column;gap:14px}
+.admin-field-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#d42b1e}
+.admin-msg-wrap textarea,.admin-msg-wrap input[type=text],#adminPauseMsg{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#f0ece3;padding:14px 18px;font-family:'DM Mono',monospace;font-size:12px;outline:none;width:100%;resize:none;border-radius:0;-webkit-appearance:none}
+.admin-msg-wrap textarea:focus,.admin-msg-wrap input:focus,#adminPauseMsg:focus{border-color:#d42b1e}
+.admin-btn-red{background:#d42b1e;color:#f0ece3;padding:12px 24px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:none;transition:background .3s;-webkit-appearance:none;border-radius:0}
+.admin-btn-red:hover{background:#ff3d2e}
+.admin-pause-wrap{display:flex;flex-direction:column;gap:0}
+.admin-pause-status{display:flex;align-items:center;gap:16px;padding:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);margin-bottom:20px}
+.admin-pause-icon{font-size:28px}
+.admin-pause-txt{font-size:13px;letter-spacing:.06em}
+/* BANNIERE MESSAGE */
+.admin-banner{background:#d42b1e;color:#f0ece3;text-align:center;padding:12px 20px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-family:'DM Mono',monospace;display:none;position:relative;z-index:199}
 
 /* iOS SAFARI GLOBAL FIXES */
 button,input,textarea{-webkit-appearance:none;appearance:none;border-radius:0}
@@ -359,6 +410,11 @@ select option{background:#0d0b18;color:#f0ece3}
   /* IG */
   .ig-wrap{flex-direction:column;align-items:flex-start;gap:28px;padding:40px 28px}
   .ig-title{font-size:40px}
+
+  .galerie{padding:0 20px 60px}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .gal-big{grid-column:1/3;grid-row:auto}
+  .gal-big .gal-img{min-height:200px}
 
   /* CONTACT */
   .cl{padding:40px 28px}
@@ -433,6 +489,7 @@ select option{background:#0d0b18;color:#f0ece3}
     </a>
   </div>
 </nav>
+<div class="admin-banner" id="adminBanner"></div>
 
 <!-- HERO -->
 
@@ -694,6 +751,61 @@ select option{background:#0d0b18;color:#f0ece3}
   </div>
 </div>
 
+<!-- GALERIE -->
+
+<section class="galerie rev">
+  <div class="gal-inner">
+    <div class="gal-head">
+      <div class="slb">// Portfolio</div>
+      <h2 class="stit">MES<br>COUPES</h2>
+    </div>
+    <div class="gal-grid">
+      <a href="https://www.instagram.com/bens__barber" target="_blank" class="gal-item gal-big">
+        <div class="gal-img" style="background:linear-gradient(135deg,#1a1520,#0e0c18)">
+          <div class="gal-over"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg><span>Voir sur Instagram</span></div>
+          <div class="gal-placeholder"><span style="font-size:40px">✂️</span><p>Dégradé à blanc</p></div>
+        </div>
+        <div class="gal-info"><span class="gal-tag">Dégradé à blanc</span></div>
+      </a>
+      <a href="https://www.instagram.com/bens__barber" target="_blank" class="gal-item">
+        <div class="gal-img" style="background:linear-gradient(135deg,#160f1a,#0d0b16)">
+          <div class="gal-over"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg><span>Voir sur Instagram</span></div>
+          <div class="gal-placeholder"><span style="font-size:32px">🪒</span><p>Taper</p></div>
+        </div>
+        <div class="gal-info"><span class="gal-tag">Taper</span></div>
+      </a>
+      <a href="https://www.instagram.com/bens__barber" target="_blank" class="gal-item">
+        <div class="gal-img" style="background:linear-gradient(135deg,#120e1a,#0b0912)">
+          <div class="gal-over"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg><span>Voir sur Instagram</span></div>
+          <div class="gal-placeholder"><span style="font-size:32px">🧔</span><p>Taille de barbe</p></div>
+        </div>
+        <div class="gal-info"><span class="gal-tag">Taille de barbe</span></div>
+      </a>
+      <a href="https://www.instagram.com/bens__barber" target="_blank" class="gal-item">
+        <div class="gal-img" style="background:linear-gradient(135deg,#1c1020,#100d18)">
+          <div class="gal-over"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg><span>Voir sur Instagram</span></div>
+          <div class="gal-placeholder"><span style="font-size:32px">💈</span><p>Combo</p></div>
+        </div>
+        <div class="gal-info"><span class="gal-tag">Combo</span></div>
+      </a>
+      <a href="https://www.instagram.com/bens__barber" target="_blank" class="gal-item">
+        <div class="gal-img" style="background:linear-gradient(135deg,#14101c,#0c0a14)">
+          <div class="gal-over"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white"/></svg><span>Voir sur Instagram</span></div>
+          <div class="gal-placeholder"><span style="font-size:32px">✂️</span><p>Dégradé à blanc</p></div>
+        </div>
+        <div class="gal-info"><span class="gal-tag">Dégradé à blanc</span></div>
+      </a>
+    </div>
+    <div class="gal-footer">
+      <a href="https://www.instagram.com/bens__barber" target="_blank" class="gal-more">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+        Voir toutes les coupes sur @bens__barber →
+      </a>
+      <p class="gal-note">Les vraies photos arrivent bientôt — suis le compte pour suivre l'évolution</p>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 
 <section class="contact" id="contact">
@@ -806,7 +918,7 @@ select option{background:#0d0b18;color:#f0ece3}
 <div class="admin-overlay" id="adminOverlay">
   <div class="admin-box">
     <div class="admin-top">
-      <h2>ADMIN <span>CRÉNEAUX</span></h2>
+      <h2>BEN'S <span>ADMIN</span></h2>
       <button class="admin-close" id="adminClose">✕</button>
     </div>
     <!-- LOGIN -->
@@ -818,14 +930,70 @@ select option{background:#0d0b18;color:#f0ece3}
     </div>
     <!-- PANEL -->
     <div class="admin-panel" id="adminPanel">
-      <div class="admin-week-nav">
-        <button id="aPrev">←</button>
-        <div class="admin-week-lbl" id="aWeekLbl"></div>
-        <button id="aNext">→</button>
+      <!-- ONGLETS -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="creneaux">📅 Créneaux</button>
+        <button class="admin-tab" data-tab="prestations">✂️ Prestations</button>
+        <button class="admin-tab" data-tab="message">💬 Message</button>
+        <button class="admin-tab" data-tab="pause">⏸ Pause</button>
       </div>
-      <div class="admin-days" id="adminDays"></div>
-      <div class="admin-save-note">Les modifications sont appliquées en temps réel sur le calendrier public</div>
+
+```
+  <!-- ONGLET CRÉNEAUX -->
+  <div class="admin-tab-content active" id="tab-creneaux">
+    <div class="admin-week-nav">
+      <button id="aPrev">←</button>
+      <div class="admin-week-lbl" id="aWeekLbl"></div>
+      <button id="aNext">→</button>
     </div>
+    <div class="admin-days" id="adminDays"></div>
+    <div class="admin-save-note">Cliquer sur un créneau pour le bloquer ou le libérer</div>
+  </div>
+
+  <!-- ONGLET PRESTATIONS -->
+  <div class="admin-tab-content" id="tab-prestations">
+    <div class="admin-section-title">Activer / désactiver les prestations</div>
+    <div class="admin-presta-list" id="adminPrestaList"></div>
+    <div class="admin-save-note">Les prestations désactivées apparaissent comme "non disponible" sur le site</div>
+  </div>
+
+  <!-- ONGLET MESSAGE -->
+  <div class="admin-tab-content" id="tab-message">
+    <div class="admin-section-title">Message d'accueil personnalisé</div>
+    <div class="admin-msg-wrap">
+      <label class="admin-field-lbl">Message affiché dans le hero</label>
+      <textarea id="adminMsgInput" rows="4" placeholder="Ex: Complet pour les 2 prochaines semaines, reviens bientôt !"></textarea>
+      <div class="admin-toggle-row">
+        <span>Afficher le message sur le site</span>
+        <label class="admin-toggle"><input type="checkbox" id="adminMsgActive"><span class="admin-toggle-sl"></span></label>
+      </div>
+      <button class="admin-btn-red" id="adminMsgSave">Appliquer le message →</button>
+      <div id="adminMsgOk" style="display:none;font-size:10px;color:#7ed957;letter-spacing:.1em;margin-top:8px">✓ Message appliqué</div>
+    </div>
+    <div class="admin-save-note">Le message apparaît en bannière rouge sous la navigation</div>
+  </div>
+
+  <!-- ONGLET PAUSE -->
+  <div class="admin-tab-content" id="tab-pause">
+    <div class="admin-section-title">Mode pause</div>
+    <div class="admin-pause-wrap">
+      <div class="admin-pause-status" id="adminPauseStatus">
+        <div class="admin-pause-icon">⏸</div>
+        <div class="admin-pause-txt">Site en mode <strong>normal</strong></div>
+      </div>
+      <div class="admin-toggle-row">
+        <span>Activer le mode "Complet"</span>
+        <label class="admin-toggle"><input type="checkbox" id="adminPauseToggle"><span class="admin-toggle-sl"></span></label>
+      </div>
+      <div class="admin-field-lbl" style="margin-top:20px">Message affiché quand complet</div>
+      <input type="text" id="adminPauseMsg" value="Complet pour le moment — reviens bientôt !">
+      <button class="admin-btn-red" id="adminPauseSave" style="margin-top:12px">Appliquer →</button>
+    </div>
+    <div class="admin-save-note">En mode complet, le bouton "Booker ma coupe" est désactivé et un message s'affiche</div>
+  </div>
+</div>
+```
+
   </div>
 </div>
 
@@ -1032,12 +1200,47 @@ function renderCal(){
 const ADMIN_PWD='BensBarber699!';
 let adminUnlocked=false;
 
-function renderAdmin(){
+// PRESTATIONS
+const PRESTAS_DEFAULT=[
+  {id:'degrade',name:'Dégradé à blanc',emoji:'✂️',active:true},
+  {id:'taper',name:'Taper',emoji:'🪒',active:true},
+  {id:'barbe',name:'Taille de barbe',emoji:'🧔',active:true},
+  {id:'combo1',name:'Dégradé + Taper',emoji:'💈',active:true},
+  {id:'combo2',name:'Dégradé + Barbe',emoji:'💈',active:true},
+];
+let prestas=[...PRESTAS_DEFAULT];
+let siteMessage='';
+let siteMessageActive=false;
+let sitePause=false;
+let sitePauseMsg='Complet pour le moment — reviens bientôt !';
+
+function applyBanner(){
+  const b=document.getElementById('adminBanner');
+  if(sitePause){
+    b.textContent='⏸ '+sitePauseMsg;
+    b.style.display='block';
+    b.style.background='#d42b1e';
+    const btn=document.querySelector('.btn-a');
+    if(btn){btn.style.opacity='.4';btn.style.pointerEvents='none';}
+  } else if(siteMessageActive && siteMessage){
+    b.textContent='📢 '+siteMessage;
+    b.style.display='block';
+    b.style.background='#8b1a10';
+    const btn=document.querySelector('.btn-a');
+    if(btn){btn.style.opacity='';btn.style.pointerEvents='';}
+  } else {
+    b.style.display='none';
+    const btn=document.querySelector('.btn-a');
+    if(btn){btn.style.opacity='';btn.style.pointerEvents='';}
+  }
+}
+
+function renderAdminCreneaux(){
   const today=new Date();
   const mon=getMonday(new Date(today));
   mon.setDate(mon.getDate()+adminWeekOffset*7);
   const sun=new Date(mon);sun.setDate(sun.getDate()+6);
-  document.getElementById('aWeekLbl').textContent=`${fmt(mon)} — ${fmt(sun)}`;
+  document.getElementById('aWeekLbl').textContent=fmt(mon)+' — '+fmt(sun);
   const container=document.getElementById('adminDays');
   container.innerHTML='';
   for(let i=0;i<7;i++){
@@ -1048,34 +1251,88 @@ function renderAdmin(){
     const dateStr=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     const div=document.createElement('div');
     div.className='admin-day'+(isPast?' past-day':'');
-    const slotsHtml=slots.length?slots.map((s,idx)=>{
+    const slotsHtml=slots.length?slots.map(function(s,idx){
       const taken=isTakenFn(d,idx);
-      return `<button class="admin-slot-btn ${taken?'taken':'free'}" data-date="${d.toISOString()}" data-idx="${idx}">
-        <div class="admin-slot-dot"></div>${s} — ${taken?'PRIS (cliquer pour liberer)':'LIBRE (cliquer pour bloquer)'}
-      </button>`;
-    }).join(''):`<span style="font-size:10px;color:rgba(240,236,227,.2);letter-spacing:.1em">Pas de créneau ce jour</span>`;
-    div.innerHTML=`<div class="admin-day-head"><div class="admin-day-name">${dateStr.charAt(0).toUpperCase()+dateStr.slice(1)}</div></div><div class="admin-slots-row">${slotsHtml}</div>`;
+      return '<button class="admin-slot-btn '+(taken?'taken':'free')+'" data-date="'+d.toISOString()+'" data-idx="'+idx+'"><div class="admin-slot-dot"></div>'+s+' — '+(taken?'PRIS — cliquer pour libérer':'LIBRE — cliquer pour bloquer')+'</button>';
+    }).join(''):'<span style="font-size:10px;color:rgba(240,236,227,.2);letter-spacing:.1em">Pas de créneau ce jour</span>';
+    div.innerHTML='<div class="admin-day-head"><div class="admin-day-name">'+dateStr.charAt(0).toUpperCase()+dateStr.slice(1)+'</div></div><div class="admin-slots-row">'+slotsHtml+'</div>';
     container.appendChild(div);
   }
-  container.querySelectorAll('.admin-slot-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const d=new Date(btn.dataset.date);
-      const idx=parseInt(btn.dataset.idx);
-      toggleTaken(d,idx);
+  container.querySelectorAll('.admin-slot-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      toggleTaken(new Date(btn.dataset.date),parseInt(btn.dataset.idx));
     });
-    btn.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-    btn.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
   });
 }
 
-document.getElementById('adminTrigger').addEventListener('click',()=>{
-  document.getElementById('adminOverlay').classList.add('open');
-  if(adminUnlocked){document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';renderAdmin();}
-});
-document.getElementById('adminClose').addEventListener('click',()=>document.getElementById('adminOverlay').classList.remove('open'));
-document.getElementById('adminOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('adminOverlay'))document.getElementById('adminOverlay').classList.remove('open');});
+function renderAdminPrestas(){
+  const list=document.getElementById('adminPrestaList');
+  list.innerHTML='';
+  prestas.forEach(function(p){
+    const row=document.createElement('div');
+    row.className='admin-presta-row'+(p.active?'':' disabled');
+    row.innerHTML='<div class="admin-presta-name">'+p.emoji+' '+p.name+'</div><label class="admin-toggle"><input type="checkbox" '+(p.active?'checked':'')+' data-id="'+p.id+'"><span class="admin-toggle-sl"></span></label>';
+    row.querySelector('input').addEventListener('change',function(){
+      p.active=this.checked;
+      row.className='admin-presta-row'+(p.active?'':' disabled');
+      // Mettre à jour le select du formulaire
+      updateSelectOptions();
+    });
+    list.appendChild(row);
+  });
+}
 
-document.getElementById('adminSubmit').addEventListener('click',()=>{
+function updateSelectOptions(){
+  const sel=document.querySelector('form select');
+  if(!sel)return;
+  sel.innerHTML='<option value="">Choisir...</option>';
+  prestas.forEach(function(p){
+    if(p.active){
+      const o=document.createElement('option');
+      o.textContent=p.name;
+      sel.appendChild(o);
+    }
+  });
+}
+
+function renderAdmin(){
+  renderAdminCreneaux();
+  renderAdminPrestas();
+  // Restore message state
+  document.getElementById('adminMsgInput').value=siteMessage;
+  document.getElementById('adminMsgActive').checked=siteMessageActive;
+  document.getElementById('adminPauseToggle').checked=sitePause;
+  document.getElementById('adminPauseMsg').value=sitePauseMsg;
+  const ps=document.getElementById('adminPauseStatus');
+  ps.querySelector('.admin-pause-txt').innerHTML='Site en mode <strong>'+(sitePause?'COMPLET ⛔':'normal ✅')+'</strong>';
+}
+
+// ONGLETS
+document.querySelectorAll('.admin-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.admin-tab').forEach(function(t){t.classList.remove('active');});
+    document.querySelectorAll('.admin-tab-content').forEach(function(c){c.classList.remove('active');});
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// OUVRIR/FERMER
+document.getElementById('adminTrigger').addEventListener('click',function(){
+  document.getElementById('adminOverlay').classList.add('open');
+  if(adminUnlocked){
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    renderAdmin();
+  }
+});
+document.getElementById('adminClose').addEventListener('click',function(){document.getElementById('adminOverlay').classList.remove('open');});
+document.getElementById('adminOverlay').addEventListener('click',function(e){
+  if(e.target===document.getElementById('adminOverlay'))document.getElementById('adminOverlay').classList.remove('open');
+});
+
+// LOGIN
+document.getElementById('adminSubmit').addEventListener('click',function(){
   const pwd=document.getElementById('adminPwd').value;
   if(pwd===ADMIN_PWD){
     adminUnlocked=true;
@@ -1088,32 +1345,41 @@ document.getElementById('adminSubmit').addEventListener('click',()=>{
     document.getElementById('adminPwd').value='';
   }
 });
-document.getElementById('adminPwd').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('adminSubmit').click();});
-document.getElementById('aPrev').addEventListener('click',()=>{adminWeekOffset--;renderAdmin();});
-document.getElementById('aNext').addEventListener('click',()=>{adminWeekOffset++;renderAdmin();});
-[document.getElementById('aPrev'),document.getElementById('aNext'),document.getElementById('adminSubmit'),document.getElementById('adminClose'),document.getElementById('adminTrigger')].forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+document.getElementById('adminPwd').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('adminSubmit').click();});
+
+// NAV CRÉNEAUX
+document.getElementById('aPrev').addEventListener('click',function(){adminWeekOffset--;renderAdminCreneaux();});
+document.getElementById('aNext').addEventListener('click',function(){adminWeekOffset++;renderAdminCreneaux();});
+
+// MESSAGE
+document.getElementById('adminMsgSave').addEventListener('click',function(){
+  siteMessage=document.getElementById('adminMsgInput').value;
+  siteMessageActive=document.getElementById('adminMsgActive').checked;
+  applyBanner();
+  const ok=document.getElementById('adminMsgOk');
+  ok.style.display='block';
+  setTimeout(function(){ok.style.display='none';},2000);
 });
+
+// PAUSE
+document.getElementById('adminPauseSave').addEventListener('click',function(){
+  sitePause=document.getElementById('adminPauseToggle').checked;
+  sitePauseMsg=document.getElementById('adminPauseMsg').value||'Complet pour le moment — reviens bientôt !';
+  applyBanner();
+  document.getElementById('adminPauseStatus').querySelector('.admin-pause-txt').innerHTML='Site en mode <strong>'+(sitePause?'COMPLET ⛔':'normal ✅')+'</strong>';
+});
+
 renderCal();
-document.getElementById('prevW').addEventListener('click',()=>{weekOffset--;renderCal()});
-document.getElementById('nextW').addEventListener('click',()=>{weekOffset++;renderCal()});
-document.querySelectorAll('.cal-nav-btn').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+document.getElementById('prevW').addEventListener('click',function(){weekOffset--;renderCal();});
+document.getElementById('nextW').addEventListener('click',function(){weekOffset++;renderCal();});
+document.querySelectorAll('.cal-nav-btn').forEach(function(el){
+  el.addEventListener('mouseenter',function(){document.body.classList.add('hov');});
+  el.addEventListener('mouseleave',function(){document.body.classList.remove('hov');});
 });
 
 // DM FLOAT hover
-document.querySelector('.dm-btn').addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-document.querySelector('.dm-btn').addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
-// MAP — SVG pure, aucune dépendance
-(function(){
-  var el=document.getElementById('map');
-  if(!el)return;
-  el.style.background='#0b0916';
-  el.style.position='relative';
-  el.style.overflow='hidden';
-})();
+document.querySelector('.dm-btn').addEventListener('mouseenter',function(){document.body.classList.add('hov');});
+document.querySelector('.dm-btn').addEventListener('mouseleave',function(){document.body.classList.remove('hov');});
 
 addEventListener('scroll',function(){
   var y=scrollY;
