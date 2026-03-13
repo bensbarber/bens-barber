@@ -5,10 +5,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ben'S Barber — Lyon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* Fallback fonts while Google Fonts loads */
+@font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:local('BebasNeue-Regular')}
+</style>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+a{color:inherit;text-decoration:none}
 :root{
   --ink:#05040a;
   --paper:#f0ece3;
@@ -16,7 +23,8 @@ html{scroll-behavior:smooth}
   --red2:#ff3d2e;
   --gold:#c8a850;
 }
-body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;overflow-x:hidden;cursor:none}
+body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace,sans-serif;overflow-x:hidden;cursor:none}
+.logo,.s1,.s2,.s3,.stit,.section-h2,.wt,.zt,.ig-title,.cal-day-num,.sc-name,.sc-free,.srv-free,.why-ct,.why-big,.admin-top h2,.flogo,.h-stats .sv,.mani-q,.wi-t,.admin-week-lbl,.admin-day-name{font-family:'Bebas Neue',Impact,sans-serif}
 
 /* CURSOR */
 #dot{width:6px;height:6px;background:var(–red2);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
