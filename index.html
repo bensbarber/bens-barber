@@ -1,271 +1,971 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ben’S Barber | Prestation Offerte - Lyon</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap');
-        
-        body { font-family: 'Montserrat', sans-serif; background-color: #0a0a0a; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
-        h1, h2, .brand-name { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
-        .gold-gradient { background: linear-gradient(45deg, #d4af37, #f2d479); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn-gold { background: linear-gradient(45deg, #d4af37, #f2d479); color: black; transition: transform 0.3s ease; border: none; cursor: pointer; }
-        .btn-gold:hover { transform: scale(1.05); }
-        .nav-glass { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); }
-        
-        input[type="date"]::-webkit-calendar-picker-indicator,
-        input[type="time"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ben'S Barber — Lyon</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --ink:#05040a;
+  --paper:#f0ece3;
+  --red:#d42b1e;
+  --red2:#ff3d2e;
+  --gold:#c8a850;
+}
+body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;overflow-x:hidden;cursor:none}
 
-        .social-icon { transition: all 0.3s ease; filter: grayscale(1) brightness(1.5); }
-        .social-icon:hover { filter: grayscale(0) brightness(1); transform: translateY(-3px); }
+/* CURSOR */
+#dot{width:6px;height:6px;background:var(–red2);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
+#ring{width:40px;height:40px;border:1px solid rgba(255,61,46,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s,height .4s}
+body.hov #dot{width:56px;height:56px;background:rgba(212,43,30,.1);border:1px solid var(–red2)}
+body.hov #ring{width:80px;height:80px}
 
-        .share-btn {
-            position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px;
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; z-index: 100; cursor: pointer; transition: all 0.3s ease;
-        }
-        .share-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: #d4af37; transform: scale(1.1); }
+/* CANVAS */
+#c{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.3}
 
-        .faq-item { border-bottom: 1px solid #222; }
-        .faq-question { cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: #a1a1aa; font-size: 0.95rem; line-height: 1.6; }
-        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
-        .faq-item.active svg { transform: rotate(180deg); }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:28px 56px;display:flex;justify-content:space-between;align-items:center}
+nav::after{content:’’;position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,4,10,.96) 0%,transparent 100%);z-index:-1;pointer-events:none}
+.logo{font-family:‘Bebas Neue’,sans-serif;font-size:28px;letter-spacing:.18em;color:var(–paper);text-decoration:none}
+.logo b{color:var(–red2)}
+.nav-r{display:flex;align-items:center;gap:40px}
+.nav-r a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,227,.4);text-decoration:none;transition:color .3s;cursor:none}
+.nav-r a:hover{color:var(–paper)}
+.ig-pill{background:transparent !important;border:1px solid rgba(255,255,255,.15) !important;color:var(–paper) !important;padding:10px 22px;display:flex;align-items:center;gap:8px;transition:all .3s !important}
+.ig-pill:hover{background:var(–red) !important;border-color:var(–red) !important}
 
-        .review-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-        }
-    </style>
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 56px;overflow:hidden;z-index:1}
+.orb{position:absolute;border-radius:50%;filter:blur(130px);pointer-events:none}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(212,43,30,.16) 0%,transparent 70%);top:-200px;right:-150px;animation:d1 14s ease-in-out infinite}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(200,168,80,.07) 0%,transparent 70%);bottom:-100px;left:5%;animation:d2 18s ease-in-out infinite}
+@keyframes d1{0%,100%{transform:translate(0,0)}50%{transform:translate(-80px,100px)}}
+@keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-70px)}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:72px 72px;pointer-events:none}
+.hero-vline{position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,transparent,var(–red),transparent);transform:scaleY(0);transform-origin:center;animation:vgrow 1.2s .3s cubic-bezier(.77,0,.18,1) forwards}
+@keyframes vgrow{to{transform:scaleY(1)}}
+.hero-bgtxt{position:absolute;right:40px;bottom:-60px;font-family:‘Bebas Neue’,sans-serif;font-size:36vw;line-height:.8;color:rgba(255,255,255,.016);pointer-events:none;user-select:none}
+
+.h-tag{display:flex;align-items:center;gap:14px;margin-bottom:28px;opacity:0;animation:up .7s .5s forwards}
+.h-tag-line{width:44px;height:1px;background:var(–red)}
+.h-tag span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(–red)}
+
+h1{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(76px,13.5vw,210px);line-height:.87;letter-spacing:.015em;opacity:0;animation:up .85s .7s forwards;z-index:2;position:relative}
+h1 .s1{-webkit-text-stroke:1.5px rgba(240,236,227,.18);color:transparent;display:block}
+h1 .s2{color:var(–paper);display:block}
+h1 .s3{color:var(–red2);display:block}
+
+.h-sub{margin-top:36px;font-family:‘Instrument Serif’,serif;font-style:italic;font-size:18px;line-height:1.85;color:rgba(240,236,227,.42);max-width:460px;opacity:0;animation:up .75s .95s forwards}
+.h-sub strong{font-style:normal;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.1em;color:rgba(240,236,227,.8);display:block;margin-bottom:6px}
+
+.h-btns{display:flex;gap:16px;margin-top:48px;align-items:center;opacity:0;animation:up .75s 1.15s forwards}
+.btn-a{display:inline-flex;align-items:center;gap:12px;background:var(–red);color:var(–paper);padding:18px 46px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:none;transition:all .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);position:relative;overflow:hidden}
+.btn-a::before{content:’’;position:absolute;inset:0;background:rgba(255,255,255,.12);transform:translateX(-101%) skewX(-12deg);transition:transform .4s}
+.btn-a:hover::before{transform:translateX(120%) skewX(-12deg)}
+.btn-a:hover{background:var(–red2)}
+.btn-b{display:inline-flex;align-items:center;gap:10px;color:rgba(240,236,227,.4);font-size:11px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:color .3s;cursor:none;padding-bottom:3px;border-bottom:1px solid rgba(255,255,255,.1)}
+.btn-b:hover{color:var(–paper);border-color:var(–paper)}
+
+.h-stats{position:absolute;bottom:56px;right:56px;display:flex;gap:52px;opacity:0;animation:up .75s 1.5s forwards}
+.sv{display:block;font-family:‘Bebas Neue’,sans-serif;font-size:46px;color:var(–paper);line-height:1}
+.sv b{color:var(–red2)}
+.sl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,236,227,.27);margin-top:4px}
+
+/* TICKER */
+.ticker{padding:15px 0;overflow:hidden;background:var(–red);z-index:1;position:relative}
+.ticker-track{display:inline-flex;white-space:nowrap;animation:tick 22s linear infinite}
+.tt{font-family:‘Bebas Neue’,sans-serif;font-size:15px;letter-spacing:.22em;padding:0 24px}
+.ts{width:5px;height:5px;background:rgba(255,255,255,.35);border-radius:50%;display:inline-block;vertical-align:middle}
+
+/* SERVICES */
+.services{padding:140px 56px;position:relative;z-index:1}
+.sh{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:80px}
+.slb{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(–red);margin-bottom:18px}
+.stit{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(52px,7vw,96px);line-height:.9;letter-spacing:.02em}
+.sdesc{font-family:‘Instrument Serif’,serif;font-style:italic;font-size:17px;line-height:1.8;color:rgba(240,236,227,.38);align-self:end}
+
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07)}
+.sc{background:var(–ink);padding:52px 44px 46px;position:relative;overflow:hidden;cursor:none;transition:background .45s}
+.sc-glow{position:absolute;top:-100px;right:-100px;width:250px;height:250px;background:radial-gradient(circle,rgba(212,43,30,.14) 0%,transparent 70%);opacity:0;transition:opacity .5s}
+.sc:hover{background:#0d0b18}
+.sc:hover .sc-glow{opacity:1}
+.sc-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(–red),var(–red2));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.77,0,.18,1)}
+.sc:hover .sc-line{transform:scaleX(1)}
+.sc-n{font-size:9px;letter-spacing:.22em;color:rgba(240,236,227,.18);margin-bottom:44px;display:block}
+.sc-ico{width:54px;height:54px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;margin-bottom:26px;font-size:20px;transition:border-color .4s,background .4s}
+.sc:hover .sc-ico{border-color:rgba(212,43,30,.4);background:rgba(212,43,30,.06)}
+.sc-name{font-family:‘Bebas Neue’,sans-serif;font-size:42px;letter-spacing:.04em;margin-bottom:14px;line-height:.95}
+.sc-text{font-family:‘Instrument Serif’,serif;font-style:italic;font-size:15px;line-height:1.9;color:rgba(240,236,227,.36)}
+.sc-pr{display:flex;align-items:baseline;gap:14px;margin-top:40px}
+.sc-free{font-family:‘Bebas Neue’,sans-serif;font-size:54px;color:var(–red2);line-height:1}
+.sc-old{font-size:11px;color:rgba(240,236,227,.18);text-decoration:line-through}
+
+/* MANIFESTO */
+.manifesto{padding:0 56px 140px;z-index:1;position:relative}
+.mani{border:1px solid rgba(255,255,255,.06);padding:80px;position:relative;overflow:hidden}
+.mani::before{content:’’;position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,43,30,.05) 0%,transparent 55%);pointer-events:none}
+.mani-q{font-family:‘Instrument Serif’,serif;font-style:italic;font-size:clamp(22px,3.2vw,44px);line-height:1.45;color:rgba(240,236,227,.82);max-width:800px;position:relative;z-index:1}
+.mani-q em{color:var(–red2);font-style:normal}
+.mani-a{margin-top:40px;display:flex;align-items:center;gap:20px;position:relative;z-index:1}
+.mani-aline{width:38px;height:1px;background:var(–red)}
+.mani-a span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,227,.28)}
+
+/* WHY */
+.why{padding:0 56px 140px;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;z-index:1;position:relative}
+.why-box{background:linear-gradient(135deg,#0e0c18,#12101f);border:1px solid rgba(255,255,255,.06);aspect-ratio:.85;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.why-box::before{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,43,30,.1) 0%,transparent 60%)}
+.why-bgn{font-family:‘Bebas Neue’,sans-serif;font-size:26vw;color:rgba(255,255,255,.022);line-height:1;position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;pointer-events:none}
+.why-center{text-align:center;position:relative;z-index:2}
+.why-ico{font-size:50px;display:block;margin-bottom:18px}
+.why-ct{font-family:‘Bebas Neue’,sans-serif;font-size:48px;letter-spacing:.08em}
+.why-cs{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,236,227,.28);margin-top:8px}
+.why-badge{position:absolute;bottom:-22px;right:-22px;background:var(–red);padding:22px 28px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.why-badge p{font-family:‘Bebas Neue’,sans-serif;font-size:26px;line-height:1}
+.why-badge span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,227,.55)}
+
+.wl{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(–red);margin-bottom:16px}
+.wt{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(44px,6vw,80px);line-height:.92;letter-spacing:.02em;margin-bottom:44px}
+.witems{display:flex;flex-direction:column}
+.wi{padding:26px 0;border-bottom:1px solid rgba(255,255,255,.06);display:grid;grid-template-columns:30px 1fr;gap:18px;opacity:0;transform:translateX(20px);transition:opacity .6s,transform .6s}
+.wi.on{opacity:1;transform:translateX(0)}
+.wi:first-child{border-top:1px solid rgba(255,255,255,.06)}
+.wi-n{font-size:9px;letter-spacing:.15em;color:var(–red);padding-top:2px}
+.wi-t{font-family:‘Bebas Neue’,sans-serif;font-size:20px;letter-spacing:.06em;margin-bottom:7px}
+.wi-d{font-family:‘Instrument Serif’,serif;font-style:italic;font-size:14px;line-height:1.85;color:rgba(240,236,227,.33)}
+
+/* ZONE */
+.zone{padding:0 56px 140px;z-index:1;position:relative}
+.zone-wrap{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.022);border:1px solid rgba(255,255,255,.06)}
+.zl{padding:72px;border-right:1px solid rgba(255,255,255,.06)}
+.zr{padding:72px;display:flex;flex-direction:column;justify-content:center}
+.zmap{background:#0b0916;aspect-ratio:1.15;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.zmap-g{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:38px 38px}
+.zpin{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.zdot{width:14px;height:14px;background:var(–red2);border-radius:50%;position:relative}
+.zdot::before{content:’’;position:absolute;inset:-10px;border:1px solid rgba(255,61,46,.35);border-radius:50%;animation:ping 2s ease-out infinite}
+.zdot::after{content:’’;position:absolute;inset:-22px;border:1px solid rgba(255,61,46,.12);border-radius:50%;animation:ping 2.2s .6s ease-out infinite}
+@keyframes ping{0%{transform:scale(.5);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.zlabel{position:absolute;top:calc(50% + 18px);left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(–red2);white-space:nowrap;margin-top:10px}
+.zring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px dashed rgba(255,255,255,.07);border-radius:50%}
+.zt{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(38px,5vw,64px);line-height:.92;margin-bottom:22px}
+.zd{font-family:‘Instrument Serif’,serif;font-style:italic;font-size:16px;line-height:1.8;color:rgba(240,236,227,.38);margin-bottom:36px}
+.ztags{display:flex;flex-wrap:wrap;gap:8px}
+.ztag{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);padding:8px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,227,.45);transition:all .3s}
+.ztag:hover{border-color:var(–red);color:var(–paper)}
+
+/* IG */
+.ig{padding:0 56px 140px;z-index:1;position:relative}
+.ig-wrap{background:linear-gradient(135deg,rgba(212,43,30,.08),rgba(212,43,30,.03));border:1px solid rgba(212,43,30,.18);padding:72px 80px;display:flex;justify-content:space-between;align-items:center;gap:40px}
+.ig-lbl{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(–red);margin-bottom:14px}
+.ig-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(36px,5vw,64px);line-height:.9}
+.ig-h{font-size:12px;color:rgba(240,236,227,.35);margin-top:10px}
+.ig-btn{display:inline-flex;align-items:center;gap:14px;background:var(–paper);color:var(–ink);padding:20px 48px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:all .3s;cursor:none;white-space:nowrap}
+.ig-btn:hover{background:var(–red2);color:var(–paper)}
+.ig-btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* CONTACT */
+.contact{padding:0 56px 140px;z-index:1;position:relative}
+.cgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:1px;background:rgba(255,255,255,.06)}
+.cl{background:var(–ink);padding:72px 64px}
+.cr{background:#080612;padding:72px 64px}
+.cl .slb{margin-bottom:14px}
+.cl .stit{font-size:clamp(44px,5.5vw,72px);margin-bottom:24px}
+.cdesc{font-family:‘Instrument Serif’,serif;font-style:italic;font-size:16px;line-height:1.9;color:rgba(240,236,227,.36);margin-bottom:52px}
+.cinfos{display:flex;flex-direction:column}
+.cinfo{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.05);align-items:center}
+.cinfo:first-child{border-top:1px solid rgba(255,255,255,.05)}
+.cico{font-size:15px}
+.cinfo strong{display:block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,227,.28);margin-bottom:3px}
+.cinfo span{font-size:13px;color:rgba(240,236,227,.65)}
+
+.form{display:flex;flex-direction:column;gap:18px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:8px}
+.fg label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(–red)}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(–paper);padding:15px 18px;font-family:‘DM Mono’,monospace;font-size:12px;outline:none;transition:all .3s;cursor:none;width:100%;-webkit-appearance:none}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(240,236,227,.18)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(212,43,30,.5);background:rgba(212,43,30,.03)}
+.fg select option{background:#080612}
+.fg textarea{min-height:88px;resize:none}
+.fsub{background:var(–red);color:var(–paper);padding:20px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:none;transition:all .3s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);margin-top:4px}
+.fsub:hover{background:var(–red2)}
+.fok{display:none;border:1px solid rgba(100,200,60,.25);background:rgba(100,200,60,.04);padding:15px 18px;font-size:11px;letter-spacing:.1em;color:#7ed957}
+
+/* FLOATING DM BUTTON */
+.dm-float{position:fixed;bottom:32px;right:32px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.dm-tooltip{background:var(–ink);border:1px solid rgba(255,255,255,.1);padding:10px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,227,.6);white-space:nowrap;opacity:0;transform:translateX(10px);transition:all .3s;pointer-events:none}
+.dm-float:hover .dm-tooltip{opacity:1;transform:translateX(0)}
+.dm-btn{width:56px;height:56px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:none;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 24px rgba(220,39,67,.3)}
+.dm-btn:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(220,39,67,.5)}
+.dm-btn svg{width:24px;height:24px;fill:white}
+.dm-pulse{position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(220,39,67,.4);animation:dmpulse 2s ease-out infinite}
+@keyframes dmpulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+
+/* CALENDAR */
+.cal-section{padding:0 56px 140px;z-index:1;position:relative}
+.cal-wrap{border:1px solid rgba(255,255,255,.06);overflow:hidden}
+.cal-header{padding:48px 56px 40px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.015)}
+.cal-header-l .slb{margin-bottom:10px}
+.cal-header-l .stit{font-size:clamp(36px,4.5vw,60px)}
+.cal-nav{display:flex;align-items:center;gap:20px}
+.cal-nav-btn{width:40px;height:40px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(–paper);font-size:16px;cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.cal-nav-btn:hover{background:var(–red);border-color:var(–red)}
+.cal-week-label{font-family:‘Bebas Neue’,sans-serif;font-size:18px;letter-spacing:.1em;min-width:200px;text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:rgba(255,255,255,.04)}
+.cal-day{background:var(–ink);padding:24px 16px;min-height:140px;cursor:none;transition:background .3s;position:relative}
+.cal-day.past{opacity:.3;pointer-events:none}
+.cal-day:hover:not(.past){background:#0d0b18}
+.cal-day-head{margin-bottom:16px}
+.cal-day-name{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,227,.28)}
+.cal-day-num{font-family:‘Bebas Neue’,sans-serif;font-size:32px;line-height:1;margin-top:4px}
+.cal-day.today .cal-day-num{color:var(–red2)}
+.cal-day.today::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:var(–red2)}
+.cal-slots{display:flex;flex-direction:column;gap:6px}
+.slot{padding:6px 10px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid;transition:all .3s;cursor:none;display:flex;align-items:center;gap:6px}
+.slot.free{border-color:rgba(100,200,60,.3);color:#7ed957;background:rgba(100,200,60,.04);cursor:none}
+.slot.free:hover{background:rgba(100,200,60,.12);border-color:rgba(100,200,60,.6)}
+.slot.free.selected{background:rgba(100,200,60,.2);border-color:#7ed957;font-weight:700}
+.slot.free.selected::after{content:’ v’;font-size:9px}
+.slot.taken{border-color:rgba(255,255,255,.06);color:rgba(240,236,227,.2);background:transparent;text-decoration:line-through;pointer-events:none}
+.slot-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.slot.free .slot-dot{background:#7ed957}
+.slot.taken .slot-dot{background:rgba(255,255,255,.15)}
+.cal-legend{padding:20px 56px;background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.06);display:flex;gap:28px;align-items:center}
+.leg{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,227,.35)}
+.leg-dot{width:8px;height:8px;border-radius:50%}
+.leg-dot.free{background:#7ed957}
+.leg-dot.taken{background:rgba(255,255,255,.2)}
+.cal-note{margin-left:auto;font-size:10px;color:rgba(240,236,227,.25);font-style:italic;font-family:‘Instrument Serif’,serif}
+
+/* FOOTER */
+footer{background:#020109;padding:30px 56px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.05);z-index:1;position:relative}
+.flogo{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:.15em}
+.flogo b{color:var(–red2)}
+.fcopy{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,227,.18)}
+
+/* ANIMATIONS */
+@keyframes up{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(28px);transition:opacity .85s ease,transform .85s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+
+/* ADMIN */
+.admin-trigger{position:fixed;bottom:32px;left:32px;z-index:500;width:36px;height:36px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s;font-size:14px;text-decoration:none;color:var(–paper)}
+.admin-trigger:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.admin-overlay{position:fixed;inset:0;background:rgba(5,4,10,.97);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.admin-overlay.open{display:flex}
+.admin-box{background:#0d0b18;border:1px solid rgba(255,255,255,.1);width:90%;max-width:780px;max-height:88vh;overflow-y:auto;position:relative}
+.admin-top{padding:32px 40px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center}
+.admin-top h2{font-family:‘Bebas Neue’,sans-serif;font-size:32px;letter-spacing:.1em}
+.admin-top h2 span{color:var(–red2)}
+.admin-close{background:none;border:1px solid rgba(255,255,255,.1);color:var(–paper);width:36px;height:36px;font-size:18px;cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.admin-close:hover{background:var(–red);border-color:var(–red)}
+.admin-login{padding:48px 40px;display:flex;flex-direction:column;gap:16px;max-width:360px;margin:0 auto}
+.admin-login label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(–red)}
+.admin-login input{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(–paper);padding:14px 18px;font-family:‘DM Mono’,monospace;font-size:13px;outline:none;transition:border-color .3s;cursor:none;width:100%}
+.admin-login input:focus{border-color:var(–red)}
+.admin-login button{background:var(–red);color:var(–paper);padding:14px;font-family:‘DM Mono’,monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:none;transition:background .3s;margin-top:4px}
+.admin-login button:hover{background:var(–red2)}
+.admin-err{font-size:11px;color:var(–red2);letter-spacing:.1em;display:none}
+.admin-panel{padding:32px 40px;display:none}
+.admin-week-nav{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.admin-week-nav button{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(–paper);padding:8px 16px;font-family:‘DM Mono’,monospace;font-size:12px;cursor:none;transition:all .3s}
+.admin-week-nav button:hover{background:var(–red);border-color:var(–red)}
+.admin-week-lbl{font-family:‘Bebas Neue’,sans-serif;font-size:20px;letter-spacing:.1em;flex:1;text-align:center}
+.admin-days{display:flex;flex-direction:column;gap:1px}
+.admin-day{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05)}
+.admin-day-head{padding:12px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.admin-day-name{font-family:‘Bebas Neue’,sans-serif;font-size:18px;letter-spacing:.08em;min-width:140px}
+.admin-day-date{font-size:10px;letter-spacing:.15em;color:rgba(240,236,227,.3);text-transform:uppercase}
+.admin-slots-row{padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px}
+.admin-slot-btn{padding:8px 16px;font-family:‘DM Mono’,monospace;font-size:10px;letter-spacing:.1em;border:1px solid;cursor:none;transition:all .3s;display:flex;align-items:center;gap:8px;background:none}
+.admin-slot-btn.free{border-color:rgba(100,200,60,.3);color:#7ed957}
+.admin-slot-btn.free:hover{background:rgba(100,200,60,.1)}
+.admin-slot-btn.taken{border-color:rgba(255,61,46,.3);color:var(–red2)}
+.admin-slot-btn.taken:hover{background:rgba(255,61,46,.08)}
+.admin-slot-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.admin-slot-btn.free .admin-slot-dot{background:#7ed957}
+.admin-slot-btn.taken .admin-slot-dot{background:var(–red2)}
+.admin-save-note{margin-top:24px;font-size:10px;letter-spacing:.12em;color:rgba(240,236,227,.25);text-align:center;font-family:‘Instrument Serif’,serif;font-style:italic}
+.admin-day.past-day{opacity:.35}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+nav{padding:20px 24px}
+.nav-r a:not(.ig-pill){display:none}
+.hero,.services,.manifesto,.why,.zone,.ig,.contact{padding-left:24px;padding-right:24px}
+h1{font-size:clamp(68px,20vw,120px)}
+.sh,.why,.zone-wrap,.cgrid{grid-template-columns:1fr}
+.sgrid,.frow{grid-template-columns:1fr}
+.ig-wrap{flex-direction:column;align-items:flex-start;padding:48px 32px}
+.h-stats{position:static;opacity:1;animation:none;margin-top:48px}
+.zl,.zr,.cl,.cr{padding:48px 28px}
+.zl{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+.mani{padding:48px 32px}
+footer{flex-direction:column;gap:12px;text-align:center;padding:24px}
+.cal-section{padding-left:24px;padding-right:24px}
+.cal-header{padding:32px 24px;flex-direction:column;align-items:flex-start;gap:20px}
+.cal-grid{grid-template-columns:repeat(3,1fr)}
+.cal-legend{padding:16px 24px;flex-wrap:wrap}
+.dm-float{bottom:20px;right:20px}
+}
+</style>
+
 </head>
 <body>
 
-    <div class="share-btn" onclick="shareWebsite()" title="Partager le site">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+<div id="dot"></div>
+<div id="ring"></div>
+<canvas id="c"></canvas>
+
+<!-- NAV -->
+
+<nav>
+  <a class="logo" href="#">BEN<b>'S</b> BARBER</a>
+  <div class="nav-r">
+    <a href="#services">Services</a>
+    <a href="#dispo">Dispo</a>
+    <a href="#why">Concept</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="ig-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      @bens__barber
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-vline"></div>
+  <div class="hero-bgtxt">0€</div>
+
+  <div class="h-tag">
+    <div class="h-tag-line"></div>
+    <span>Lyon & alentours — À domicile</span>
+  </div>
+
+  <h1>
+    <span class="s1">BEN'S</span>
+    <span class="s2">BARBER</span>
+
+  </h1>
+
+  <p class="h-sub">
+    <strong>Dégradé à blanc · Taper · Barbe</strong>
+    Je me déplace chez toi sur Lyon. Je m'entraîne, tu en profites. Résultat au propre, toujours gratuit.
+  </p>
+
+  <div class="h-btns">
+    <a href="#contact" class="btn-a">
+      Booker ma coupe
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#services" class="btn-b">
+      Voir les services
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+  </div>
+
+  <div class="h-stats">
+    <div>
+      <span class="sv">3<b>×</b></span>
+      <div class="sl">Prestations</div>
     </div>
+    <div>
+      <span class="sv">0<b>€</b></span>
+      <div class="sl">Toujours</div>
+    </div>
+    <div>
+      <span class="sv" style="font-size:28px;line-height:1.4">Lyon</span>
+      <div class="sl">& alentours</div>
+    </div>
+  </div>
+</section>
 
-    <nav class="fixed w-full z-50 nav-glass border-b border-zinc-800 py-4 px-6 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <img src="https://i.ibb.co/m5Tz7h0m/Gold-Black-Modern-Elegant-Scissors-Barber-Shop-Business-Logo.png" alt="Logo" class="h-10 w-10 object-contain">
-            <span class="brand-name text-2xl gold-gradient">Ben’S Barber</span>
+<!-- TICKER -->
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tt">DÉGRADÉ À BLANC</span><span class="ts"></span>
+    <span class="tt">TAPER</span><span class="ts"></span>
+    <span class="tt">TAILLE DE BARBE</span><span class="ts"></span>
+    <span class="tt">BEN'S BARBER</span><span class="ts"></span>
+    <span class="tt">LYON & ALENTOURS</span><span class="ts"></span>
+    <span class="tt">100% GRATUIT</span><span class="ts"></span>
+    <span class="tt">À DOMICILE</span><span class="ts"></span>
+    <span class="tt">DÉGRADÉ À BLANC</span><span class="ts"></span>
+    <span class="tt">TAPER</span><span class="ts"></span>
+    <span class="tt">TAILLE DE BARBE</span><span class="ts"></span>
+    <span class="tt">BEN'S BARBER</span><span class="ts"></span>
+    <span class="tt">LYON & ALENTOURS</span><span class="ts"></span>
+    <span class="tt">100% GRATUIT</span><span class="ts"></span>
+    <span class="tt">À DOMICILE</span><span class="ts"></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+
+<section class="services" id="services">
+  <div class="sh rev">
+    <div>
+      <div class="slb">// Prestations</div>
+      <h2 class="stit">CE QUE<br>JE FAIS</h2>
+    </div>
+    <p class="sdesc">Trois techniques maîtrisées, un résultat top — zéro euro à sortir. Je me déplace chez toi.</p>
+  </div>
+  <div class="sgrid">
+    <div class="sc rev">
+      <div class="sc-glow"></div>
+      <span class="sc-n">// 01</span>
+      <div class="sc-ico">✂️</div>
+      <div class="sc-name">DÉGRADÉ<br>À BLANC</div>
+      <p class="sc-text">Fondu progressif du plus court au blanc skin. Net, précis, adapté à ta morphologie. La signature d'un vrai barber.</p>
+      <div class="sc-pr">
+        <div class="sc-free">0€</div>
+        <div class="sc-old">25–35€</div>
+      </div>
+      <div class="sc-line"></div>
+    </div>
+    <div class="sc rev">
+      <div class="sc-glow"></div>
+      <span class="sc-n">// 02</span>
+      <div class="sc-ico">🪒</div>
+      <div class="sc-name">TAPER</div>
+      <p class="sc-text">Contours nets à la tondeuse et au rasoir. Nuque, tempes, ligne de front. Le détail qui transforme une bonne coupe en coupe parfaite.</p>
+      <div class="sc-pr">
+        <div class="sc-free">0€</div>
+        <div class="sc-old">15–20€</div>
+      </div>
+      <div class="sc-line"></div>
+    </div>
+    <div class="sc rev">
+      <div class="sc-glow"></div>
+      <span class="sc-n">// 03</span>
+      <div class="sc-ico">🧔</div>
+      <div class="sc-name">TAILLE<br>DE BARBE</div>
+      <p class="sc-text">Mise en forme, contours définis, finition soignée. Courte ou longue — ta barbe mérite autant d'attention que ta coupe.</p>
+      <div class="sc-pr">
+        <div class="sc-free">0€</div>
+        <div class="sc-old">15–20€</div>
+      </div>
+      <div class="sc-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+
+<div class="manifesto rev">
+  <div class="mani">
+    <p class="mani-q">"Je suis en train de devenir <em>barber</em>. La meilleure façon d'apprendre, c'est de pratiquer sur de vraies têtes. Toi tu repars au propre, moi je monte de niveau. <em>C'est aussi simple que ça.</em>"</p>
+    <div class="mani-a">
+      <div class="mani-aline"></div>
+      <span>Ben'S Barber — Lyon</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+
+<section class="why" id="why">
+  <div class="rev" style="position:relative">
+    <div class="why-box">
+      <div class="why-bgn">FREE</div>
+      <div class="why-center">
+        <span class="why-ico">✂️</span>
+        <div class="why-ct">EN FORMATION</div>
+        <div class="why-cs">Barber en progression</div>
+      </div>
+    </div>
+    <div class="why-badge">
+      <p>Lyon</p>
+      <span>& alentours</span>
+    </div>
+  </div>
+  <div>
+    <div class="wl">// Pourquoi gratuit ?</div>
+    <h2 class="wt">MA<br>DÉMARCHE</h2>
+    <div class="witems">
+      <div class="wi">
+        <span class="wi-n">01</span>
+        <div>
+          <div class="wi-t">Je m'entraîne, c'est direct</div>
+          <p class="wi-d">Pas de mystère. Je perfectionne mes techniques sur un max de profils. Chaque coupe me fait progresser — et toi tu repars au propre.</p>
         </div>
-        
-        <div class="flex items-center gap-3">
-            <a href="mailto:bens.barber69@gmail.com" class="p-2 border border-zinc-700 rounded hover:border-yellow-600 transition group" title="M'envoyer un mail">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-400 group-hover:text-yellow-500 transition"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </a>
-            <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="text-xs uppercase font-bold border border-yellow-600 px-4 py-2 rounded hover:bg-yellow-600 transition">Contact</a>
+      </div>
+      <div class="wi">
+        <span class="wi-n">02</span>
+        <div>
+          <div class="wi-t">Chaque tête est unique</div>
+          <p class="wi-d">Cheveux frisés, raides, épais, fins... chaque profil est un apprentissage différent. C'est cette diversité qui forge un bon barber.</p>
         </div>
-    </nav>
-
-    <header class="h-screen flex flex-col justify-center items-center text-center px-4" style="background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=1000') center/cover;">
-        <div data-aos="fade-up" data-aos-duration="1200">
-            <p class="text-yellow-500 font-bold uppercase tracking-tighter mb-2">Bienvenue chez</p>
-            <h1 class="text-7xl md:text-9xl mb-2 uppercase leading-none">Ben’S <span class="gold-gradient">Barber</span></h1>
-            <p class="text-yellow-600 font-bold mb-6 tracking-[0.2em] uppercase text-sm md:text-lg">📍 Lyon & alentours</p>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl font-light text-gray-300">L’art de la coupe, la précision du détail.</p>
-            <div class="bg-red-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest animate-pulse mb-8 text-sm">Recherche Modèles : Prestation Offerte 🎁 !</div>
-            <a href="#contact" class="btn-gold px-10 py-4 rounded-md font-bold text-lg uppercase shadow-lg">Devenir Modèle</a>
+      </div>
+      <div class="wi">
+        <span class="wi-n">03</span>
+        <div>
+          <div class="wi-t">Construire mon portfolio</div>
+          <p class="wi-d">Ta coupe = ma carte de visite. Je doc mon travail sur Instagram pour montrer l'évolution. Chaque client satisfait, c'est une preuve de niveau.</p>
         </div>
-    </header>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="py-16 bg-zinc-950 border-y border-zinc-900 overflow-hidden">
-        <div class="max-w-5xl mx-auto px-8">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
-                <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="100">
-                    <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">1</span>
-                    <div>
-                        <h4 class="font-bold uppercase text-sm tracking-widest">Prendre rendez-vous</h4>
-                        <p class="text-xs text-gray-500 uppercase">Remplis le formulaire</p>
-                    </div>
-                </div>
-                <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6"></div>
-                <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="300">
-                    <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">2</span>
-                    <div>
-                        <h4 class="font-bold uppercase text-sm tracking-widest">Confirmation</h4>
-                        <p class="text-xs text-gray-500 uppercase">Validation via Instagram / SMS</p>
-                    </div>
-                </div>
-                <div class="hidden md:block h-px bg-zinc-800 flex-1 mt-6"></div>
-                <div class="flex gap-4 items-center" data-aos="fade-right" data-aos-delay="500">
-                    <span class="w-12 h-12 rounded-full border-2 border-yellow-600 flex items-center justify-center font-bold text-yellow-500 text-xl">3</span>
-                    <div>
-                        <h4 class="font-bold uppercase text-sm tracking-widest">Le Jour J</h4>
-                        <p class="text-xs text-gray-500 uppercase">Ta coupe à TON domicile</p>
-                    </div>
-                </div>
-            </div>
+<!-- ZONE -->
+
+<section class="zone rev" id="zone">
+  <div class="zone-wrap">
+    <div class="zl">
+      <div class="zmap">
+        <div class="zmap-g"></div>
+        <div class="zring" style="width:140px;height:140px"></div>
+        <div class="zring" style="width:240px;height:240px;border-color:rgba(255,255,255,.03)"></div>
+        <div class="zring" style="width:340px;height:340px;border-color:rgba(255,255,255,.015)"></div>
+        <div class="zpin">
+          <div class="zdot"></div>
         </div>
-    </section>
+        <div class="zlabel">Lyon</div>
+      </div>
+    </div>
+    <div class="zr">
+      <div class="slb">// Zone d'intervention</div>
+      <h2 class="zt">JE VIENS<br>CHEZ TOI</h2>
+      <p class="zd">Pas besoin de te déplacer. Je rapplique chez toi avec tout le matos. Tu restes confort, je m'occupe du reste.</p>
+      <div class="ztags">
+        <span class="ztag">Lyon</span>
+        <span class="ztag">Villeurbanne</span>
+        <span class="ztag">Caluire</span>
+        <span class="ztag">Bron</span>
+        <span class="ztag">Vénissieux</span>
+        <span class="ztag">Saint-Fons</span>
+        <span class="ztag">Décines</span>
+        <span class="ztag">& alentours</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="py-24 px-8 max-w-6xl mx-auto">
-        <h2 class="text-5xl text-center mb-20 uppercase" data-aos="fade-up">Le <span class="gold-gradient">Concept</span> Modèle</h2>
-        <div class="grid md:grid-cols-3 gap-12 text-center">
-            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group" data-aos="zoom-in" data-aos-delay="100">
-                <div class="text-5xl mb-6 group-hover:scale-110 transition">✂️</div>
-                <h3 class="text-2xl font-bold mb-4 uppercase">Coupe Offerte</h3>
-                <p class="text-gray-400 text-sm">Une prestation premium réalisée avec soin, adaptée à ton style.</p>
-            </div>
-            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group" data-aos="zoom-in" data-aos-delay="300">
-                <div class="text-5xl mb-6 group-hover:scale-110 transition">📸</div>
-                <h3 class="text-2xl font-bold mb-4 uppercase">Droit à l'image</h3>
-                <p class="text-gray-400 text-sm">En retour, j'utilise les photos de la coupe pour mon compte Instagram.</p>
-            </div>
-            <div class="p-8 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group" data-aos="zoom-in" data-aos-delay="500">
-                <div class="text-5xl mb-6 group-hover:scale-110 transition">🤝</div>
-                <h3 class="text-2xl font-bold mb-4 uppercase">Confiance</h3>
-                <p class="text-gray-400 text-sm">Merci de faire confiance à Ben’S Barber pour ton style.</p>
-            </div>
+<!-- IG -->
+
+<div class="ig rev">
+  <div class="ig-wrap">
+    <div>
+      <div class="ig-lbl">// Mon travail</div>
+      <h2 class="ig-title">SUIS MON<br>ÉVOLUTION</h2>
+      <div class="ig-h">@bens__barber</div>
+    </div>
+    <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="ig-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      Voir l'Instagram
+    </a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+  <div class="cgrid">
+    <div class="cl">
+      <div class="slb">// Rendez-vous</div>
+      <h2 class="stit">BOOK<br>TA COUPE</h2>
+      <p class="cdesc">Choisis ton créneau dans le calendrier ci-dessus, remplis le formulaire et envoie ta demande directement sur WhatsApp.</p>
+      <div class="cinfos">
+        <div class="cinfo">
+          <div class="cico">📍</div>
+          <div><strong>Zone</strong><span>Lyon & alentours — à ton domicile</span></div>
         </div>
-    </section>
-
-    <section class="py-24 px-8 bg-black">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="flex justify-center gap-1 mb-4" data-aos="fade-up">
-                <span class="text-yellow-500 text-2xl">★</span>
-                <span class="text-yellow-500 text-2xl">★</span>
-                <span class="text-yellow-500 text-2xl">★</span>
-                <span class="text-yellow-500 text-2xl">★</span>
-                <span class="text-yellow-500 text-2xl">★</span>
-            </div>
-            <p class="text-zinc-400 text-sm uppercase tracking-widest mb-2" data-aos="fade-up" data-aos-delay="100">
-                <span class="text-white font-bold">Excellent</span> — Salons notés 5.0 (20+ avis)
-            </p>
-            <h2 class="text-4xl md:text-5xl mb-16 uppercase italic" data-aos="fade-up" data-aos-delay="200">Ce qu'en pensent nos clients</h2>
-
-            <div class="review-card p-8 rounded-3xl text-left max-w-xl mx-auto relative overflow-hidden" data-aos="zoom-in">
-                <div class="flex items-center gap-4 mb-6">
-                    <img src="https://i.pravatar.cc/150?u=mael" alt="Client" class="w-16 h-16 rounded-full border-2 border-zinc-800">
-                    <div>
-                        <h4 class="font-bold text-xl uppercase tracking-wider">Maël V.</h4>
-                        <p class="text-zinc-500 text-sm">Google reviews</p>
-                    </div>
-                </div>
-                <p class="text-zinc-300 leading-relaxed text-lg italic">
-                    "Client depuis quelques années, je n'ai jamais été déçu d'une prestation. L'accueil est chaleureux, l'hygiène est irréprochable et les prestations sont précises."
-                </p>
-                
-                <div class="flex gap-2 mt-8 justify-center">
-                    <div class="w-2 h-2 rounded-full bg-white"></div>
-                    <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
-                    <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
-                    <div class="w-2 h-2 rounded-full bg-zinc-700"></div>
-                </div>
-            </div>
+        <div class="cinfo">
+          <div class="cico">🕐</div>
+          <div><strong>Dispo</strong><span>Week-ends & soirées semaine</span></div>
         </div>
-    </section>
-
-    <section class="py-24 px-8 max-w-3xl mx-auto" data-aos="fade-right">
-        <h2 class="text-4xl text-center mb-12 uppercase italic gold-gradient tracking-widest">Questions Fréquentes</h2>
-        <div class="faq-list">
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-question">
-                    <span class="font-bold uppercase text-sm tracking-widest">C'est vraiment gratuit ?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" class="transition-transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
-                <div class="faq-answer">Oui, la prestation est offerte en échange de ta disponibilité pour réaliser des photos et vidéos de la coupe pour mon profil Instagram.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-question">
-                    <span class="font-bold uppercase text-sm tracking-widest">Où se passe le rendez-vous ?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" class="transition-transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
-                <div class="faq-answer">Je me déplace sur Lyon et ses alentours. L'adresse exacte sera convenue ensemble une fois ta candidature validée sur Instagram.</div>
-            </div>
-            <div class="faq-item" onclick="this.classList.toggle('active')">
-                <div class="faq-question">
-                    <span class="font-bold uppercase text-sm tracking-widest">Combien de temps dure la coupe ?</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" class="transition-transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
-                <div class="faq-answer">Il faut prévoir environ 1h à 1h30. Cela me permet de prendre le temps pour la précision de la coupe et les prises de vues.</div>
-            </div>
+        <div class="cinfo">
+          <div class="cico">💸</div>
+          <div><strong>Tarif</strong><span>100% gratuit — toujours</span></div>
         </div>
-    </section>
-
-    <section id="contact" class="bg-zinc-900 py-20 px-8 border-t border-zinc-800">
-        <div class="max-w-3xl mx-auto border border-zinc-700 p-8 md:p-12 rounded-2xl bg-black shadow-2xl" data-aos="fade-up">
-            <h2 class="text-4xl text-center mb-4 uppercase tracking-widest">Réserve ton <span class="gold-gradient">créneau</span></h2>
-            <p class="text-center text-gray-400 mb-10 italic">Prêt pour le changement ? Remplis le formulaire ci-dessous.</p>
-            
-            <form action="https://formspree.io/f/xbdadjwr" method="POST" class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" name="Nom du client" placeholder="Nom & Prénom" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
-                    <input type="text" name="Contact du client" placeholder="@Instagram ou Téléphone" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
-                </div>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="flex flex-col gap-2">
-                        <label class="text-xs text-yellow-500 uppercase font-bold px-1">Date souhaitée</label>
-                        <input type="date" name="Date du RDV" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label class="text-xs text-yellow-500 uppercase font-bold px-1">Heure souhaitée</label>
-                        <input type="time" name="Heure du RDV" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none transition text-white">
-                    </div>
-                </div>
-                <select name="Coupe souhaitée" required class="w-full bg-zinc-900 border border-zinc-700 p-4 rounded focus:border-yellow-500 outline-none text-gray-400">
-                    <option value="">Type de coupe souhaité</option>
-                    <option value="Dégradé">Dégradé</option>
-                    <option value="Taper">Taper</option>
-                    <option value="Barbe">Taille de barbe</option>
-                </select>
-                <button type="submit" class="w-full btn-gold py-4 rounded-xl font-bold uppercase text-xl shadow-xl">Envoyer ma candidature</button>
-            </form>
-
-            <div class="mt-12 p-6 border-t border-zinc-800 text-center">
-                <h4 class="text-xs uppercase tracking-[0.3em] text-zinc-500 mb-4 font-bold">Gestion de ton rendez-vous</h4>
-                <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Un imprévu ou un problème ? Tu peux annuler ou modifier ton créneau à tout moment en me contactant directement :</p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="https://www.instagram.com/bens__barber" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 group-hover:text-yellow-500"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                        <span class="text-xs font-bold uppercase tracking-widest text-zinc-300 group-hover:text-white transition">Instagram</span>
-                    </a>
-                    <a href="mailto:bens.barber69@gmail.com" class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-yellow-600 transition group">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 group-hover:text-yellow-500"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        <span class="text-xs font-bold uppercase tracking-widest text-zinc-300 group-hover:text-white transition">E-mail</span>
-                    </a>
-                </div>
-            </div>
+        <div class="cinfo">
+          <div class="cico">📱</div>
+          <div><strong>Instagram</strong><span>@bens__barber</span></div>
         </div>
-    </section>
-
-    <footer class="py-12 text-center border-t border-zinc-900">
-        <div class="mb-6"><span class="brand-name text-4xl gold-gradient uppercase">Ben’S Barber</span></div>
-        <div class="flex justify-center gap-8 mb-8">
-            <a href="https://www.instagram.com/bens__barber?igsh=eTZoajVvZTc1Z2xk&utm_source=qr" target="_blank" class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="w-8 h-8"></a>
-            <a href="https://www.tiktok.com/@bens.barber?_r=1&_t=ZN-93oInyPtZf4" target="_blank" class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" class="w-8 h-8"></a>
+      </div>
+    </div>
+    <div class="cr">
+      <form class="form" id="form">
+        <div class="frow">
+          <div class="fg"><label>Prénom</label><input type="text" placeholder="Kevin" required></div>
+          <div class="fg"><label>Nom</label><input type="text" placeholder="Martin" required></div>
         </div>
-        <p class="text-gray-600 text-sm italic">&copy; 2026 Ben’S Barber - Lyon. Tous droits réservés.</p>
-    </footer>
+        <div class="fg"><label>Téléphone ou email</label><input type="text" placeholder="06 XX XX XX XX" required></div>
+        <div class="fg"><label>Ville</label><input type="text" placeholder="Lyon, Villeurbanne..."></div>
+        <div class="fg">
+          <label>Prestation</label>
+          <select>
+            <option value="">Choisir...</option>
+            <option>Dégradé à blanc</option>
+            <option>Taper</option>
+            <option>Taille de barbe</option>
+            <option>Dégradé + Taper</option>
+            <option>Dégradé + Barbe (combo)</option>
+            <option>Tout le combo 🔥</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message (optionnel)</label><textarea placeholder="Ta dispo, tes envies..."></textarea></div>
+        <div class="fg" id="slotDisplay">
+          <label>Creneau souhaite <span style="color:var(--red2)">*</span></label>
+          <div id="slotSelected" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);padding:14px 18px;font-size:12px;color:rgba(240,236,227,.3);letter-spacing:.08em">Clique sur un creneau vert dans le calendrier ci-dessus</div>
+          <div id="slotError" style="display:none;font-size:10px;color:var(--red2);letter-spacing:.1em;margin-top:6px">Choisis un creneau dans le calendrier avant d'envoyer</div>
+        </div>
+        <button type="submit" class="fsub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:inline;margin-right:8px;vertical-align:middle"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.476a.75.75 0 00.92.92l5.562-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.7-.505-5.25-1.385l-.372-.216-3.852 1.012 1.037-3.74-.235-.386A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Envoyer via WhatsApp →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
-        });
+<!-- CALENDAR -->
 
-        function shareWebsite() {
-            if (navigator.share) {
-                navigator.share({
-                    title: "Ben'S Barber - Lyon",
-                    text: "Prend rendez-vous pour être modèle coiffure gratuitement chez Ben'S Barber à Lyon !",
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Lien du site copié !");
-            }
-        }
-    </script>
+<section class="cal-section rev" id="dispo">
+  <div class="cal-wrap">
+    <div class="cal-header">
+      <div class="cal-header-l">
+        <div class="slb">// Disponibilités</div>
+        <h2 class="stit">MES CRÉNEAUX<br>LIBRES</h2>
+      </div>
+      <div class="cal-nav">
+        <button class="cal-nav-btn" id="prevW">←</button>
+        <div class="cal-week-label" id="weekLabel"></div>
+        <button class="cal-nav-btn" id="nextW">→</button>
+      </div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <div class="leg"><div class="leg-dot free"></div>Créneau libre</div>
+      <div class="leg"><div class="leg-dot taken"></div>Déjà pris</div>
+      <div class="cal-note">Mis à jour manuellement — contacte-moi pour confirmer</div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING DM BUTTON -->
+
+<div class="dm-float">
+  <div class="dm-tooltip">M'envoyer un DM Instagram</div>
+  <a href="https://ig.me/m/bens__barber" target="_blank" class="dm-btn" style="position:relative">
+    <div class="dm-pulse"></div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 2.89 1.23 5.49 3.19 7.33L4 22l2.81-1.17C8.3 21.6 10.1 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm4.9 7.38l-1.65 7.77c-.12.54-.44.67-.9.42l-2.48-1.83-1.2 1.15c-.13.13-.24.24-.5.24l.18-2.52 4.58-4.14c.2-.18-.04-.27-.3-.1L7.6 14.48 5.16 13.7c-.53-.17-.54-.53.11-.78l9.59-3.7c.44-.16.83.11.04.16z"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="flogo">BEN<b>'S</b> BARBER</div>
+  <div class="fcopy">Lyon & alentours · Barber en formation · 100% gratuit ✂</div>
+</footer>
+
+<!-- ADMIN TRIGGER -->
+
+<div class="admin-trigger" id="adminTrigger" title="Admin">⚙</div>
+
+<!-- ADMIN OVERLAY -->
+
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-box">
+    <div class="admin-top">
+      <h2>ADMIN <span>CRÉNEAUX</span></h2>
+      <button class="admin-close" id="adminClose">✕</button>
+    </div>
+    <!-- LOGIN -->
+    <div class="admin-login" id="adminLogin">
+      <label>Mot de passe</label>
+      <input type="password" id="adminPwd" placeholder="••••••••••••">
+      <div class="admin-err" id="adminErr">Mot de passe incorrect</div>
+      <button id="adminSubmit">Accéder →</button>
+    </div>
+    <!-- PANEL -->
+    <div class="admin-panel" id="adminPanel">
+      <div class="admin-week-nav">
+        <button id="aPrev">←</button>
+        <div class="admin-week-lbl" id="aWeekLbl"></div>
+        <button id="aNext">→</button>
+      </div>
+      <div class="admin-days" id="adminDays"></div>
+      <div class="admin-save-note">Les modifications sont appliquées en temps réel sur le calendrier public</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const dot=document.getElementById('dot'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.sc,.ztag').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// PARTICLES
+const canvas=document.getElementById('c');
+const ctx=canvas.getContext('2d');
+let W,H;
+const resize=()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight};
+resize();addEventListener('resize',resize);
+const pts=Array.from({length:100},()=>({
+  x:Math.random()*3000,y:Math.random()*3000,
+  vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+  r:Math.random()*1.4+.3,
+  o:Math.random()*.5+.1,
+  col:Math.random()>.82?'212,43,30':'240,236,227'
+}));
+(function draw(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+    if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    ctx.beginPath();ctx.arc(p.x%W,p.y%H,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${p.col},${p.o})`;ctx.fill();
+  });
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<110){
+        ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(240,236,227,${(1-d/110)*.035})`;ctx.lineWidth=.5;ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+})();
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.1});
+document.querySelectorAll('.rev,.wi').forEach(el=>obs.observe(el));
+
+// WI STAGGER
+const wiObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const all=document.querySelectorAll('.wi');
+      all.forEach((el,i)=>setTimeout(()=>el.classList.add('on'),i*130));
+    }
+  });
+},{threshold:.2});
+const firstWi=document.querySelector('.wi');
+if(firstWi)wiObs.observe(firstWi);
+
+// FORM → WHATSAPP
+document.getElementById('form').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!selectedSlot){
+    document.getElementById('slotError').style.display='block';
+    document.getElementById('dispo').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const fields=this.querySelectorAll('input,select,textarea');
+  const prenom=fields[0].value||'';
+  const nom=fields[1].value||'';
+  const contact=fields[2].value||'';
+  const ville=fields[3].value||'';
+  const presta=fields[4].value||'Non précisé';
+  const msg=fields[5].value||'';
+  const text=
+    `Salut Ben'S Barber !\n\n`+
+    `Je veux booker une coupe.\n\n`+
+    `Nom : ${prenom} ${nom}\n`+
+    `Ville : ${ville||'Non précisé'}\n`+
+    `Prestation : ${presta}\n`+
+    `Creneau souhaite : ${selectedSlot||'Non précisé'}\n`+
+    `Contact : ${contact}`+
+    (msg?`\nMessage : ${msg}`:'');
+  const url=`https://wa.me/33774800640?text=${encodeURIComponent(text)}`;
+  window.open(url,'_blank');
+});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// CALENDAR
+const DAYS=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+const DAYS_FULL=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+const SLOTS_BY_DAY={
+  1:['18h00','19h30'],
+  2:['18h00','19h30'],
+  3:['18h00'],
+  4:['18h00','19h30'],
+  5:['18h00','19h30'],
+  6:['10h00','11h30','14h00','15h30','17h00'],
+  0:['10h00','11h30','14h00','15h30'],
+};
+// ── TAKEN SLOTS (stored in memory, keyed by "YYYY-MM-DD|slotIndex") ──
+let takenSlots = JSON.parse(sessionStorage.getItem('takenSlots')||'{}');
+function saveTaken(){sessionStorage.setItem('takenSlots',JSON.stringify(takenSlots));}
+function slotKey(date, idx){return date.toISOString().slice(0,10)+'|'+idx;}
+function isTakenFn(date, idx){return !!takenSlots[slotKey(date,idx)];}
+function toggleTaken(date, idx){const k=slotKey(date,idx);if(takenSlots[k])delete takenSlots[k];else takenSlots[k]=true;saveTaken();renderCal();renderAdmin();}
+
+let weekOffset=0;
+let adminWeekOffset=0;
+let selectedSlot=null;
+
+function getMonday(d){const day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);return new Date(new Date(d).setDate(new Date(d).getDate()-day+(day===0?-6:1)))}
+function fmt(d){return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})}
+
+function selectSlot(label, el){
+  document.querySelectorAll('.slot.selected').forEach(s=>s.classList.remove('selected'));
+  selectedSlot=label;
+  el.classList.add('selected');
+  const box=document.getElementById('slotSelected');
+  box.textContent='Creneau : '+label;
+  box.style.background='rgba(100,200,60,.08)';
+  box.style.borderColor='rgba(100,200,60,.4)';
+  box.style.color='#7ed957';
+  document.getElementById('slotError').style.display='none';
+  document.getElementById('contact').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function renderCal(){
+  const today=new Date();
+  const mon=getMonday(new Date(today));
+  mon.setDate(mon.getDate()+weekOffset*7);
+  const sun=new Date(mon);sun.setDate(sun.getDate()+6);
+  document.getElementById('weekLabel').textContent=`${fmt(mon)} — ${fmt(sun)}`;
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(d.getDate()+i);
+    const dow=d.getDay();
+    const isPast=d<new Date(new Date().setHours(0,0,0,0));
+    const isToday=d.toDateString()===today.toDateString();
+    const slots=SLOTS_BY_DAY[dow]||[];
+    const dateStr=d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
+    const div=document.createElement('div');
+    div.className='cal-day'+(isPast?' past':'')+(isToday?' today':'');
+    const slotsEls=slots.map((s,idx)=>{
+      const taken=isTakenFn(d,idx);
+      const label=`${DAYS_FULL[i]} ${dateStr} a ${s}`;
+      const isSelected=selectedSlot===label;
+      if(taken) return `<div class="slot taken"><div class="slot-dot"></div>${s}</div>`;
+      return `<div class="slot free${isSelected?' selected':''}" data-label="${label}"><div class="slot-dot"></div>${s}</div>`;
+    }).join('');
+    const empty=`<div style="font-size:9px;color:rgba(240,236,227,.15);letter-spacing:.1em;text-transform:uppercase">—</div>`;
+    div.innerHTML=`<div class="cal-day-head"><div class="cal-day-name">${DAYS[i]}</div><div class="cal-day-num">${d.getDate()}</div></div><div class="cal-slots">${slots.length?slotsEls:empty}</div>`;
+    grid.appendChild(div);
+  }
+  document.querySelectorAll('.slot.free').forEach(el=>{
+    el.addEventListener('click',()=>selectSlot(el.dataset.label, el));
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
+
+// ── ADMIN ──
+const ADMIN_PWD='BensBarber699!';
+let adminUnlocked=false;
+
+function renderAdmin(){
+  const today=new Date();
+  const mon=getMonday(new Date(today));
+  mon.setDate(mon.getDate()+adminWeekOffset*7);
+  const sun=new Date(mon);sun.setDate(sun.getDate()+6);
+  document.getElementById('aWeekLbl').textContent=`${fmt(mon)} — ${fmt(sun)}`;
+  const container=document.getElementById('adminDays');
+  container.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(d.getDate()+i);
+    const dow=d.getDay();
+    const isPast=d<new Date(new Date().setHours(0,0,0,0));
+    const slots=SLOTS_BY_DAY[dow]||[];
+    const dateStr=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+    const div=document.createElement('div');
+    div.className='admin-day'+(isPast?' past-day':'');
+    const slotsHtml=slots.length?slots.map((s,idx)=>{
+      const taken=isTakenFn(d,idx);
+      return `<button class="admin-slot-btn ${taken?'taken':'free'}" data-date="${d.toISOString()}" data-idx="${idx}">
+        <div class="admin-slot-dot"></div>${s} — ${taken?'PRIS (cliquer pour liberer)':'LIBRE (cliquer pour bloquer)'}
+      </button>`;
+    }).join(''):`<span style="font-size:10px;color:rgba(240,236,227,.2);letter-spacing:.1em">Pas de créneau ce jour</span>`;
+    div.innerHTML=`<div class="admin-day-head"><div class="admin-day-name">${dateStr.charAt(0).toUpperCase()+dateStr.slice(1)}</div></div><div class="admin-slots-row">${slotsHtml}</div>`;
+    container.appendChild(div);
+  }
+  container.querySelectorAll('.admin-slot-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const d=new Date(btn.dataset.date);
+      const idx=parseInt(btn.dataset.idx);
+      toggleTaken(d,idx);
+    });
+    btn.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    btn.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}
+
+document.getElementById('adminTrigger').addEventListener('click',()=>{
+  document.getElementById('adminOverlay').classList.add('open');
+  if(adminUnlocked){document.getElementById('adminLogin').style.display='none';document.getElementById('adminPanel').style.display='block';renderAdmin();}
+});
+document.getElementById('adminClose').addEventListener('click',()=>document.getElementById('adminOverlay').classList.remove('open'));
+document.getElementById('adminOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('adminOverlay'))document.getElementById('adminOverlay').classList.remove('open');});
+
+document.getElementById('adminSubmit').addEventListener('click',()=>{
+  const pwd=document.getElementById('adminPwd').value;
+  if(pwd===ADMIN_PWD){
+    adminUnlocked=true;
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    document.getElementById('adminErr').style.display='none';
+    renderAdmin();
+  } else {
+    document.getElementById('adminErr').style.display='block';
+    document.getElementById('adminPwd').value='';
+  }
+});
+document.getElementById('adminPwd').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('adminSubmit').click();});
+document.getElementById('aPrev').addEventListener('click',()=>{adminWeekOffset--;renderAdmin();});
+document.getElementById('aNext').addEventListener('click',()=>{adminWeekOffset++;renderAdmin();});
+[document.getElementById('aPrev'),document.getElementById('aNext'),document.getElementById('adminSubmit'),document.getElementById('adminClose'),document.getElementById('adminTrigger')].forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+renderCal();
+document.getElementById('prevW').addEventListener('click',()=>{weekOffset--;renderCal()});
+document.getElementById('nextW').addEventListener('click',()=>{weekOffset++;renderCal()});
+document.querySelectorAll('.cal-nav-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// DM FLOAT hover
+document.querySelector('.dm-btn').addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+document.querySelector('.dm-btn').addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+addEventListener('scroll',()=>{
+  const y=scrollY;
+  document.querySelector('.orb1').style.transform=`translate(0,${y*.12}px)`;
+  document.querySelector('.orb2').style.transform=`translate(0,${-y*.08}px)`;
+  document.querySelector('.hero-bgtxt').style.transform=`translate(0,${y*.06}px)`;
+});
+</script>
+
 </body>
 </html>
