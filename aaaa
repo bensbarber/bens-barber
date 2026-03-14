@@ -210,38 +210,74 @@
                 <label>Personnalisez votre Bouquet (Options)</label>
                 <div class="selection-grid">
                     <div style="grid-column: span 1;">
-                        <label class="check-card" id="miniStitchLabel"><input type="checkbox" id="checkMiniStitch" disabled data-value="Mini Stitch"> Mini Stitch <span style="color: var(--out-of-stock); font-size: 0.6rem; margin-left: 5px;">(RUPTURE)</span></label>
+                        <label class="check-card" id="miniStitchLabel">
+                            <input type="checkbox" id="checkMiniStitch" disabled data-value="Mini Stitch">
+                            Mini Stitch <span id="ruptureMiniStitch" style="color: var(--out-of-stock); font-size: 0.6rem; margin-left: 5px;"></span>
+                        </label>
                     </div>
 
                     <div style="grid-column: span 1;">
-                        <label class="check-card" id="coeurLabel"><input type="checkbox" id="checkCoeur" disabled data-value="Coeur Inflammable"> Coeur Inflammable <span style="color: var(--out-of-stock); font-size: 0.6rem; margin-left: 5px;">(RUPTURE)</span></label>
+                        <label class="check-card" id="coeurLabel">
+                            <input type="checkbox" id="checkCoeur" disabled data-value="Coeur Inflammable">
+                            Coeur Inflammable <span id="ruptureCoeur" style="color: var(--out-of-stock); font-size: 0.6rem; margin-left: 5px;"></span>
+                        </label>
                     </div>
 
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkStitchG" value="Stitch Perso" data-price="20" onchange="togglePersoField('checkStitchG', 'fieldStitchG')"> Stitch Personnalisé (+20€)</label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkStitchG" value="Stitch Perso" data-price="20" onchange="togglePersoField('checkStitchG', 'fieldStitchG')">
+                        Stitch Personnalisé (+20€)
+                    </label>
                     <select id="fieldStitchG" name="Couleur_Stitch_G" class="dynamic-field" onchange="calculateTotal()">
                         <option value="Bleu">Couleur : Bleu</option>
                         <option value="Rose">Couleur : Rose</option>
                     </select>
 
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkGrandDiademe" value="Grand Diadème" data-price="8" onchange="calculateTotal()"> Grand Diadème (+8€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkPetitDiademe" value="Petit Diadème" data-price="4" onchange="calculateTotal()"> Petit Diadème (+4€)</label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkGrandDiademe" value="Grand Diadème" data-price="8" onchange="calculateTotal()">
+                        Grand Diadème (+8€)
+                    </label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkPetitDiademe" value="Petit Diadème" data-price="4" onchange="calculateTotal()">
+                        Petit Diadème (+4€)
+                    </label>
 
                     <div style="grid-column: span 1;">
-                        <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkRuban" value="Ruban Perso" data-price="4" onchange="togglePersoField('checkRuban', 'fieldRuban')"> Ruban Perso (+4€)</label>
+                        <label class="check-card">
+                            <input type="checkbox" name="Deco" class="extra" id="checkRuban" value="Ruban Perso" data-price="4" onchange="togglePersoField('checkRuban', 'fieldRuban')">
+                            Ruban Perso (+4€)
+                        </label>
                         <input type="text" id="fieldRuban" name="Texte_Ruban" class="dynamic-field" placeholder="Texte du ruban (Prénom...)">
                     </div>
 
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkAiguilles" value="Aiguilles" data-price="6" onchange="calculateTotal()"> Aiguilles Cristal (+6€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkPapillons" value="Papillons" data-price="2" onchange="calculateTotal()"> Papillons (+2€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkGypsophile" value="Gypsophile" data-price="5" onchange="calculateTotal()"> Gypsophile (+5€)</label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkAiguilles" value="Aiguilles" data-price="6" onchange="calculateTotal()">
+                        Aiguilles Cristal (+6€)
+                    </label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkPapillons" value="Papillons" data-price="2" onchange="calculateTotal()">
+                        Papillons (+2€)
+                    </label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkGypsophile" value="Gypsophile" data-price="5" onchange="calculateTotal()">
+                        Gypsophile (+5€)
+                    </label>
 
                     <div style="grid-column: span 1;">
-                        <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkLettre" value="Lettre Fleur" data-price="5" onchange="togglePersoField('checkLettre', 'fieldLettre')"> Lettre en fleur (+5€)</label>
+                        <label class="check-card">
+                            <input type="checkbox" name="Deco" class="extra" id="checkLettre" value="Lettre Fleur" data-price="5" onchange="togglePersoField('checkLettre', 'fieldLettre')">
+                            Lettre en fleur (+5€)
+                        </label>
                         <input type="text" id="fieldLettre" name="Lettre_Choisie" class="dynamic-field" maxlength="1" placeholder="Tapez 1 seule lettre" style="text-transform: uppercase;">
                     </div>
 
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkBordurePerle" value="Bordure Perle" data-price="4" onchange="calculateTotal()"> Bordure perles (+4€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkPaillettes" value="Paillettes" data-price="4" onchange="calculateTotal()"> Paillettes (+4€)</label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkBordurePerle" value="Bordure Perle" data-price="4" onchange="calculateTotal()">
+                        Bordure perles (+4€)
+                    </label>
+                    <label class="check-card">
+                        <input type="checkbox" name="Deco" class="extra" id="checkPaillettes" value="Paillettes" data-price="4" onchange="calculateTotal()">
+                        Paillettes (+4€)
+                    </label>
                 </div>
             </div>
 
@@ -466,11 +502,13 @@
             const miniStitch = localStorage.getItem('stockMiniStitch') || "true";
             document.getElementById('miniStitchLabel').style.opacity = miniStitch === "true" ? "1" : "0.5";
             document.getElementById('checkMiniStitch').disabled = miniStitch === "false";
+            document.getElementById('ruptureMiniStitch').textContent = miniStitch === "false" ? "(RUPTURE)" : "";
 
             // Cœur Inflammable
             const coeur = localStorage.getItem('stockCoeur') || "true";
             document.getElementById('coeurLabel').style.opacity = coeur === "true" ? "1" : "0.5";
             document.getElementById('checkCoeur').disabled = coeur === "false";
+            document.getElementById('ruptureCoeur').textContent = coeur === "false" ? "(RUPTURE)" : "";
 
             // Stitch Personnalisé
             const stitchPerso = localStorage.getItem('stockStitchPerso') || "true";
