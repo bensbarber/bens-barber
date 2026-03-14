@@ -83,7 +83,7 @@
         footer { text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.6; letter-spacing: 2px; line-height: 1.8; }
         .footer-link { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; font-weight: 600; }
 
-        #adminPanel { display: none; position: fixed; bottom: 70px; right: 20px; z-index: 1000; background: rgba(0,0,0,0.9); padding: 20px; border: 1px solid var(--gold); border-radius: 5px; max-width: 300px; }
+        #adminPanel { display: none; position: fixed; bottom: 70px; right: 20px; z-index: 1000; background: rgba(0,0,0,0.9); padding: 20px; border: 1px solid var(--gold); border-radius: 5px; max-width: 300px; max-height: 80vh; overflow-y: auto; }
         #adminPanel h3, #adminPanel h4 { margin-top: 0; color: var(--gold); font-family: 'Cinzel', serif; }
         #adminPanel input, #adminPanel select { width: 100%; padding: 8px; margin-bottom: 10px; background: #000; border: 1px solid var(--light-gray); color: #fff; }
         #adminPanel button { padding: 8px 15px; background: var(--gold); color: #000; border: none; cursor: pointer; width: 100%; margin-bottom: 10px; }
@@ -231,17 +231,17 @@
                         <input type="text" id="fieldRuban" name="Texte_Ruban" class="dynamic-field" placeholder="Texte du ruban (Prénom...)">
                     </div>
 
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" value="Aiguilles" data-price="6" onchange="calculateTotal()"> Aiguilles Cristal (+6€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" value="Papillons" data-price="2" onchange="calculateTotal()"> Papillons (+2€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" value="Gypsophile" data-price="5" onchange="calculateTotal()"> Gypsophile (+5€)</label>
+                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkAiguilles" value="Aiguilles" data-price="6" onchange="calculateTotal()"> Aiguilles Cristal (+6€)</label>
+                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkPapillons" value="Papillons" data-price="2" onchange="calculateTotal()"> Papillons (+2€)</label>
+                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkGypsophile" value="Gypsophile" data-price="5" onchange="calculateTotal()"> Gypsophile (+5€)</label>
 
                     <div style="grid-column: span 1;">
                         <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkLettre" value="Lettre Fleur" data-price="5" onchange="togglePersoField('checkLettre', 'fieldLettre')"> Lettre en fleur (+5€)</label>
                         <input type="text" id="fieldLettre" name="Lettre_Choisie" class="dynamic-field" maxlength="1" placeholder="Tapez 1 seule lettre" style="text-transform: uppercase;">
                     </div>
 
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" value="Bordure Perle" data-price="4" onchange="calculateTotal()"> Bordure perles (+4€)</label>
-                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" value="Paillettes" data-price="4" onchange="calculateTotal()"> Paillettes (+4€)</label>
+                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkBordurePerle" value="Bordure Perle" data-price="4" onchange="calculateTotal()"> Bordure perles (+4€)</label>
+                    <label class="check-card"><input type="checkbox" name="Deco" class="extra" id="checkPaillettes" value="Paillettes" data-price="4" onchange="calculateTotal()"> Paillettes (+4€)</label>
                 </div>
             </div>
 
@@ -277,6 +277,8 @@
         </div>
         <div id="adminContent" style="display: none;">
             <h4>Stocks Disponibles</h4>
+
+            <!-- Bouquets -->
             <div style="margin-bottom: 10px;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Mini Stitch</label>
                 <select id="stockMiniStitch" style="width: 100%; padding: 5px;">
@@ -284,6 +286,7 @@
                     <option value="false">Rupture</option>
                 </select>
             </div>
+
             <div style="margin-bottom: 10px;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Cœur Inflammable</label>
                 <select id="stockCoeur" style="width: 100%; padding: 5px;">
@@ -291,13 +294,7 @@
                     <option value="false">Rupture</option>
                 </select>
             </div>
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Univers Prière</label>
-                <select id="stockPriere" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
+
             <div style="margin-bottom: 10px;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Stitch Personnalisé</label>
                 <select id="stockStitchPerso" style="width: 100%; padding: 5px;">
@@ -305,6 +302,7 @@
                     <option value="false">Rupture</option>
                 </select>
             </div>
+
             <div style="margin-bottom: 10px;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Grand Diadème</label>
                 <select id="stockGrandDiademe" style="width: 100%; padding: 5px;">
@@ -312,6 +310,7 @@
                     <option value="false">Rupture</option>
                 </select>
             </div>
+
             <div style="margin-bottom: 10px;">
                 <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Petit Diadème</label>
                 <select id="stockPetitDiademe" style="width: 100%; padding: 5px;">
@@ -319,6 +318,72 @@
                     <option value="false">Rupture</option>
                 </select>
             </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Ruban Perso</label>
+                <select id="stockRuban" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Aiguilles Cristal</label>
+                <select id="stockAiguilles" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Papillons</label>
+                <select id="stockPapillons" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Gypsophile</label>
+                <select id="stockGypsophile" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Lettre en fleur</label>
+                <select id="stockLettreFleur" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Bordure perles</label>
+                <select id="stockBordurePerle" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Paillettes</label>
+                <select id="stockPaillettes" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
+            <!-- Univers Prière -->
+            <div style="margin-bottom: 10px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Univers Prière</label>
+                <select id="stockPriere" style="width: 100%; padding: 5px;">
+                    <option value="true">Disponible</option>
+                    <option value="false">Rupture</option>
+                </select>
+            </div>
+
             <button onclick="saveStocks()" style="padding: 8px 15px; background: var(--rose-petal); color: #fff; border: none; cursor: pointer; width: 100%;">Enregistrer</button>
         </div>
     </div>
@@ -358,10 +423,17 @@
             // Charger les valeurs actuelles des stocks
             document.getElementById('stockMiniStitch').value = document.getElementById('checkMiniStitch').disabled ? "false" : "true";
             document.getElementById('stockCoeur').value = document.getElementById('checkCoeur').disabled ? "false" : "true";
-            document.getElementById('stockPriere').value = document.querySelector('.deco-cat.sold-out') ? "false" : "true";
             document.getElementById('stockStitchPerso').value = document.getElementById('checkStitchG').disabled ? "false" : "true";
             document.getElementById('stockGrandDiademe').value = document.getElementById('checkGrandDiademe').disabled ? "false" : "true";
             document.getElementById('stockPetitDiademe').value = document.getElementById('checkPetitDiademe').disabled ? "false" : "true";
+            document.getElementById('stockRuban').value = document.getElementById('checkRuban').disabled ? "false" : "true";
+            document.getElementById('stockAiguilles').value = document.getElementById('checkAiguilles').disabled ? "false" : "true";
+            document.getElementById('stockPapillons').value = document.getElementById('checkPapillons').disabled ? "false" : "true";
+            document.getElementById('stockGypsophile').value = document.getElementById('checkGypsophile').disabled ? "false" : "true";
+            document.getElementById('stockLettreFleur').value = document.getElementById('checkLettre').disabled ? "false" : "true";
+            document.getElementById('stockBordurePerle').value = document.getElementById('checkBordurePerle').disabled ? "false" : "true";
+            document.getElementById('stockPaillettes').value = document.getElementById('checkPaillettes').disabled ? "false" : "true";
+            document.getElementById('stockPriere').value = document.querySelector('.deco-cat.sold-out') ? "false" : "true";
         }
 
         function saveStocks() {
@@ -370,10 +442,17 @@
             const coeur = document.getElementById('stockCoeur').value;
             const priere = document.getElementById('stockPriere').value;
 
-            // NOUVEAUX STOCKS
+            // Options de personnalisation
             const stitchPerso = document.getElementById('stockStitchPerso').value;
             const grandDiademe = document.getElementById('stockGrandDiademe').value;
             const petitDiademe = document.getElementById('stockPetitDiademe').value;
+            const ruban = document.getElementById('stockRuban').value;
+            const aiguilles = document.getElementById('stockAiguilles').value;
+            const papillons = document.getElementById('stockPapillons').value;
+            const gypsophile = document.getElementById('stockGypsophile').value;
+            const lettreFleur = document.getElementById('stockLettreFleur').value;
+            const bordurePerle = document.getElementById('stockBordurePerle').value;
+            const paillettes = document.getElementById('stockPaillettes').value;
 
             // Appliquer les changements aux éléments du DOM
             document.getElementById('miniStitchLabel').style.opacity = miniStitch === "true" ? "1" : "0.5";
@@ -382,18 +461,6 @@
             document.getElementById('coeurLabel').style.opacity = coeur === "true" ? "1" : "0.5";
             document.getElementById('checkCoeur').disabled = coeur === "false";
 
-            const priereCat = document.querySelector('.deco-cat.sold-out');
-            if(priereCat) {
-                if(priere === "true") {
-                    priereCat.classList.remove('sold-out');
-                    priereCat.querySelector('.sold-out-badge').style.display = "none";
-                } else {
-                    priereCat.classList.add('sold-out');
-                    priereCat.querySelector('.sold-out-badge').style.display = "inline";
-                }
-            }
-
-            // NOUVEAUX ÉLÉMENTS
             const stitchPersoLabel = document.querySelector('label[for="checkStitchG"]');
             stitchPersoLabel.style.opacity = stitchPerso === "true" ? "1" : "0.5";
             document.getElementById('checkStitchG').disabled = stitchPerso === "false";
@@ -405,6 +472,45 @@
             const petitDiademeLabel = document.querySelector('label[for="checkPetitDiademe"]');
             petitDiademeLabel.style.opacity = petitDiademe === "true" ? "1" : "0.5";
             document.getElementById('checkPetitDiademe').disabled = petitDiademe === "false";
+
+            const rubanLabel = document.querySelector('label[for="checkRuban"]');
+            rubanLabel.style.opacity = ruban === "true" ? "1" : "0.5";
+            document.getElementById('checkRuban').disabled = ruban === "false";
+
+            const aiguillesLabel = document.querySelector('label[for="checkAiguilles"]');
+            aiguillesLabel.style.opacity = aiguilles === "true" ? "1" : "0.5";
+            document.getElementById('checkAiguilles').disabled = aiguilles === "false";
+
+            const papillonsLabel = document.querySelector('label[for="checkPapillons"]');
+            papillonsLabel.style.opacity = papillons === "true" ? "1" : "0.5";
+            document.getElementById('checkPapillons').disabled = papillons === "false";
+
+            const gypsophileLabel = document.querySelector('label[for="checkGypsophile"]');
+            gypsophileLabel.style.opacity = gypsophile === "true" ? "1" : "0.5";
+            document.getElementById('checkGypsophile').disabled = gypsophile === "false";
+
+            const lettreFleurLabel = document.querySelector('label[for="checkLettre"]');
+            lettreFleurLabel.style.opacity = lettreFleur === "true" ? "1" : "0.5";
+            document.getElementById('checkLettre').disabled = lettreFleur === "false";
+
+            const bordurePerleLabel = document.querySelector('label[for="checkBordurePerle"]');
+            bordurePerleLabel.style.opacity = bordurePerle === "true" ? "1" : "0.5";
+            document.getElementById('checkBordurePerle').disabled = bordurePerle === "false";
+
+            const paillettesLabel = document.querySelector('label[for="checkPaillettes"]');
+            paillettesLabel.style.opacity = paillettes === "true" ? "1" : "0.5";
+            document.getElementById('checkPaillettes').disabled = paillettes === "false";
+
+            const priereCat = document.querySelector('.deco-cat.sold-out');
+            if(priereCat) {
+                if(priere === "true") {
+                    priereCat.classList.remove('sold-out');
+                    priereCat.querySelector('.sold-out-badge').style.display = "none";
+                } else {
+                    priereCat.classList.add('sold-out');
+                    priereCat.querySelector('.sold-out-badge').style.display = "inline";
+                }
+            }
 
             alert("Stocks mis à jour !");
             toggleAdminPanel();
