@@ -420,87 +420,120 @@
         }
 
         function loadStocks() {
-            // Charger les valeurs actuelles des stocks
-            document.getElementById('stockMiniStitch').value = document.getElementById('checkMiniStitch').disabled ? "false" : "true";
-            document.getElementById('stockCoeur').value = document.getElementById('checkCoeur').disabled ? "false" : "true";
-            document.getElementById('stockStitchPerso').value = document.getElementById('checkStitchG').disabled ? "false" : "true";
-            document.getElementById('stockGrandDiademe').value = document.getElementById('checkGrandDiademe').disabled ? "false" : "true";
-            document.getElementById('stockPetitDiademe').value = document.getElementById('checkPetitDiademe').disabled ? "false" : "true";
-            document.getElementById('stockRuban').value = document.getElementById('checkRuban').disabled ? "false" : "true";
-            document.getElementById('stockAiguilles').value = document.getElementById('checkAiguilles').disabled ? "false" : "true";
-            document.getElementById('stockPapillons').value = document.getElementById('checkPapillons').disabled ? "false" : "true";
-            document.getElementById('stockGypsophile').value = document.getElementById('checkGypsophile').disabled ? "false" : "true";
-            document.getElementById('stockLettreFleur').value = document.getElementById('checkLettre').disabled ? "false" : "true";
-            document.getElementById('stockBordurePerle').value = document.getElementById('checkBordurePerle').disabled ? "false" : "true";
-            document.getElementById('stockPaillettes').value = document.getElementById('checkPaillettes').disabled ? "false" : "true";
-            document.getElementById('stockPriere').value = document.querySelector('.deco-cat.sold-out') ? "false" : "true";
+            // Charger les stocks depuis localStorage ou valeurs par défaut
+            document.getElementById('stockMiniStitch').value = localStorage.getItem('stockMiniStitch') || "true";
+            document.getElementById('stockCoeur').value = localStorage.getItem('stockCoeur') || "true";
+            document.getElementById('stockStitchPerso').value = localStorage.getItem('stockStitchPerso') || "true";
+            document.getElementById('stockGrandDiademe').value = localStorage.getItem('stockGrandDiademe') || "true";
+            document.getElementById('stockPetitDiademe').value = localStorage.getItem('stockPetitDiademe') || "true";
+            document.getElementById('stockRuban').value = localStorage.getItem('stockRuban') || "true";
+            document.getElementById('stockAiguilles').value = localStorage.getItem('stockAiguilles') || "true";
+            document.getElementById('stockPapillons').value = localStorage.getItem('stockPapillons') || "true";
+            document.getElementById('stockGypsophile').value = localStorage.getItem('stockGypsophile') || "true";
+            document.getElementById('stockLettreFleur').value = localStorage.getItem('stockLettreFleur') || "true";
+            document.getElementById('stockBordurePerle').value = localStorage.getItem('stockBordurePerle') || "true";
+            document.getElementById('stockPaillettes').value = localStorage.getItem('stockPaillettes') || "true";
+            document.getElementById('stockPriere').value = localStorage.getItem('stockPriere') || "true";
+
+            // Appliquer les stocks chargés aux éléments du DOM
+            applyStockStates();
         }
 
         function saveStocks() {
-            // Stocks existants
-            const miniStitch = document.getElementById('stockMiniStitch').value;
-            const coeur = document.getElementById('stockCoeur').value;
-            const priere = document.getElementById('stockPriere').value;
-
-            // Options de personnalisation
-            const stitchPerso = document.getElementById('stockStitchPerso').value;
-            const grandDiademe = document.getElementById('stockGrandDiademe').value;
-            const petitDiademe = document.getElementById('stockPetitDiademe').value;
-            const ruban = document.getElementById('stockRuban').value;
-            const aiguilles = document.getElementById('stockAiguilles').value;
-            const papillons = document.getElementById('stockPapillons').value;
-            const gypsophile = document.getElementById('stockGypsophile').value;
-            const lettreFleur = document.getElementById('stockLettreFleur').value;
-            const bordurePerle = document.getElementById('stockBordurePerle').value;
-            const paillettes = document.getElementById('stockPaillettes').value;
+            // Sauvegarder les stocks dans localStorage
+            localStorage.setItem('stockMiniStitch', document.getElementById('stockMiniStitch').value);
+            localStorage.setItem('stockCoeur', document.getElementById('stockCoeur').value);
+            localStorage.setItem('stockStitchPerso', document.getElementById('stockStitchPerso').value);
+            localStorage.setItem('stockGrandDiademe', document.getElementById('stockGrandDiademe').value);
+            localStorage.setItem('stockPetitDiademe', document.getElementById('stockPetitDiademe').value);
+            localStorage.setItem('stockRuban', document.getElementById('stockRuban').value);
+            localStorage.setItem('stockAiguilles', document.getElementById('stockAiguilles').value);
+            localStorage.setItem('stockPapillons', document.getElementById('stockPapillons').value);
+            localStorage.setItem('stockGypsophile', document.getElementById('stockGypsophile').value);
+            localStorage.setItem('stockLettreFleur', document.getElementById('stockLettreFleur').value);
+            localStorage.setItem('stockBordurePerle', document.getElementById('stockBordurePerle').value);
+            localStorage.setItem('stockPaillettes', document.getElementById('stockPaillettes').value);
+            localStorage.setItem('stockPriere', document.getElementById('stockPriere').value);
 
             // Appliquer les changements aux éléments du DOM
+            applyStockStates();
+            alert("Stocks mis à jour et sauvegardés !");
+            toggleAdminPanel();
+        }
+
+        function applyStockStates() {
+            // Mini Stitch
+            const miniStitch = localStorage.getItem('stockMiniStitch') || "true";
             document.getElementById('miniStitchLabel').style.opacity = miniStitch === "true" ? "1" : "0.5";
             document.getElementById('checkMiniStitch').disabled = miniStitch === "false";
 
+            // Cœur Inflammable
+            const coeur = localStorage.getItem('stockCoeur') || "true";
             document.getElementById('coeurLabel').style.opacity = coeur === "true" ? "1" : "0.5";
             document.getElementById('checkCoeur').disabled = coeur === "false";
 
+            // Stitch Personnalisé
+            const stitchPerso = localStorage.getItem('stockStitchPerso') || "true";
             const stitchPersoLabel = document.querySelector('label[for="checkStitchG"]');
             stitchPersoLabel.style.opacity = stitchPerso === "true" ? "1" : "0.5";
             document.getElementById('checkStitchG').disabled = stitchPerso === "false";
 
+            // Grand Diadème
+            const grandDiademe = localStorage.getItem('stockGrandDiademe') || "true";
             const grandDiademeLabel = document.querySelector('label[for="checkGrandDiademe"]');
             grandDiademeLabel.style.opacity = grandDiademe === "true" ? "1" : "0.5";
             document.getElementById('checkGrandDiademe').disabled = grandDiademe === "false";
 
+            // Petit Diadème
+            const petitDiademe = localStorage.getItem('stockPetitDiademe') || "true";
             const petitDiademeLabel = document.querySelector('label[for="checkPetitDiademe"]');
             petitDiademeLabel.style.opacity = petitDiademe === "true" ? "1" : "0.5";
             document.getElementById('checkPetitDiademe').disabled = petitDiademe === "false";
 
+            // Ruban Perso
+            const ruban = localStorage.getItem('stockRuban') || "true";
             const rubanLabel = document.querySelector('label[for="checkRuban"]');
             rubanLabel.style.opacity = ruban === "true" ? "1" : "0.5";
             document.getElementById('checkRuban').disabled = ruban === "false";
 
+            // Aiguilles Cristal
+            const aiguilles = localStorage.getItem('stockAiguilles') || "true";
             const aiguillesLabel = document.querySelector('label[for="checkAiguilles"]');
             aiguillesLabel.style.opacity = aiguilles === "true" ? "1" : "0.5";
             document.getElementById('checkAiguilles').disabled = aiguilles === "false";
 
+            // Papillons
+            const papillons = localStorage.getItem('stockPapillons') || "true";
             const papillonsLabel = document.querySelector('label[for="checkPapillons"]');
             papillonsLabel.style.opacity = papillons === "true" ? "1" : "0.5";
             document.getElementById('checkPapillons').disabled = papillons === "false";
 
+            // Gypsophile
+            const gypsophile = localStorage.getItem('stockGypsophile') || "true";
             const gypsophileLabel = document.querySelector('label[for="checkGypsophile"]');
             gypsophileLabel.style.opacity = gypsophile === "true" ? "1" : "0.5";
             document.getElementById('checkGypsophile').disabled = gypsophile === "false";
 
+            // Lettre en fleur
+            const lettreFleur = localStorage.getItem('stockLettreFleur') || "true";
             const lettreFleurLabel = document.querySelector('label[for="checkLettre"]');
             lettreFleurLabel.style.opacity = lettreFleur === "true" ? "1" : "0.5";
             document.getElementById('checkLettre').disabled = lettreFleur === "false";
 
+            // Bordure perles
+            const bordurePerle = localStorage.getItem('stockBordurePerle') || "true";
             const bordurePerleLabel = document.querySelector('label[for="checkBordurePerle"]');
             bordurePerleLabel.style.opacity = bordurePerle === "true" ? "1" : "0.5";
             document.getElementById('checkBordurePerle').disabled = bordurePerle === "false";
 
+            // Paillettes
+            const paillettes = localStorage.getItem('stockPaillettes') || "true";
             const paillettesLabel = document.querySelector('label[for="checkPaillettes"]');
             paillettesLabel.style.opacity = paillettes === "true" ? "1" : "0.5";
             document.getElementById('checkPaillettes').disabled = paillettes === "false";
 
+            // Univers Prière
+            const priere = localStorage.getItem('stockPriere') || "true";
             const priereCat = document.querySelector('.deco-cat.sold-out');
             if(priereCat) {
                 if(priere === "true") {
@@ -511,9 +544,6 @@
                     priereCat.querySelector('.sold-out-badge').style.display = "inline";
                 }
             }
-
-            alert("Stocks mis à jour !");
-            toggleAdminPanel();
         }
 
         function togglePersoField(checkId, fieldId) {
@@ -628,7 +658,11 @@
             p.style.animationDuration = Math.random() * 7 + 8 + 's';
             bg.appendChild(p);
         }
-        updateFormDisplay();
+
+        // Charger les stocks au démarrage
+        window.onload = function() {
+            applyStockStates();
+        };
     </script>
 </body>
 </html>
