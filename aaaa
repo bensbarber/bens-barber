@@ -1,706 +1,1225 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>By.LinoushCréation | L'Art de la Rose & Bijoux</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
-
-        :root {
-            --white: #ffffff;
-            --black: #0a0a0a;
-            --light-gray: rgba(255, 255, 255, 0.1);
-            --out-of-stock: #ff4d4d;
-            --paypal-blue: #0070ba;
-            --rose-petal: #d42d42;
-            --gold: #d4af37;
-        }
-
-        html { scroll-behavior: smooth; overflow-x: hidden; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--black); color: var(--white); -webkit-font-smoothing: antialiased; }
-
-        .bg-roses { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%); overflow: hidden; }
-        .petal { position: absolute; background-color: var(--rose-petal); border-radius: 150% 0 150% 0; opacity: 0.3; filter: blur(0.5px); animation: fall linear infinite; }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
-        }
-
-        header { padding: 25px 5%; text-align: center; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--light-gray); }
-        .brand-logo { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--gold); vertical-align: middle; margin-right: 10px; }
-        .logo-text { font-family: 'Cinzel', serif; font-size: 1.8rem; letter-spacing: 5px; display: inline-block; color: var(--gold); }
-        nav.nav-links { display: flex; justify-content: center; gap: 30px; margin-top: 15px; }
-        nav.nav-links a { text-decoration: none; color: var(--white); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; transition: 0.3s; }
-        nav.nav-links a:hover { opacity: 1; color: var(--gold); }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 60px 5%; }
-        .section-label { text-align: center; font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 6px; margin-bottom: 50px; text-transform: uppercase; }
-
-        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .price-card { background: rgba(26, 26, 26, 0.4); border: 1px solid var(--light-gray); padding: 30px; text-align: center; transition: 0.4s; }
-        .price-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .qty { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); }
-
-        .custom-section { background: rgba(0, 0, 0, 0.8); padding: 80px 5%; }
-        .deco-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .deco-cat h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px; letter-spacing: 2px; text-align: center; color: var(--gold); }
-        .deco-item { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-        .dots { flex: 1; border-bottom: 1px dotted rgba(255,255,255,0.2); margin: 0 10px 5px; }
-
-        .sold-out { opacity: 0.4; filter: grayscale(1); pointer-events: none; }
-        .sold-out-badge { color: var(--out-of-stock); font-size: 0.6rem; font-weight: bold; border: 1px solid var(--out-of-stock); padding: 2px 5px; margin-left: 10px; }
-
-        .order-container { max-width: 900px; margin: 80px auto; padding: 50px 5%; background: rgba(20, 20, 20, 0.8); border: 1px solid var(--light-gray); border-top: 3px solid var(--gold); }
-        .form-group { margin-bottom: 35px; }
-        label { display: block; font-family: 'Cinzel', serif; font-size: 0.85rem; margin-bottom: 15px; letter-spacing: 2px; color: var(--gold); }
-        select, input, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--light-gray); color: #fff; box-sizing: border-box; font-size: 0.8rem; }
-
-        .selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-        .check-card { background: rgba(255,255,255,0.05); padding: 12px; font-size: 0.65rem; display: flex; align-items: center; gap: 12px; cursor: pointer; border: 1px solid transparent; text-transform: uppercase; transition: 0.3s; }
-        .check-card:hover { border-color: var(--gold); }
-        .check-card input { width: 16px; height: 16px; accent-color: var(--gold); }
-
-        .dynamic-field { margin-top: 10px; display: none; width: 100%; animation: fadeIn 0.3s forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-
-        .live-details { text-align: left; font-size: 0.75rem; margin-bottom: 20px; padding: 15px; border-left: 2px solid var(--gold); background: rgba(255,255,255,0.02); }
-        .live-details div { display: flex; justify-content: space-between; margin-bottom: 5px; opacity: 0.8; }
-
-        .price-summary { background: #000; padding: 30px; text-align: center; border: 1px solid var(--gold); margin-top: 10px; }
-        .total-amount { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 600; }
-
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .btn-submit { padding: 20px; border: none; font-family: 'Cinzel', serif; font-weight: 700; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; font-size: 0.75rem; }
-        .btn-total { background: var(--paypal-blue); color: #fff; }
-        .btn-acompte { background: transparent; border: 1px solid var(--paypal-blue); color: var(--paypal-blue); }
-
-        #thankYouModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2000; justify-content: center; align-items: center; text-align: center; }
-        .modal-content { background: #111; padding: 30px; border: 1px solid var(--gold); max-width: 450px; width: 90%; }
-        .copy-box { background: #000; border: 1px dashed var(--gold); padding: 15px; margin: 20px 0; font-size: 0.8rem; color: #fff; text-align: left; white-space: pre-wrap; }
-
-        footer { text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.6; letter-spacing: 2px; line-height: 1.8; }
-        .footer-link { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; font-weight: 600; }
-
-        #adminPanel { display: none; position: fixed; bottom: 70px; right: 20px; z-index: 1000; background: rgba(0,0,0,0.9); padding: 20px; border: 1px solid var(--gold); border-radius: 5px; max-width: 300px; max-height: 80vh; overflow-y: auto; }
-        #adminPanel h3, #adminPanel h4 { margin-top: 0; color: var(--gold); font-family: 'Cinzel', serif; }
-        #adminPanel input, #adminPanel select { width: 100%; padding: 8px; margin-bottom: 10px; background: #000; border: 1px solid var(--light-gray); color: #fff; }
-        #adminPanel button { padding: 8px 15px; background: var(--gold); color: #000; border: none; cursor: pointer; width: 100%; margin-bottom: 10px; }
-        #adminButton { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: var(--gold); color: #000; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; font-weight: bold; font-size: 0.7rem; }
-    </style>
-</head>
-<body>
-    <div class="bg-roses" id="rosesBg"></div>
-
-    <header>
-        <div class="brand-container">
-            <img src="https://i.ibb.co/B2KW28r4/IMG-4055.jpg" alt="Logo" class="brand-logo">
-            <h1 class="logo-text">BY.<span>LINOUSH</span></h1>
-        </div>
-        <nav class="nav-links">
-            <a href="#roses">Compositions</a>
-            <a href="#catalogue">Catalogue</a>
-            <a href="#commander">Commander</a>
-        </nav>
-    </header>
-
-    <div id="thankYouModal">
-        <div class="modal-content">
-            <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 10px;">Récapitulatif Envoyé</h2>
-            <p style="font-size: 0.8rem;">Votre commande a été envoyée par mail. Copiez ce texte pour le coller sur PayPal :</p>
-            <div class="copy-box" id="orderSummaryText"></div>
-            <button onclick="redirectToPayPal()" class="btn-submit btn-total" style="width: 100%;">Aller sur PayPal</button>
-        </div>
-    </div>
-
-    <div class="container" id="roses">
-        <h2 class="section-label" data-aos="fade-up">✨ Nos Roses Artisanales ✨</h2>
-        <div class="price-grid">
-            <div class="price-card" data-aos="fade-up"><div class="qty">13 roses</div><div class="amount">25€</div></div>
-            <div class="price-card" data-aos="fade-up" data-aos-delay="100"><div class="qty">18 roses</div><div class="amount">35€</div></div>
-            <div class="price-card" data-aos="fade-up" data-aos-delay="200"><div class="qty">30 roses</div><div class="amount">59€</div></div>
-            <div class="price-card" data-aos="fade-up" data-aos-delay="300"><div class="qty">50 roses</div><div class="amount">99€</div></div>
-            <div class="price-card" data-aos="zoom-in" style="border-color: var(--gold);"><div class="qty">101 roses</div><div class="amount">225€</div><small>3 DÉCOS OFFERTES</small></div>
-        </div>
-    </div>
-
-    <section class="custom-section" id="catalogue">
-        <div class="deco-grid">
-            <div class="deco-cat" data-aos="fade-up">
-                <h3>🌹 Roses Éternelles</h3>
-                <div class="deco-item"><span>Rose sous cloche</span><div class="dots"></div><span>20€</span></div>
-                <div class="deco-item"><span>Perso (Prénom)</span><div class="dots"></div><span>25€</span></div>
-            </div>
-            <div class="deco-cat" data-aos="fade-up">
-                <h3>💎 Collection Bijoux</h3>
-                <div class="deco-item"><span>Rose boîte à bijoux + bague</span><div class="dots"></div><span>20€</span></div>
-                <div class="deco-item"><span>Box bijoux (Bracelet)</span><div class="dots"></div><span>10€</span></div>
-                <div class="deco-item"><span>Option Perso Box</span><div class="dots"></div><span>+5€</span></div>
-            </div>
-            <div class="deco-cat sold-out" data-aos="fade-up">
-                <h3>🌙 Univers Prière <span class="sold-out-badge">RUPTURE</span></h3>
-                <div class="deco-item"><span>Tapis Perso</span><div class="dots"></div><span>16€</span></div>
-                <div class="deco-item"><span>Coffret S / M</span><div class="dots"></div><span>40€ / 46€</span></div>
-                <div class="deco-item"><span>Coffret L / XL</span><div class="dots"></div><span>48€ / 75€</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="order-container" id="commander">
-        <h2 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 40px; color: var(--gold);">Finalisez votre Commande</h2>
-        <form id="orderForm">
-            <div class="form-group">
-                <label>Vos Coordonnées</label>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                    <input type="text" name="Client" id="clientName" placeholder="Nom Complet" required>
-                    <input type="text" name="Tel" id="clientPhone" placeholder="Téléphone" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Produit Souhaité</label>
-                <select id="mainProduct" name="Produit" onchange="updateFormDisplay()">
-                    <optgroup label="🌹 BOUQUETS">
-                        <option value="Bouquet Roses" data-price="25">Bouquet de Roses Personnalisé</option>
-                    </optgroup>
-                    <optgroup label="🌹 ROSES ÉTERNELLES">
-                        <option value="Rose Eternelle Std" data-price="20">Rose Éternelle Standard (20€)</option>
-                        <option value="Rose Eternelle Perso" data-price="25">Rose Éternelle Personnalisée (25€)</option>
-                    </optgroup>
-                    <optgroup label="💎 COLLECTION BIJOUX">
-                        <option value="Box Rose+Bague" data-price="20">Box Rose + Bague (20€)</option>
-                        <option value="Box Bijoux (Bracelet)" data-price="10">Box Bijoux (Bracelet) (10€)</option>
-                    </optgroup>
-                </select>
-            </div>
-
-            <div id="jewelOptions" class="form-group" style="display:none;">
-                <label>Options Bijoux</label>
-                <label class="check-card">
-                    <input type="checkbox" name="Box_Perso" id="persoBoxJewel" class="extra" value="Perso Box" data-price="5" onchange="calculateTotal()">
-                    Personnalisation de la Box (+5€)
-                </label>
-            </div>
-
-            <div id="eternelleOptions" class="form-group" style="display:none;">
-                <label>Configuration Rose Éternelle</label>
-                <select name="Couleur_Eternelle" id="eternelleColor">
-                    <option value="Rouge">Rouge Classique</option>
-                    <option value="Rose">Rose Doux</option>
-                    <option value="Bleu">Bleu Royal</option>
-                </select>
-                <div id="prenomField" style="margin-top: 15px; display:none;">
-                    <input type="text" name="Prenom_Eternelle" id="eternellePrenom" placeholder="Prénom pour la personnalisation">
-                </div>
-            </div>
-
-            <div id="bouquetDetails" class="form-group">
-                <label>Nombre de Roses</label>
-                <select name="NB_Roses" id="bouquetQty" onchange="calculateTotal()">
-                    <option value="13" data-price="25">13 Roses - 25€</option>
-                    <option value="18" data-price="35">18 Roses - 35€</option>
-                    <option value="30" data-price="59">30 Roses - 59€</option>
-                    <option value="50" data-price="99">50 Roses - 99€</option>
-                    <option value="101" data-price="225">101 Roses - 225€</option>
-                </select>
-            </div>
-
-            <div id="personalizationSection" class="form-group">
-                <label>Personnalisez votre Bouquet (Options)</label>
-                <div class="selection-grid">
-                    <div style="grid-column: span 1;">
-                        <label class="check-card" id="miniStitchLabel">
-                            <input type="checkbox" id="checkMiniStitch" disabled data-value="Mini Stitch">
-                            Mini Stitch <span id="ruptureMiniStitch" style="color: var(--out-of-stock); font-size: 0.6rem; margin-left: 5px;"></span>
-                        </label>
-                    </div>
-
-                    <div style="grid-column: span 1;">
-                        <label class="check-card" id="coeurLabel">
-                            <input type="checkbox" id="checkCoeur" disabled data-value="Coeur Inflammable">
-                            Coeur Inflammable <span id="ruptureCoeur" style="color: var(--out-of-stock); font-size: 0.6rem; margin-left: 5px;"></span>
-                        </label>
-                    </div>
-
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkStitchG" value="Stitch Perso" data-price="20" onchange="togglePersoField('checkStitchG', 'fieldStitchG')">
-                        Stitch Personnalisé (+20€)
-                    </label>
-                    <select id="fieldStitchG" name="Couleur_Stitch_G" class="dynamic-field" onchange="calculateTotal()">
-                        <option value="Bleu">Couleur : Bleu</option>
-                        <option value="Rose">Couleur : Rose</option>
-                    </select>
-
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkGrandDiademe" value="Grand Diadème" data-price="8" onchange="calculateTotal()">
-                        Grand Diadème (+8€)
-                    </label>
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkPetitDiademe" value="Petit Diadème" data-price="4" onchange="calculateTotal()">
-                        Petit Diadème (+4€)
-                    </label>
-
-                    <div style="grid-column: span 1;">
-                        <label class="check-card">
-                            <input type="checkbox" name="Deco" class="extra" id="checkRuban" value="Ruban Perso" data-price="4" onchange="togglePersoField('checkRuban', 'fieldRuban')">
-                            Ruban Perso (+4€)
-                        </label>
-                        <input type="text" id="fieldRuban" name="Texte_Ruban" class="dynamic-field" placeholder="Texte du ruban (Prénom...)">
-                    </div>
-
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkAiguilles" value="Aiguilles" data-price="6" onchange="calculateTotal()">
-                        Aiguilles Cristal (+6€)
-                    </label>
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkPapillons" value="Papillons" data-price="2" onchange="calculateTotal()">
-                        Papillons (+2€)
-                    </label>
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkGypsophile" value="Gypsophile" data-price="5" onchange="calculateTotal()">
-                        Gypsophile (+5€)
-                    </label>
-
-                    <div style="grid-column: span 1;">
-                        <label class="check-card">
-                            <input type="checkbox" name="Deco" class="extra" id="checkLettre" value="Lettre Fleur" data-price="5" onchange="togglePersoField('checkLettre', 'fieldLettre')">
-                            Lettre en fleur (+5€)
-                        </label>
-                        <input type="text" id="fieldLettre" name="Lettre_Choisie" class="dynamic-field" maxlength="1" placeholder="Tapez 1 seule lettre" style="text-transform: uppercase;">
-                    </div>
-
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkBordurePerle" value="Bordure Perle" data-price="4" onchange="calculateTotal()">
-                        Bordure perles (+4€)
-                    </label>
-                    <label class="check-card">
-                        <input type="checkbox" name="Deco" class="extra" id="checkPaillettes" value="Paillettes" data-price="4" onchange="calculateTotal()">
-                        Paillettes (+4€)
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Mode de Réception</label>
-                <select name="Reception" id="deliveryMethod" onchange="calculateTotal()">
-                    <option value="0">Remise en main propre (Lyon) - Gratuit</option>
-                    <option value="10" data-label="Envoi Colissimo">Envoi Colissimo (France) - 10€</option>
-                    <option value="15" data-label="Envoi International">Envoi International - 15€</option>
-                </select>
-            </div>
-
-            <div id="livePricing" class="live-details"></div>
-
-            <div class="price-summary">
-                <div class="total-amount"><span id="fullPriceDisplay">25</span>€</div>
-                <div style="font-size: 0.75rem; margin-top: 10px; color: #aaa;">ACOMPTE CALCULÉ (50%) : <span id="depositDisplay">12.50</span>€</div>
-            </div>
-
-            <div class="btn-group">
-                <button type="button" class="btn-submit btn-acompte" onclick="prepareOrder(true)">Régler l'Acompte (50%)</button>
-                <button type="button" class="btn-submit btn-total" onclick="prepareOrder(false)">Payer le Total (100%)</button>
-            </div>
-        </form>
-    </section>
-
-    <div id="adminPanel">
-        <h3>Admin - Gestion des Stocks</h3>
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-size: 0.8rem;">Code Admin</label>
-            <input type="password" id="adminCode" placeholder="Entrez le code" style="width: 100%; padding: 8px; background: #000; border: 1px solid var(--light-gray); color: #fff;">
-            <button onclick="checkAdminCode()" style="margin-top: 10px; padding: 8px 15px; background: var(--gold); color: #000; border: none; cursor: pointer; width: 100%;">Valider</button>
-        </div>
-        <div id="adminContent" style="display: none;">
-            <h4>Stocks Disponibles</h4>
-
-            <!-- Bouquets -->
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Mini Stitch</label>
-                <select id="stockMiniStitch" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Cœur Inflammable</label>
-                <select id="stockCoeur" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Stitch Personnalisé</label>
-                <select id="stockStitchPerso" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Grand Diadème</label>
-                <select id="stockGrandDiademe" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Petit Diadème</label>
-                <select id="stockPetitDiademe" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Ruban Perso</label>
-                <select id="stockRuban" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Aiguilles Cristal</label>
-                <select id="stockAiguilles" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Papillons</label>
-                <select id="stockPapillons" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Gypsophile</label>
-                <select id="stockGypsophile" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Lettre en fleur</label>
-                <select id="stockLettreFleur" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Bordure perles</label>
-                <select id="stockBordurePerle" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Paillettes</label>
-                <select id="stockPaillettes" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <!-- Univers Prière -->
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; margin-bottom: 5px; font-size: 0.75rem;">Univers Prière</label>
-                <select id="stockPriere" style="width: 100%; padding: 5px;">
-                    <option value="true">Disponible</option>
-                    <option value="false">Rupture</option>
-                </select>
-            </div>
-
-            <button onclick="saveStocks()" style="padding: 8px 15px; background: var(--rose-petal); color: #fff; border: none; cursor: pointer; width: 100%;">Enregistrer</button>
-        </div>
-    </div>
-
-    <button id="adminButton" onclick="toggleAdminPanel()">ADMIN</button>
-
-    <footer>
-        BY.LINOUSH CRÉATION © 2026 | LYON <br>
-        SITE RÉALISÉ PAR <a href="https://www.instagram.com/nexusweb69" target="_blank" class="footer-link">NEXUSWEB</a>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-
-        // Code admin (à personnaliser)
-        const ADMIN_CODE = "LINOUSH2026";
-
-        function toggleAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-            document.getElementById('adminCode').value = "";
-            document.getElementById('adminContent').style.display = "none";
-        }
-
-        function checkAdminCode() {
-            const code = document.getElementById('adminCode').value;
-            if(code === ADMIN_CODE) {
-                document.getElementById('adminContent').style.display = "block";
-                loadStocks();
-            } else {
-                alert("Code incorrect !");
-            }
-        }
-
-        function loadStocks() {
-            // Charger les stocks depuis localStorage ou valeurs par défaut
-            document.getElementById('stockMiniStitch').value = localStorage.getItem('stockMiniStitch') || "true";
-            document.getElementById('stockCoeur').value = localStorage.getItem('stockCoeur') || "true";
-            document.getElementById('stockStitchPerso').value = localStorage.getItem('stockStitchPerso') || "true";
-            document.getElementById('stockGrandDiademe').value = localStorage.getItem('stockGrandDiademe') || "true";
-            document.getElementById('stockPetitDiademe').value = localStorage.getItem('stockPetitDiademe') || "true";
-            document.getElementById('stockRuban').value = localStorage.getItem('stockRuban') || "true";
-            document.getElementById('stockAiguilles').value = localStorage.getItem('stockAiguilles') || "true";
-            document.getElementById('stockPapillons').value = localStorage.getItem('stockPapillons') || "true";
-            document.getElementById('stockGypsophile').value = localStorage.getItem('stockGypsophile') || "true";
-            document.getElementById('stockLettreFleur').value = localStorage.getItem('stockLettreFleur') || "true";
-            document.getElementById('stockBordurePerle').value = localStorage.getItem('stockBordurePerle') || "true";
-            document.getElementById('stockPaillettes').value = localStorage.getItem('stockPaillettes') || "true";
-            document.getElementById('stockPriere').value = localStorage.getItem('stockPriere') || "true";
-
-            // Appliquer les stocks chargés aux éléments du DOM
-            applyStockStates();
-        }
-
-        function saveStocks() {
-            // Sauvegarder les stocks dans localStorage
-            localStorage.setItem('stockMiniStitch', document.getElementById('stockMiniStitch').value);
-            localStorage.setItem('stockCoeur', document.getElementById('stockCoeur').value);
-            localStorage.setItem('stockStitchPerso', document.getElementById('stockStitchPerso').value);
-            localStorage.setItem('stockGrandDiademe', document.getElementById('stockGrandDiademe').value);
-            localStorage.setItem('stockPetitDiademe', document.getElementById('stockPetitDiademe').value);
-            localStorage.setItem('stockRuban', document.getElementById('stockRuban').value);
-            localStorage.setItem('stockAiguilles', document.getElementById('stockAiguilles').value);
-            localStorage.setItem('stockPapillons', document.getElementById('stockPapillons').value);
-            localStorage.setItem('stockGypsophile', document.getElementById('stockGypsophile').value);
-            localStorage.setItem('stockLettreFleur', document.getElementById('stockLettreFleur').value);
-            localStorage.setItem('stockBordurePerle', document.getElementById('stockBordurePerle').value);
-            localStorage.setItem('stockPaillettes', document.getElementById('stockPaillettes').value);
-            localStorage.setItem('stockPriere', document.getElementById('stockPriere').value);
-
-            // Appliquer les changements aux éléments du DOM
-            applyStockStates();
-            alert("Stocks mis à jour et sauvegardés !");
-            toggleAdminPanel();
-        }
-
-        function applyStockStates() {
-            // Mini Stitch
-            const miniStitch = localStorage.getItem('stockMiniStitch') || "true";
-            document.getElementById('miniStitchLabel').style.opacity = miniStitch === "true" ? "1" : "0.5";
-            document.getElementById('checkMiniStitch').disabled = miniStitch === "false";
-            document.getElementById('ruptureMiniStitch').textContent = miniStitch === "false" ? "(RUPTURE)" : "";
-
-            // Cœur Inflammable
-            const coeur = localStorage.getItem('stockCoeur') || "true";
-            document.getElementById('coeurLabel').style.opacity = coeur === "true" ? "1" : "0.5";
-            document.getElementById('checkCoeur').disabled = coeur === "false";
-            document.getElementById('ruptureCoeur').textContent = coeur === "false" ? "(RUPTURE)" : "";
-
-            // Stitch Personnalisé
-            const stitchPerso = localStorage.getItem('stockStitchPerso') || "true";
-            const stitchPersoLabel = document.querySelector('label[for="checkStitchG"]');
-            stitchPersoLabel.style.opacity = stitchPerso === "true" ? "1" : "0.5";
-            document.getElementById('checkStitchG').disabled = stitchPerso === "false";
-
-            // Grand Diadème
-            const grandDiademe = localStorage.getItem('stockGrandDiademe') || "true";
-            const grandDiademeLabel = document.querySelector('label[for="checkGrandDiademe"]');
-            grandDiademeLabel.style.opacity = grandDiademe === "true" ? "1" : "0.5";
-            document.getElementById('checkGrandDiademe').disabled = grandDiademe === "false";
-
-            // Petit Diadème
-            const petitDiademe = localStorage.getItem('stockPetitDiademe') || "true";
-            const petitDiademeLabel = document.querySelector('label[for="checkPetitDiademe"]');
-            petitDiademeLabel.style.opacity = petitDiademe === "true" ? "1" : "0.5";
-            document.getElementById('checkPetitDiademe').disabled = petitDiademe === "false";
-
-            // Ruban Perso
-            const ruban = localStorage.getItem('stockRuban') || "true";
-            const rubanLabel = document.querySelector('label[for="checkRuban"]');
-            rubanLabel.style.opacity = ruban === "true" ? "1" : "0.5";
-            document.getElementById('checkRuban').disabled = ruban === "false";
-
-            // Aiguilles Cristal
-            const aiguilles = localStorage.getItem('stockAiguilles') || "true";
-            const aiguillesLabel = document.querySelector('label[for="checkAiguilles"]');
-            aiguillesLabel.style.opacity = aiguilles === "true" ? "1" : "0.5";
-            document.getElementById('checkAiguilles').disabled = aiguilles === "false";
-
-            // Papillons
-            const papillons = localStorage.getItem('stockPapillons') || "true";
-            const papillonsLabel = document.querySelector('label[for="checkPapillons"]');
-            papillonsLabel.style.opacity = papillons === "true" ? "1" : "0.5";
-            document.getElementById('checkPapillons').disabled = papillons === "false";
-
-            // Gypsophile
-            const gypsophile = localStorage.getItem('stockGypsophile') || "true";
-            const gypsophileLabel = document.querySelector('label[for="checkGypsophile"]');
-            gypsophileLabel.style.opacity = gypsophile === "true" ? "1" : "0.5";
-            document.getElementById('checkGypsophile').disabled = gypsophile === "false";
-
-            // Lettre en fleur
-            const lettreFleur = localStorage.getItem('stockLettreFleur') || "true";
-            const lettreFleurLabel = document.querySelector('label[for="checkLettre"]');
-            lettreFleurLabel.style.opacity = lettreFleur === "true" ? "1" : "0.5";
-            document.getElementById('checkLettre').disabled = lettreFleur === "false";
-
-            // Bordure perles
-            const bordurePerle = localStorage.getItem('stockBordurePerle') || "true";
-            const bordurePerleLabel = document.querySelector('label[for="checkBordurePerle"]');
-            bordurePerleLabel.style.opacity = bordurePerle === "true" ? "1" : "0.5";
-            document.getElementById('checkBordurePerle').disabled = bordurePerle === "false";
-
-            // Paillettes
-            const paillettes = localStorage.getItem('stockPaillettes') || "true";
-            const paillettesLabel = document.querySelector('label[for="checkPaillettes"]');
-            paillettesLabel.style.opacity = paillettes === "true" ? "1" : "0.5";
-            document.getElementById('checkPaillettes').disabled = paillettes === "false";
-
-            // Univers Prière
-            const priere = localStorage.getItem('stockPriere') || "true";
-            const priereCat = document.querySelector('.deco-cat.sold-out');
-            if(priereCat) {
-                if(priere === "true") {
-                    priereCat.classList.remove('sold-out');
-                    priereCat.querySelector('.sold-out-badge').style.display = "none";
-                } else {
-                    priereCat.classList.add('sold-out');
-                    priereCat.querySelector('.sold-out-badge').style.display = "inline";
-                }
-            }
-        }
-
-        function togglePersoField(checkId, fieldId) {
-            const checkbox = document.getElementById(checkId);
-            const field = document.getElementById(fieldId);
-            field.style.display = checkbox.checked ? "block" : "none";
-            if(!checkbox.checked) field.value = "";
-            calculateTotal();
-        }
-
-        function updateFormDisplay() {
-            const product = document.getElementById('mainProduct').value;
-            document.getElementById('bouquetDetails').style.display = (product === 'Bouquet Roses') ? 'block' : 'none';
-            document.getElementById('personalizationSection').style.display = (product === 'Bouquet Roses') ? 'block' : 'none';
-            document.getElementById('eternelleOptions').style.display = product.startsWith('Rose Eternelle') ? 'block' : 'none';
-            document.getElementById('prenomField').style.display = (product === 'Rose Eternelle Perso') ? 'block' : 'none';
-            document.getElementById('jewelOptions').style.display = (product.startsWith('Box')) ? 'block' : 'none';
-            calculateTotal();
-        }
-
-        function calculateTotal() {
-            const productSelect = document.getElementById('mainProduct');
-            const livePricing = document.getElementById('livePricing');
-            livePricing.innerHTML = "";
-
-            let total = 0;
-            let productPrice = 0;
-            let productName = "";
-
-            if(productSelect.value === 'Bouquet Roses') {
-                const opt = document.getElementById('bouquetQty').options[document.getElementById('bouquetQty').selectedIndex];
-                productPrice = parseInt(opt.getAttribute('data-price'));
-                productName = `Bouquet (${opt.value} roses)`;
-            } else {
-                productPrice = parseInt(productSelect.options[productSelect.selectedIndex].getAttribute('data-price'));
-                productName = productSelect.options[productSelect.selectedIndex].text.split('(')[0];
-            }
-            total += productPrice;
-            livePricing.innerHTML += `<div><span>${productName}</span><span>${productPrice}€</span></div>`;
-
-            document.querySelectorAll('.extra:checked').forEach(item => {
-                let p = parseInt(item.getAttribute('data-price'));
-                total += p;
-                let label = item.value;
-                if(item.id === 'checkStitchG') label += ` (${document.getElementById('fieldStitchG').value})`;
-                livePricing.innerHTML += `<div><span>+ ${label}</span><span>${p}€</span></div>`;
-            });
-
-            const delivery = document.getElementById('deliveryMethod');
-            const delPrice = parseInt(delivery.value);
-            if(delPrice > 0) {
-                total += delPrice;
-                const delLabel = delivery.options[delivery.selectedIndex].getAttribute('data-label') || "Livraison";
-                livePricing.innerHTML += `<div><span>+ ${delLabel}</span><span>${delPrice}€</span></div>`;
-            }
-
-            document.getElementById('fullPriceDisplay').innerText = total;
-            document.getElementById('depositDisplay').innerText = (total / 2).toFixed(2);
-            return total;
-        }
-
-        let currentPayPalURL = "";
-
-        async function prepareOrder(isDeposit) {
-            const name = document.getElementById('clientName').value;
-            const phone = document.getElementById('clientPhone').value;
-            if(!name || !phone) { alert("Nom et téléphone requis."); return; }
-
-            const total = calculateTotal();
-            const amount = isDeposit ? (total / 2) : total;
-            const type = isDeposit ? "ACOMPTE 50%" : "PAYÉ 100%";
-
-            const product = document.getElementById('mainProduct').value;
-            let qty = (product === 'Bouquet Roses') ? document.getElementById('bouquetQty').value + " roses" : "";
-            let extras = [];
-            document.querySelectorAll('.extra:checked').forEach(e => {
-                let val = e.value;
-                if(e.id === 'checkStitchG') val += ` (${document.getElementById('fieldStitchG').value})`;
-                extras.push(val);
-            });
-
-            let recap = `📌 ${type}\n👤 Client: ${name}\n📞 Tél: ${phone}\n🎁 Produit: ${product} ${qty}`;
-            if(extras.length > 0) recap += `\n✨ Décos: ${extras.join(', ')}`;
-            if(document.getElementById('checkRuban').checked) recap += `\n🎗️ Ruban: ${document.getElementById('fieldRuban').value}`;
-            if(document.getElementById('checkLettre').checked) recap += `\n🔡 Lettre: ${document.getElementById('fieldLettre').value.toUpperCase()}`;
-            if(product === 'Rose Eternelle Perso') recap += `\n✍️ Prénom Rose: ${document.getElementById('eternellePrenom').value}`;
-            recap += `\n💰 Montant: ${amount.toFixed(2)}€`;
-
-            const formData = new FormData(document.getElementById('orderForm'));
-            formData.append("Recapitulatif_Complet", recap);
-
-            fetch("https://formspree.io/f/mlgwjnbq", {
-                method: "POST",
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            document.getElementById('orderSummaryText').innerText = recap;
-            currentPayPalURL = `https://www.paypal.com/paypalme/cherifilina/${amount.toFixed(2)}`;
-            navigator.clipboard.writeText(recap);
-            document.getElementById('thankYouModal').style.display = 'flex';
-        }
-
-        function redirectToPayPal() { window.location.href = currentPayPalURL; }
-
-        const bg = document.getElementById('rosesBg');
-        for (let i = 0; i < 20; i++) {
-            const p = document.createElement('div');
-            p.className = 'petal';
-            p.style.width = p.style.height = Math.random() * 15 + 10 + 'px';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.animationDuration = Math.random() * 7 + 8 + 's';
-            bg.appendChild(p);
-        }
-
-        // Charger les stocks au démarrage
-        window.onload = function() {
-            applyStockStates();
-        };
-    </script>
-</body>
-</html>
+import discord
+from discord.ext import commands
+from datetime import datetime, timedelta
+from collections import defaultdict
+import asyncio
+import random
+import json
+import os
+import re
+
+# ═══════════════════════════════════════════════════════════════
+
+# CONFIGURATION
+
+# ═══════════════════════════════════════════════════════════════
+
+TOKEN  = “TON_TOKEN_ICI”
+PREFIX = “+”
+
+# ═══════════════════════════════════════════════════════════════
+
+# INTENTS & BOT
+
+# ═══════════════════════════════════════════════════════════════
+
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix=PREFIX, intents=intents, help_command=None)
+
+# ═══════════════════════════════════════════════════════════════
+
+# BASE DE DONNÉES (JSON)
+
+# ═══════════════════════════════════════════════════════════════
+
+DATA_DIR = “data”
+os.makedirs(DATA_DIR, exist_ok=True)
+
+def _path(filename):
+return os.path.join(DATA_DIR, filename)
+
+def db_load(filename):
+path = _path(filename)
+if os.path.exists(path):
+with open(path, “r”, encoding=“utf-8”) as f:
+return json.load(f)
+return {}
+
+def db_save(filename, data):
+with open(_path(filename), “w”, encoding=“utf-8”) as f:
+json.dump(data, f, indent=2, ensure_ascii=False)
+
+def get_guild(filename, guild_id):
+return db_load(filename).get(str(guild_id), {})
+
+def set_guild(filename, guild_id, guild_data):
+data = db_load(filename)
+data[str(guild_id)] = guild_data
+db_save(filename, data)
+
+def get_member(filename, guild_id, member_id):
+return db_load(filename).get(str(guild_id), {}).get(str(member_id), {})
+
+def set_member(filename, guild_id, member_id, member_data):
+data = db_load(filename)
+data.setdefault(str(guild_id), {})[str(member_id)] = member_data
+db_save(filename, data)
+
+# ═══════════════════════════════════════════════════════════════
+
+# UTILITAIRES
+
+# ═══════════════════════════════════════════════════════════════
+
+def parse_duration(s):
+“”“Convertit ‘10m’, ‘2h’, ‘1d’ en timedelta.”””
+units = {“s”: 1, “m”: 60, “h”: 3600, “d”: 86400}
+match = re.fullmatch(r”(\d+)([smhd])”, s.lower())
+if not match:
+return None
+return timedelta(seconds=int(match[1]) * units[match[2]])
+
+# Caches en mémoire
+
+spam_cache  = defaultdict(lambda: defaultdict(list))  # {guild_id: {user_id: [timestamps]}}
+join_cache  = defaultdict(list)                        # {guild_id: [timestamps]}
+snipe_cache = {}                                       # {channel_id: message}
+
+# ═══════════════════════════════════════════════════════════════
+
+# HELPERS INTERNES
+
+# ═══════════════════════════════════════════════════════════════
+
+async def send_log(guild, log_type, embed):
+config = get_guild(“logs.json”, guild.id)
+channel_id = config.get(log_type)
+if not channel_id:
+return
+channel = guild.get_channel(int(channel_id))
+if channel:
+await channel.send(embed=embed)
+
+async def add_sanction(guild_id, member_id, sanction_type, reason, mod_id):
+sanctions = get_member(“sanctions.json”, guild_id, member_id)
+sanctions.setdefault(“list”, []).append({
+“type”: sanction_type, “reason”: reason,
+“mod”: str(mod_id), “date”: datetime.utcnow().isoformat()
+})
+set_member(“sanctions.json”, guild_id, member_id, sanctions)
+
+async def log_mod_action(guild, action, member, mod, reason=“Aucune”):
+colors = {“warn”: 0xffd700, “mute”: 0xff8c00, “kick”: 0xff4500,
+“ban”: 0xff0000, “unban”: 0x00ff00, “unmute”: 0x00bfff}
+embed = discord.Embed(title=f”🔨 {action.upper()}”, color=colors.get(action, 0x888888), timestamp=datetime.utcnow())
+embed.add_field(name=“Membre”,     value=f”{member} (`{member.id}`)”, inline=True)
+embed.add_field(name=“Modérateur”, value=str(mod),                    inline=True)
+embed.add_field(name=“Raison”,     value=reason,                      inline=False)
+await send_log(guild, “modlog”, embed)
+
+async def get_or_create_mute_role(guild):
+config = get_guild(“modconfig.json”, guild.id)
+rid    = config.get(“muterole”)
+role   = guild.get_role(int(rid)) if rid else None
+if not role:
+role = discord.utils.get(guild.roles, name=“Muted”)
+if not role:
+role = await guild.create_role(name=“Muted”)
+for channel in guild.channels:
+try:
+await channel.set_permissions(role, send_messages=False, speak=False, add_reactions=False)
+except:
+pass
+return role
+
+async def punish_antiraid(guild, member, punish_type, reason):
+try:
+if punish_type == “kick”:
+await member.kick(reason=reason)
+elif punish_type == “ban”:
+await member.ban(reason=reason)
+elif punish_type == “mute”:
+role = await get_or_create_mute_role(guild)
+await member.add_roles(role, reason=reason)
+await add_sanction(guild.id, member.id, punish_type, reason, “AutoMod”)
+except:
+pass
+
+# ═══════════════════════════════════════════════════════════════
+
+# ÉVÉNEMENTS
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.event
+async def on_ready():
+print(f”🐦‍⬛ CrowBot connecté : {bot.user}”)
+print(f”   Préfixe : {PREFIX}  |  Serveurs : {len(bot.guilds)}”)
+await bot.change_presence(
+activity=discord.Activity(type=discord.ActivityType.watching, name=“votre serveur 👁️”)
+)
+
+@bot.event
+async def on_message(message):
+if message.author.bot or not message.guild:
+await bot.process_commands(message)
+return
+
+```
+config = get_guild("antiraid.json", message.guild.id)
+wl     = config.get("whitelist", [])
+
+if str(message.author.id) not in wl:
+    # ── Antispam ──────────────────────────────────────────
+    if config.get("antispam"):
+        limit  = config.get("antispam_limit",  5)
+        window = config.get("antispam_window", 5)
+        now    = datetime.utcnow().timestamp()
+        cache  = spam_cache[message.guild.id][message.author.id]
+        cache.append(now)
+        spam_cache[message.guild.id][message.author.id] = [t for t in cache if now - t < window]
+        if len(spam_cache[message.guild.id][message.author.id]) >= limit:
+            spam_cache[message.guild.id][message.author.id] = []
+            await punish_antiraid(message.guild, message.author, config.get("punish_antispam", "mute"), "Spam détecté")
+            e = discord.Embed(title="🛡️ Antiraid", description=f"🔇 {message.author.mention} sanctionné pour spam.", color=0xff4500, timestamp=datetime.utcnow())
+            await send_log(message.guild, "raidlog", e)
+
+    # ── Antilink ──────────────────────────────────────────
+    if config.get("antilink"):
+        mode = config.get("antilink_mode", "all")
+        c    = message.content.lower()
+        has_inv = "discord.gg/" in c or "discord.com/invite/" in c
+        has_lnk = "http://" in c or "https://" in c
+        if (mode == "invite" and has_inv) or (mode == "all" and (has_inv or has_lnk)):
+            try:
+                await message.delete()
+            except:
+                pass
+            await punish_antiraid(message.guild, message.author, config.get("punish_antilink", "warn"), "Lien interdit")
+            e = discord.Embed(title="🛡️ Antiraid", description=f"🔗 {message.author.mention} : lien supprimé.", color=0xff4500, timestamp=datetime.utcnow())
+            await send_log(message.guild, "raidlog", e)
+
+    # ── Badwords ──────────────────────────────────────────
+    if config.get("badwords"):
+        words = config.get("badwords_list", [])
+        if any(w in message.content.lower() for w in words):
+            try:
+                await message.delete()
+            except:
+                pass
+            e = discord.Embed(title="🛡️ Antiraid", description=f"🤬 {message.author.mention} : mot interdit.", color=0xff4500, timestamp=datetime.utcnow())
+            await send_log(message.guild, "raidlog", e)
+
+    # ── Antimassmention ───────────────────────────────────
+    if config.get("antimassmention") and len(message.mentions) >= config.get("antimassmention_limit", 5):
+        try:
+            await message.delete()
+        except:
+            pass
+        await punish_antiraid(message.guild, message.author, config.get("punish_antimassmention", "mute"), "Spam de mentions")
+        e = discord.Embed(title="🛡️ Antiraid", description=f"📢 {message.author.mention} : spam de mentions.", color=0xff4500, timestamp=datetime.utcnow())
+        await send_log(message.guild, "raidlog", e)
+
+# ── Commandes custom ──────────────────────────────────────
+customs = get_guild("customs.json", message.guild.id)
+keyword = message.content.lstrip(PREFIX).strip().lower()
+if message.content.startswith(PREFIX) and keyword in customs:
+    await message.channel.send(customs[keyword])
+    return
+
+await bot.process_commands(message)
+```
+
+@bot.event
+async def on_message_delete(message):
+if message.author.bot or not message.guild:
+return
+snipe_cache[message.channel.id] = message
+e = discord.Embed(title=“🗑️ Message supprimé”, color=0xff4500, timestamp=datetime.utcnow())
+e.add_field(name=“Auteur”,  value=str(message.author),                    inline=True)
+e.add_field(name=“Salon”,   value=message.channel.mention,                inline=True)
+e.add_field(name=“Contenu”, value=message.content[:1024] or “*[vide]*”,   inline=False)
+await send_log(message.guild, “messagelog”, e)
+
+@bot.event
+async def on_message_edit(before, after):
+if before.author.bot or not before.guild or before.content == after.content:
+return
+e = discord.Embed(title=“✏️ Message modifié”, color=0xffd700, timestamp=datetime.utcnow())
+e.add_field(name=“Auteur”, value=str(before.author),            inline=True)
+e.add_field(name=“Salon”,  value=before.channel.mention,        inline=True)
+e.add_field(name=“Avant”,  value=before.content[:1024] or “*vide*”, inline=False)
+e.add_field(name=“Après”,  value=after.content[:1024]  or “*vide*”, inline=False)
+await send_log(before.guild, “messagelog”, e)
+
+@bot.event
+async def on_voice_state_update(member, before, after):
+e = discord.Embed(color=0x1a0a2e, timestamp=datetime.utcnow())
+if   before.channel is None and after.channel:
+e.title = “🔊 Connexion vocale”
+e.add_field(name=“Membre”, value=str(member))
+e.add_field(name=“Salon”,  value=after.channel.name)
+elif before.channel and after.channel is None:
+e.title = “🔇 Déconnexion vocale”
+e.add_field(name=“Membre”, value=str(member))
+e.add_field(name=“Salon”,  value=before.channel.name)
+elif before.channel and after.channel and before.channel != after.channel:
+e.title = “🔀 Changement vocal”
+e.add_field(name=“Membre”, value=str(member))
+e.add_field(name=“De”,     value=before.channel.name)
+e.add_field(name=“Vers”,   value=after.channel.name)
+else:
+return
+await send_log(member.guild, “voicelog”, e)
+
+@bot.event
+async def on_member_update(before, after):
+if before.roles != after.roles:
+added   = [r for r in after.roles  if r not in before.roles]
+removed = [r for r in before.roles if r not in after.roles]
+e = discord.Embed(title=“🎭 Rôles mis à jour”, color=0x7289da, timestamp=datetime.utcnow())
+e.add_field(name=“Membre”, value=str(before))
+if added:   e.add_field(name=“➕ Ajoutés”,  value=”, “.join(r.mention for r in added))
+if removed: e.add_field(name=“➖ Retirés”, value=”, “.join(r.mention for r in removed))
+await send_log(before.guild, “rolelog”, e)
+if before.premium_since is None and after.premium_since is not None:
+e = discord.Embed(title=“💎 Nouveau boost !”, color=0xff73fa, timestamp=datetime.utcnow())
+e.add_field(name=“Membre”, value=str(after))
+e.set_thumbnail(url=after.display_avatar.url)
+await send_log(before.guild, “boostlog”, e)
+
+@bot.event
+async def on_member_join(member):
+e = discord.Embed(title=“📥 Membre rejoint”, color=0x00ff00, timestamp=datetime.utcnow())
+e.add_field(name=“Membre”,      value=f”{member} (`{member.id}`)”)
+e.add_field(name=“Compte créé”, value=member.created_at.strftime(”%d/%m/%Y”))
+e.set_thumbnail(url=member.display_avatar.url)
+await send_log(member.guild, “modlog”, e)
+# Antitoken
+config = get_guild(“antiraid.json”, member.guild.id)
+if config.get(“antitoken”):
+limit  = config.get(“antitoken_limit”,  10)
+window = config.get(“antitoken_window”, 10)
+now    = datetime.utcnow().timestamp()
+join_cache[member.guild.id].append(now)
+join_cache[member.guild.id] = [t for t in join_cache[member.guild.id] if now - t < window]
+if len(join_cache[member.guild.id]) >= limit:
+for ch in member.guild.text_channels:
+try:
+await ch.set_permissions(member.guild.default_role, send_messages=False)
+except:
+pass
+raid_e = discord.Embed(title=“🚨 RAID DÉTECTÉ”, description=f”{limit} membres ont rejoint en {window}s — serveur verrouillé !”, color=0xff0000, timestamp=datetime.utcnow())
+await send_log(member.guild, “raidlog”, raid_e)
+# Création limit
+cl = config.get(“creation_limit”)
+if cl:
+age = (datetime.utcnow() - member.created_at.replace(tzinfo=None)).total_seconds()
+if age < cl:
+await member.kick(reason=“Compte trop récent (antiraid)”)
+
+@bot.event
+async def on_member_remove(member):
+e = discord.Embed(title=“📤 Membre parti”, color=0xff0000, timestamp=datetime.utcnow())
+e.add_field(name=“Membre”, value=f”{member} (`{member.id}`)”)
+e.set_thumbnail(url=member.display_avatar.url)
+await send_log(member.guild, “modlog”, e)
+
+@bot.event
+async def on_raw_reaction_add(payload):
+if not payload.guild_id:
+return
+data   = get_guild(“rolemenus.json”, payload.guild_id)
+menu   = data.get(str(payload.message_id))
+if not menu:
+return
+guild  = bot.get_guild(payload.guild_id)
+member = guild.get_member(payload.user_id) if guild else None
+if not member or member.bot:
+return
+for role_id, emoji in menu.items():
+if emoji == str(payload.emoji):
+role = guild.get_role(int(role_id))
+if role:
+await member.add_roles(role)
+break
+
+@bot.event
+async def on_raw_reaction_remove(payload):
+if not payload.guild_id:
+return
+data   = get_guild(“rolemenus.json”, payload.guild_id)
+menu   = data.get(str(payload.message_id))
+if not menu:
+return
+guild  = bot.get_guild(payload.guild_id)
+member = guild.get_member(payload.user_id) if guild else None
+if not member:
+return
+for role_id, emoji in menu.items():
+if emoji == str(payload.emoji):
+role = guild.get_role(int(role_id))
+if role:
+await member.remove_roles(role)
+break
+
+# ═══════════════════════════════════════════════════════════════
+
+# AIDE
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.command(name=“help”)
+async def help_cmd(ctx):
+embed = discord.Embed(title=“🐦‍⬛ CrowBot — Aide”, color=0x1a0a2e)
+embed.add_field(name=“🔨 Modération”,  value=”`+warn` `+mute` `+tempmute` `+unmute` `+kick` `+ban` `+tempban` `+unban` `+clear` `+sanctions` `+lock` `+unlock` `+addrole` `+delrole` `+derank`”, inline=False)
+embed.add_field(name=“📋 Logs”,        value=”`+modlog` `+messagelog` `+voicelog` `+rolelog` `+boostlog` `+raidlog` `+autoconfiglog` `+settings` `+snipe`”, inline=False)
+embed.add_field(name=“🛡️ Antiraid”,    value=”`+antispam` `+antilink` `+antimassmention` `+antitoken` `+badwords` `+wl` `+unwl` `+secur` `+creation_limit`”, inline=False)
+embed.add_field(name=“⚙️ Gestion”,     value=”`+giveaway` `+reroll` `+embed` `+ticket` `+close` `+rolemenu` `+reminder` `+custom` `+customlist` `+massiverole` `+temprole`”, inline=False)
+embed.add_field(name=“🔍 Utilitaire”,  value=”`+serverinfo` `+user` `+role` `+pic` `+boosters` `+allbots` `+alladmins` `+vocinfo` `+say` `+perms`”, inline=False)
+embed.set_footer(text=“CrowBot • Préfixe actuel : +”)
+await ctx.send(embed=embed)
+
+# ═══════════════════════════════════════════════════════════════
+
+# MODÉRATION
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.command(name=“warn”)
+@commands.has_permissions(manage_messages=True)
+async def warn(ctx, member: discord.Member, *, reason=“Aucune raison”):
+await add_sanction(ctx.guild.id, member.id, “warn”, reason, ctx.author.id)
+count = len(get_member(“sanctions.json”, ctx.guild.id, member.id).get(“list”, []))
+embed = discord.Embed(title=“⚠️ Avertissement”, color=0xffd700)
+embed.add_field(name=“Membre”,      value=str(member))
+embed.add_field(name=“Raison”,      value=reason)
+embed.add_field(name=“Total warns”, value=str(count))
+await ctx.send(embed=embed)
+await log_mod_action(ctx.guild, “warn”, member, ctx.author, reason)
+try:
+await member.send(f”⚠️ Tu as reçu un avertissement sur **{ctx.guild.name}**.\nRaison : {reason}”)
+except:
+pass
+
+@bot.command(name=“mute”)
+@commands.has_permissions(manage_roles=True)
+async def mute(ctx, member: discord.Member, *, reason=“Aucune raison”):
+role = await get_or_create_mute_role(ctx.guild)
+await member.add_roles(role, reason=reason)
+await add_sanction(ctx.guild.id, member.id, “mute”, reason, ctx.author.id)
+embed = discord.Embed(title=“🔇 Mute”, color=0xff8c00)
+embed.add_field(name=“Membre”, value=str(member))
+embed.add_field(name=“Raison”, value=reason)
+await ctx.send(embed=embed)
+await log_mod_action(ctx.guild, “mute”, member, ctx.author, reason)
+
+@bot.command(name=“tempmute”)
+@commands.has_permissions(manage_roles=True)
+async def tempmute(ctx, member: discord.Member, duration: str, *, reason=“Aucune raison”):
+delta = parse_duration(duration)
+if not delta:
+return await ctx.send(“❌ Durée invalide. Exemple : `10m`, `2h`, `1d`”)
+role = await get_or_create_mute_role(ctx.guild)
+await member.add_roles(role, reason=reason)
+await add_sanction(ctx.guild.id, member.id, “tempmute”, f”{duration} — {reason}”, ctx.author.id)
+embed = discord.Embed(title=“🔇 Mute temporaire”, color=0xff8c00)
+embed.add_field(name=“Membre”, value=str(member))
+embed.add_field(name=“Durée”,  value=duration)
+embed.add_field(name=“Raison”, value=reason)
+await ctx.send(embed=embed)
+await log_mod_action(ctx.guild, “mute”, member, ctx.author, f”{duration} — {reason}”)
+await asyncio.sleep(delta.total_seconds())
+if role in member.roles:
+await member.remove_roles(role, reason=“Fin du mute temporaire”)
+
+@bot.command(name=“unmute”)
+@commands.has_permissions(manage_roles=True)
+async def unmute(ctx, member: discord.Member):
+config = get_guild(“modconfig.json”, ctx.guild.id)
+rid    = config.get(“muterole”)
+role   = ctx.guild.get_role(int(rid)) if rid else discord.utils.get(ctx.guild.roles, name=“Muted”)
+if role and role in member.roles:
+await member.remove_roles(role)
+await ctx.send(f”🔊 **{member}** a été unmute.”)
+await log_mod_action(ctx.guild, “unmute”, member, ctx.author)
+else:
+await ctx.send(“❌ Ce membre n’est pas mute.”)
+
+@bot.command(name=“kick”)
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason=“Aucune raison”):
+await add_sanction(ctx.guild.id, member.id, “kick”, reason, ctx.author.id)
+try:
+await member.send(f”👢 Tu as été expulsé de **{ctx.guild.name}**.\nRaison : {reason}”)
+except:
+pass
+await member.kick(reason=reason)
+embed = discord.Embed(title=“👢 Kick”, color=0xff4500)
+embed.add_field(name=“Membre”, value=str(member))
+embed.add_field(name=“Raison”, value=reason)
+await ctx.send(embed=embed)
+await log_mod_action(ctx.guild, “kick”, member, ctx.author, reason)
+
+@bot.command(name=“ban”)
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, member: discord.Member, *, reason=“Aucune raison”):
+await add_sanction(ctx.guild.id, member.id, “ban”, reason, ctx.author.id)
+try:
+await member.send(f”🔨 Tu as été banni de **{ctx.guild.name}**.\nRaison : {reason}”)
+except:
+pass
+await member.ban(reason=reason)
+embed = discord.Embed(title=“🔨 Ban”, color=0xff0000)
+embed.add_field(name=“Membre”, value=str(member))
+embed.add_field(name=“Raison”, value=reason)
+await ctx.send(embed=embed)
+await log_mod_action(ctx.guild, “ban”, member, ctx.author, reason)
+
+@bot.command(name=“tempban”)
+@commands.has_permissions(ban_members=True)
+async def tempban(ctx, member: discord.Member, duration: str, *, reason=“Aucune raison”):
+delta = parse_duration(duration)
+if not delta:
+return await ctx.send(“❌ Durée invalide. Exemple : `10m`, `2h`, `1d`”)
+await add_sanction(ctx.guild.id, member.id, “tempban”, f”{duration} — {reason}”, ctx.author.id)
+try:
+await member.send(f”🔨 Tu as été banni temporairement ({duration}) de **{ctx.guild.name}**.\nRaison : {reason}”)
+except:
+pass
+await member.ban(reason=reason)
+embed = discord.Embed(title=“🔨 Ban temporaire”, color=0xff0000)
+embed.add_field(name=“Membre”, value=str(member))
+embed.add_field(name=“Durée”,  value=duration)
+embed.add_field(name=“Raison”, value=reason)
+await ctx.send(embed=embed)
+await log_mod_action(ctx.guild, “ban”, member, ctx.author, f”{duration} — {reason}”)
+await asyncio.sleep(delta.total_seconds())
+await ctx.guild.unban(member, reason=“Fin du ban temporaire”)
+
+@bot.command(name=“unban”)
+@commands.has_permissions(ban_members=True)
+async def unban(ctx, *, member_str: str):
+bans   = [b async for b in ctx.guild.bans()]
+target = next((b.user for b in bans if str(b.user.id) == member_str or str(b.user) == member_str), None)
+if not target:
+return await ctx.send(“❌ Membre introuvable dans les bans.”)
+await ctx.guild.unban(target)
+embed = discord.Embed(title=“✅ Unban”, color=0x00ff00)
+embed.add_field(name=“Membre”, value=str(target))
+await ctx.send(embed=embed)
+
+@bot.command(name=“banlist”)
+@commands.has_permissions(ban_members=True)
+async def banlist(ctx):
+bans = [b async for b in ctx.guild.bans()]
+if not bans:
+return await ctx.send(“✅ Aucun membre banni.”)
+desc  = “\n”.join(f”• {b.user} (`{b.user.id}`) — {b.reason or ‘Aucune raison’}” for b in bans[:20])
+embed = discord.Embed(title=f”🔨 Bans ({len(bans)})”, description=desc, color=0xff0000)
+await ctx.send(embed=embed)
+
+@bot.command(name=“clear”)
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount: int = 10, member: discord.Member = None):
+check   = (lambda m: member is None or m.author == member)
+deleted = await ctx.channel.purge(limit=amount, check=check)
+msg     = await ctx.send(f”🗑️ **{len(deleted)}** message(s) supprimé(s).”)
+await asyncio.sleep(3)
+await msg.delete()
+
+@bot.command(name=“sanctions”)
+@commands.has_permissions(manage_messages=True)
+async def sanctions(ctx, member: discord.Member):
+data  = get_member(“sanctions.json”, ctx.guild.id, member.id)
+slist = data.get(“list”, [])
+if not slist:
+return await ctx.send(f”✅ **{member}** n’a aucune sanction.”)
+embed = discord.Embed(title=f”📋 Sanctions de {member}”, color=0xff8c00)
+for i, s in enumerate(slist[-10:], 1):
+embed.add_field(name=f”#{i} — {s[‘type’].upper()}”, value=f”Raison : {s[‘reason’]}\nDate : {s[‘date’][:10]}”, inline=False)
+embed.set_footer(text=f”Total : {len(slist)} sanction(s)”)
+await ctx.send(embed=embed)
+
+@bot.command(name=“del_sanction”)
+@commands.has_permissions(manage_messages=True)
+async def del_sanction(ctx, member: discord.Member, number: int):
+data  = get_member(“sanctions.json”, ctx.guild.id, member.id)
+slist = data.get(“list”, [])
+if number < 1 or number > len(slist):
+return await ctx.send(“❌ Numéro invalide.”)
+removed = slist.pop(number - 1)
+data[“list”] = slist
+set_member(“sanctions.json”, ctx.guild.id, member.id, data)
+await ctx.send(f”✅ Sanction #{number} (`{removed['type']}`) supprimée pour **{member}**.”)
+
+@bot.command(name=“clear_sanctions”)
+@commands.has_permissions(administrator=True)
+async def clear_sanctions(ctx, member: discord.Member):
+set_member(“sanctions.json”, ctx.guild.id, member.id, {“list”: []})
+await ctx.send(f”✅ Toutes les sanctions de **{member}** supprimées.”)
+
+@bot.command(name=“addrole”)
+@commands.has_permissions(manage_roles=True)
+async def addrole(ctx, member: discord.Member, role: discord.Role):
+await member.add_roles(role)
+await ctx.send(f”✅ Rôle **{role.name}** ajouté à **{member}**.”)
+
+@bot.command(name=“delrole”)
+@commands.has_permissions(manage_roles=True)
+async def delrole(ctx, member: discord.Member, role: discord.Role):
+await member.remove_roles(role)
+await ctx.send(f”✅ Rôle **{role.name}** retiré de **{member}**.”)
+
+@bot.command(name=“derank”)
+@commands.has_permissions(manage_roles=True)
+async def derank(ctx, member: discord.Member):
+roles = [r for r in member.roles if r != ctx.guild.default_role and r.position < ctx.guild.me.top_role.position]
+await member.remove_roles(*roles)
+await ctx.send(f”✅ Tous les rôles de **{member}** supprimés.”)
+
+@bot.command(name=“lock”)
+@commands.has_permissions(manage_channels=True)
+async def lock(ctx, channel: discord.TextChannel = None):
+channel = channel or ctx.channel
+await channel.set_permissions(ctx.guild.default_role, send_messages=False)
+await ctx.send(f”🔒 **{channel.name}** verrouillé.”)
+
+@bot.command(name=“unlock”)
+@commands.has_permissions(manage_channels=True)
+async def unlock(ctx, channel: discord.TextChannel = None):
+channel = channel or ctx.channel
+await channel.set_permissions(ctx.guild.default_role, send_messages=True)
+await ctx.send(f”🔓 **{channel.name}** déverrouillé.”)
+
+@bot.command(name=“lockall”)
+@commands.has_permissions(administrator=True)
+async def lockall(ctx):
+for ch in ctx.guild.text_channels:
+try:
+await ch.set_permissions(ctx.guild.default_role, send_messages=False)
+except:
+pass
+await ctx.send(“🔒 Tous les salons verrouillés.”)
+
+@bot.command(name=“unlockall”)
+@commands.has_permissions(administrator=True)
+async def unlockall(ctx):
+for ch in ctx.guild.text_channels:
+try:
+await ch.set_permissions(ctx.guild.default_role, send_messages=True)
+except:
+pass
+await ctx.send(“🔓 Tous les salons déverrouillés.”)
+
+@bot.command(name=“hide”)
+@commands.has_permissions(manage_channels=True)
+async def hide(ctx, channel: discord.TextChannel = None):
+channel = channel or ctx.channel
+await channel.set_permissions(ctx.guild.default_role, view_channel=False)
+await ctx.send(f”👁️ **{channel.name}** caché.”)
+
+@bot.command(name=“unhide”)
+@commands.has_permissions(manage_channels=True)
+async def unhide(ctx, channel: discord.TextChannel = None):
+channel = channel or ctx.channel
+await channel.set_permissions(ctx.guild.default_role, view_channel=True)
+await ctx.send(f”👁️ **{channel.name}** visible.”)
+
+@bot.command(name=“muterole”)
+@commands.has_permissions(administrator=True)
+async def muterole_cmd(ctx):
+role   = await get_or_create_mute_role(ctx.guild)
+config = get_guild(“modconfig.json”, ctx.guild.id)
+config[“muterole”] = str(role.id)
+set_guild(“modconfig.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Rôle muet **{role.name}** configuré.”)
+
+@bot.command(name=“set_muterole”)
+@commands.has_permissions(administrator=True)
+async def set_muterole(ctx, role: discord.Role):
+config = get_guild(“modconfig.json”, ctx.guild.id)
+config[“muterole”] = str(role.id)
+set_guild(“modconfig.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Rôle muet défini sur **{role.name}**.”)
+
+# ═══════════════════════════════════════════════════════════════
+
+# LOGS
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.command(name=“modlog”)
+@commands.has_permissions(administrator=True)
+async def modlog(ctx, action: str, channel: discord.TextChannel = None):
+config = get_guild(“logs.json”, ctx.guild.id)
+if action.lower() == “off”:
+config.pop(“modlog”, None); set_guild(“logs.json”, ctx.guild.id, config)
+return await ctx.send(“✅ Logs de modération désactivés.”)
+channel = channel or ctx.channel
+config[“modlog”] = str(channel.id); set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Logs de modération → {channel.mention}”)
+
+@bot.command(name=“messagelog”)
+@commands.has_permissions(administrator=True)
+async def messagelog(ctx, action: str, channel: discord.TextChannel = None):
+config = get_guild(“logs.json”, ctx.guild.id)
+if action.lower() == “off”:
+config.pop(“messagelog”, None); set_guild(“logs.json”, ctx.guild.id, config)
+return await ctx.send(“✅ Logs de messages désactivés.”)
+channel = channel or ctx.channel
+config[“messagelog”] = str(channel.id); set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Logs de messages → {channel.mention}”)
+
+@bot.command(name=“voicelog”)
+@commands.has_permissions(administrator=True)
+async def voicelog(ctx, action: str, channel: discord.TextChannel = None):
+config = get_guild(“logs.json”, ctx.guild.id)
+if action.lower() == “off”:
+config.pop(“voicelog”, None); set_guild(“logs.json”, ctx.guild.id, config)
+return await ctx.send(“✅ Logs vocaux désactivés.”)
+channel = channel or ctx.channel
+config[“voicelog”] = str(channel.id); set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Logs vocaux → {channel.mention}”)
+
+@bot.command(name=“rolelog”)
+@commands.has_permissions(administrator=True)
+async def rolelog(ctx, action: str, channel: discord.TextChannel = None):
+config = get_guild(“logs.json”, ctx.guild.id)
+if action.lower() == “off”:
+config.pop(“rolelog”, None); set_guild(“logs.json”, ctx.guild.id, config)
+return await ctx.send(“✅ Logs de rôles désactivés.”)
+channel = channel or ctx.channel
+config[“rolelog”] = str(channel.id); set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Logs de rôles → {channel.mention}”)
+
+@bot.command(name=“boostlog”)
+@commands.has_permissions(administrator=True)
+async def boostlog(ctx, action: str, channel: discord.TextChannel = None):
+config = get_guild(“logs.json”, ctx.guild.id)
+if action.lower() == “off”:
+config.pop(“boostlog”, None); set_guild(“logs.json”, ctx.guild.id, config)
+return await ctx.send(“✅ Logs de boosts désactivés.”)
+channel = channel or ctx.channel
+config[“boostlog”] = str(channel.id); set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Logs de boosts → {channel.mention}”)
+
+@bot.command(name=“raidlog”)
+@commands.has_permissions(administrator=True)
+async def raidlog(ctx, action: str, channel: discord.TextChannel = None):
+config = get_guild(“logs.json”, ctx.guild.id)
+if action.lower() == “off”:
+config.pop(“raidlog”, None); set_guild(“logs.json”, ctx.guild.id, config)
+return await ctx.send(“✅ Logs antiraid désactivés.”)
+channel = channel or ctx.channel
+config[“raidlog”] = str(channel.id); set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Logs antiraid → {channel.mention}”)
+
+@bot.command(name=“settings”)
+@commands.has_permissions(manage_guild=True)
+async def settings(ctx):
+config = get_guild(“logs.json”, ctx.guild.id)
+embed  = discord.Embed(title=“⚙️ Paramètres des logs”, color=0x1a0a2e)
+for lt in [“modlog”, “messagelog”, “voicelog”, “rolelog”, “boostlog”, “raidlog”]:
+cid = config.get(lt)
+ch  = ctx.guild.get_channel(int(cid)) if cid else None
+embed.add_field(name=lt, value=ch.mention if ch else “❌ Désactivé”, inline=True)
+await ctx.send(embed=embed)
+
+@bot.command(name=“autoconfiglog”)
+@commands.has_permissions(administrator=True)
+async def autoconfiglog(ctx):
+config = get_guild(“logs.json”, ctx.guild.id)
+names  = {“modlog”:“📋・modlogs”,“messagelog”:“✉️・msglogs”,“voicelog”:“🔊・voclogs”,
+“rolelog”:“🎭・rolelogs”,“boostlog”:“💎・boostlogs”,“raidlog”:“🛡️・raidlogs”}
+cat = await ctx.guild.create_category(“📊 Logs”)
+for lt, name in names.items():
+ch = await ctx.guild.create_text_channel(name, category=cat)
+config[lt] = str(ch.id)
+set_guild(“logs.json”, ctx.guild.id, config)
+await ctx.send(“✅ Tous les salons de logs créés et configurés !”)
+
+@bot.command(name=“snipe”)
+async def snipe(ctx):
+msg = snipe_cache.get(ctx.channel.id)
+if not msg:
+return await ctx.send(“❌ Aucun message récemment supprimé dans ce salon.”)
+embed = discord.Embed(description=msg.content or “*[Pas de texte]*”, color=0xff4500, timestamp=msg.created_at)
+embed.set_author(name=str(msg.author), icon_url=msg.author.display_avatar.url)
+await ctx.send(embed=embed)
+
+# ═══════════════════════════════════════════════════════════════
+
+# ANTIRAID
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.command(name=“antispam”)
+@commands.has_permissions(administrator=True)
+async def antispam_cmd(ctx, action: str):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+if action.lower() in (“on”, “off”):
+config[“antispam”] = (action.lower() == “on”)
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Antispam {‘activé’ if action.lower()==‘on’ else ‘désactivé’}.”)
+elif “/” in action:
+p = action.split(”/”)
+config[“antispam_limit”] = int(p[0]); config[“antispam_window”] = int(p[1])
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Sensibilité antispam : {p[0]} msgs / {p[1]}s.”)
+
+@bot.command(name=“antilink”)
+@commands.has_permissions(administrator=True)
+async def antilink_cmd(ctx, action: str):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+if action.lower() in (“on”, “off”):
+config[“antilink”] = (action.lower() == “on”)
+elif action.lower() in (“invite”, “all”):
+config[“antilink_mode”] = action.lower()
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Antilink mis à jour : `{action}`.”)
+
+@bot.command(name=“antimassmention”)
+@commands.has_permissions(administrator=True)
+async def antimassmention_cmd(ctx, action: str):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+try:
+config[“antimassmention_limit”] = int(action)
+set_guild(“antiraid.json”, ctx.guild.id, config)
+return await ctx.send(f”✅ Limite mention spam : {action}.”)
+except ValueError:
+pass
+config[“antimassmention”] = (action.lower() == “on”)
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Antimassmention {‘activé’ if action.lower()==‘on’ else ‘désactivé’}.”)
+
+@bot.command(name=“antitoken”)
+@commands.has_permissions(administrator=True)
+async def antitoken_cmd(ctx, action: str):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+if action.lower() in (“on”, “off”):
+config[“antitoken”] = (action.lower() == “on”)
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Antitoken {‘activé’ if action.lower()==‘on’ else ‘désactivé’}.”)
+elif action.lower() == “lock”:
+for ch in ctx.guild.text_channels:
+try:
+await ch.set_permissions(ctx.guild.default_role, send_messages=False)
+except:
+pass
+await ctx.send(“🔒 Serveur verrouillé.”)
+elif “/” in action:
+p = action.split(”/”)
+config[“antitoken_limit”] = int(p[0]); config[“antitoken_window”] = int(p[1])
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Sensibilité antitoken : {p[0]} joins / {p[1]}s.”)
+
+@bot.command(name=“badwords”)
+@commands.has_permissions(administrator=True)
+async def badwords_cmd(ctx, action: str, *, word: str = None):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+if action.lower() in (“on”, “off”):
+config[“badwords”] = (action.lower() == “on”)
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Badwords {‘activé’ if action.lower()==‘on’ else ‘désactivé’}.”)
+elif action.lower() == “add” and word:
+words = config.get(“badwords_list”, [])
+words.append(word.lower()); config[“badwords_list”] = words
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ `{word}` ajouté.”)
+elif action.lower() == “del” and word:
+words = config.get(“badwords_list”, [])
+if word.lower() in words: words.remove(word.lower())
+config[“badwords_list”] = words
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ `{word}` retiré.”)
+elif action.lower() == “list”:
+words = config.get(“badwords_list”, [])
+embed = discord.Embed(title=“🤬 Mots interdits”, description=”, “.join(f”`{w}`” for w in words) or “*Aucun*”, color=0xff0000)
+await ctx.send(embed=embed)
+
+@bot.command(name=“wl”)
+@commands.has_permissions(administrator=True)
+async def whitelist(ctx, member: discord.Member = None):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+wl     = config.get(“whitelist”, [])
+if not member:
+members_wl = [ctx.guild.get_member(int(m)) for m in wl if ctx.guild.get_member(int(m))]
+embed = discord.Embed(title=“✅ Whitelist antiraid”, description=”\n”.join(f”• {m}” for m in members_wl) or “*Vide*”, color=0x00ff00)
+return await ctx.send(embed=embed)
+if str(member.id) not in wl:
+wl.append(str(member.id))
+config[“whitelist”] = wl; set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ **{member}** ajouté à la whitelist.”)
+
+@bot.command(name=“unwl”)
+@commands.has_permissions(administrator=True)
+async def unwhitelist(ctx, member: discord.Member):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+wl     = config.get(“whitelist”, [])
+if str(member.id) in wl: wl.remove(str(member.id))
+config[“whitelist”] = wl; set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ **{member}** retiré de la whitelist.”)
+
+@bot.command(name=“secur”)
+@commands.has_permissions(administrator=True)
+async def secur(ctx, action: str = None):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+keys   = [“antispam”, “antilink”, “antitoken”, “antimassmention”, “badwords”]
+if not action:
+embed = discord.Embed(title=“🛡️ Paramètres Antiraid”, color=0x1a0a2e)
+for k in keys:
+embed.add_field(name=k, value=“✅” if config.get(k) else “❌”)
+return await ctx.send(embed=embed)
+val = action.lower() in (“on”, “max”)
+for k in keys: config[k] = val
+if action.lower() == “max”:
+config.update({“antispam_limit”: 3, “antispam_window”: 3, “antimassmention_limit”: 3})
+set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Protection antiraid `{action}` appliquée.”)
+
+@bot.command(name=“creation_limit”)
+@commands.has_permissions(administrator=True)
+async def creation_limit(ctx, seconds: int):
+config = get_guild(“antiraid.json”, ctx.guild.id)
+config[“creation_limit”] = seconds; set_guild(“antiraid.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Comptes de moins de **{seconds}s** seront expulsés.”)
+
+# ═══════════════════════════════════════════════════════════════
+
+# GESTION DU SERVEUR
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.command(name=“giveaway”)
+@commands.has_permissions(manage_guild=True)
+async def giveaway(ctx):
+def check(m): return m.author == ctx.author and m.channel == ctx.channel
+await ctx.send(“🎉 **Giveaway** — Titre ?”)
+try:
+title         = (await bot.wait_for(“message”, check=check, timeout=60)).content
+await ctx.send(“⏱️ Durée ? (ex: `10m`, `2h`, `1d`)”)
+dur_str       = (await bot.wait_for(“message”, check=check, timeout=60)).content
+delta         = parse_duration(dur_str)
+if not delta: return await ctx.send(“❌ Durée invalide.”)
+await ctx.send(“🏆 Nombre de gagnants ?”)
+winners_count = int((await bot.wait_for(“message”, check=check, timeout=60)).content)
+except (asyncio.TimeoutError, ValueError):
+return await ctx.send(“❌ Temps écoulé ou valeur invalide.”)
+end_time = datetime.utcnow() + delta
+embed    = discord.Embed(title=f”🎉 {title}”, color=0xff73fa)
+embed.description = f”Réagissez avec 🎉 !\n\n**Gagnants :** {winners_count}\n**Fin :** <t:{int(end_time.timestamp())}:R>”
+gaw_msg  = await ctx.send(embed=embed)
+await gaw_msg.add_reaction(“🎉”)
+data     = get_guild(“giveaways.json”, ctx.guild.id)
+data[str(gaw_msg.id)] = {“channel”: str(ctx.channel.id), “title”: title, “winners”: winners_count, “active”: True}
+set_guild(“giveaways.json”, ctx.guild.id, data)
+await asyncio.sleep(delta.total_seconds())
+data     = get_guild(“giveaways.json”, ctx.guild.id)
+gaw      = data.get(str(gaw_msg.id))
+if gaw and gaw.get(“active”):
+try:
+msg_ref      = await ctx.channel.fetch_message(gaw_msg.id)
+reaction     = discord.utils.get(msg_ref.reactions, emoji=“🎉”)
+participants = [u async for u in reaction.users() if not u.bot] if reaction else []
+if not participants:
+await ctx.send(f”🎉 Giveaway **{title}** terminé, personne n’a participé.”)
+else:
+winners = random.sample(participants, min(winners_count, len(participants)))
+await ctx.send(f”🎉 Félicitations {’, ’.join(w.mention for w in winners)} ! Vous avez gagné **{title}** !”)
+except:
+pass
+data[str(gaw_msg.id)][“active”] = False
+set_guild(“giveaways.json”, ctx.guild.id, data)
+
+@bot.command(name=“reroll”)
+@commands.has_permissions(manage_guild=True)
+async def reroll(ctx):
+data = get_guild(“giveaways.json”, ctx.guild.id)
+last = next(((gid, gaw) for gid, gaw in reversed(list(data.items())) if not gaw.get(“active”) and gaw[“channel”] == str(ctx.channel.id)), None)
+if not last:
+return await ctx.send(“❌ Aucun giveaway récent.”)
+gid, gaw = last
+try:
+msg          = await ctx.channel.fetch_message(int(gid))
+reaction     = discord.utils.get(msg.reactions, emoji=“🎉”)
+participants = [u async for u in reaction.users() if not u.bot]
+if not participants: return await ctx.send(“❌ Aucun participant.”)
+await ctx.send(f”🎉 Nouveau tirage ! Gagnant : {random.choice(participants).mention} !”)
+except Exception as e:
+await ctx.send(f”❌ Erreur : {e}”)
+
+@bot.command(name=“embed”)
+@commands.has_permissions(manage_messages=True)
+async def embed_builder(ctx):
+def check(m): return m.author == ctx.author and m.channel == ctx.channel
+await ctx.send(“📝 **Titre** ? (ou `skip`)”)
+try:
+title     = (await bot.wait_for(“message”, check=check, timeout=60)).content
+title     = “” if title == “skip” else title
+await ctx.send(“📝 **Description** ? (ou `skip`)”)
+desc      = (await bot.wait_for(“message”, check=check, timeout=60)).content
+desc      = “” if desc == “skip” else desc
+await ctx.send(“🎨 **Couleur** hex ? (ex: `#ff0000` ou `skip`)”)
+color_str = (await bot.wait_for(“message”, check=check, timeout=60)).content
+color     = 0x1a0a2e
+if color_str != “skip”:
+try: color = int(color_str.replace(”#”, “”), 16)
+except: pass
+except asyncio.TimeoutError:
+return await ctx.send(“❌ Temps écoulé.”)
+embed = discord.Embed(title=title, description=desc, color=color)
+embed.set_footer(text=f”CrowBot • {ctx.guild.name}”)
+await ctx.send(embed=embed)
+
+@bot.command(name=“ticket”)
+async def ticket(ctx):
+config     = get_guild(“tickets.json”, ctx.guild.id)
+category   = ctx.guild.get_channel(int(config[“category”])) if config.get(“category”) else None
+staff_role = ctx.guild.get_role(int(config[“staff_role”])) if config.get(“staff_role”) else None
+overwrites = {
+ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False),
+ctx.author:             discord.PermissionOverwrite(view_channel=True, send_messages=True),
+ctx.guild.me:           discord.PermissionOverwrite(view_channel=True, send_messages=True)
+}
+if staff_role: overwrites[staff_role] = discord.PermissionOverwrite(view_channel=True, send_messages=True)
+channel = await ctx.guild.create_text_channel(f”ticket-{ctx.author.name}”, category=category, overwrites=overwrites)
+embed   = discord.Embed(title=“🎫 Ticket ouvert”, description=f”Bonjour {ctx.author.mention} !\nDécris ton problème.\n\n`+close` pour fermer.”, color=0x00bfff)
+await channel.send(embed=embed)
+await ctx.send(f”✅ Ticket créé : {channel.mention}”, delete_after=5)
+
+@bot.command(name=“ticket_category”)
+@commands.has_permissions(administrator=True)
+async def ticket_category(ctx, category: discord.CategoryChannel):
+config = get_guild(“tickets.json”, ctx.guild.id)
+config[“category”] = str(category.id); set_guild(“tickets.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Catégorie tickets : **{category.name}**.”)
+
+@bot.command(name=“ticket_role”)
+@commands.has_permissions(administrator=True)
+async def ticket_role(ctx, role: discord.Role):
+config = get_guild(“tickets.json”, ctx.guild.id)
+config[“staff_role”] = str(role.id); set_guild(“tickets.json”, ctx.guild.id, config)
+await ctx.send(f”✅ Rôle staff tickets : **{role.name}**.”)
+
+@bot.command(name=“close”)
+async def close(ctx, *, reason=“Ticket résolu”):
+if not ctx.channel.name.startswith(“ticket-”):
+return await ctx.send(“❌ Ce n’est pas un salon de ticket.”)
+embed = discord.Embed(title=“🔒 Ticket fermé”, description=f”Raison : {reason}”, color=0xff4500)
+await ctx.send(embed=embed)
+await asyncio.sleep(3)
+await ctx.channel.delete()
+
+@bot.command(name=“rolemenu”)
+@commands.has_permissions(manage_roles=True)
+async def rolemenu(ctx):
+if not ctx.message.role_mentions:
+return await ctx.send(“Usage : `+rolemenu @Rôle1 @Rôle2 ...`”)
+roles  = ctx.message.role_mentions
+emojis = [“1️⃣”,“2️⃣”,“3️⃣”,“4️⃣”,“5️⃣”,“6️⃣”,“7️⃣”,“8️⃣”,“9️⃣”,“🔟”]
+desc   = “\n”.join(f”{emojis[i]} — {r.mention}” for i, r in enumerate(roles[:10]))
+embed  = discord.Embed(title=“🎭 Menu de rôles”, description=desc, color=0x7289da)
+embed.set_footer(text=“Réagissez pour obtenir un rôle”)
+msg    = await ctx.send(embed=embed)
+for i in range(len(roles[:10])): await msg.add_reaction(emojis[i])
+data   = get_guild(“rolemenus.json”, ctx.guild.id)
+data[str(msg.id)] = {str(r.id): emojis[i] for i, r in enumerate(roles[:10])}
+set_guild(“rolemenus.json”, ctx.guild.id, data)
+
+@bot.command(name=“reminder”)
+async def reminder(ctx, duration: str, *, message: str):
+delta = parse_duration(duration)
+if not delta: return await ctx.send(“❌ Durée invalide. Exemple : `10m`, `2h`”)
+await ctx.send(f”⏰ Rappel dans **{duration}** !”)
+await asyncio.sleep(delta.total_seconds())
+try:
+await ctx.author.send(f”⏰ **Rappel :** {message}”)
+except:
+await ctx.send(f”⏰ {ctx.author.mention} **Rappel :** {message}”)
+
+@bot.command(name=“custom”)
+@commands.has_permissions(manage_guild=True)
+async def custom(ctx, keyword: str, *, response: str = None):
+if not response: return await ctx.send(“Usage : `+custom <mot-clé> <réponse>`”)
+data = get_guild(“customs.json”, ctx.guild.id)
+data[keyword.lower()] = response; set_guild(“customs.json”, ctx.guild.id, data)
+await ctx.send(f”✅ Commande `+{keyword}` créée.”)
+
+@bot.command(name=“customlist”)
+async def customlist(ctx):
+data = get_guild(“customs.json”, ctx.guild.id)
+if not data: return await ctx.send(“❌ Aucune commande custom.”)
+embed = discord.Embed(title=“📋 Commandes custom”, description=”\n”.join(f”`+{k}` — {v[:50]}” for k, v in list(data.items())[:20]), color=0x1a0a2e)
+await ctx.send(embed=embed)
+
+@bot.command(name=“massiverole”)
+@commands.has_permissions(manage_roles=True)
+async def massiverole(ctx, role: discord.Role, filter_role: discord.Role = None):
+members = ctx.guild.members if not filter_role else [m for m in ctx.guild.members if filter_role in m.roles]
+msg     = await ctx.send(f”⏳ Ajout en cours pour {len(members)} membres…”)
+for m in members:
+try: await m.add_roles(role)
+except: pass
+await msg.edit(content=f”✅ Rôle **{role.name}** ajouté à **{len(members)}** membres.”)
+
+@bot.command(name=“unmassiverole”)
+@commands.has_permissions(manage_roles=True)
+async def unmassiverole(ctx, role: discord.Role):
+members = [m for m in ctx.guild.members if role in m.roles]
+msg     = await ctx.send(f”⏳ Retrait en cours pour {len(members)} membres…”)
+for m in members:
+try: await m.remove_roles(role)
+except: pass
+await msg.edit(content=f”✅ Rôle **{role.name}** retiré de **{len(members)}** membres.”)
+
+@bot.command(name=“temprole”)
+@commands.has_permissions(manage_roles=True)
+async def temprole(ctx, member: discord.Member, role: discord.Role, duration: str):
+delta = parse_duration(duration)
+if not delta: return await ctx.send(“❌ Durée invalide.”)
+await member.add_roles(role)
+await ctx.send(f”✅ Rôle **{role.name}** ajouté à **{member}** pour **{duration}**.”)
+await asyncio.sleep(delta.total_seconds())
+if role in member.roles: await member.remove_roles(role)
+
+# ═══════════════════════════════════════════════════════════════
+
+# UTILITAIRE
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.command(name=“serverinfo”)
+async def serverinfo(ctx):
+g     = ctx.guild
+embed = discord.Embed(title=f”📊 {g.name}”, color=0x1a0a2e, timestamp=datetime.utcnow())
+embed.add_field(name=“Membres”,      value=g.member_count,               inline=True)
+embed.add_field(name=“Salons”,       value=len(g.channels),              inline=True)
+embed.add_field(name=“Rôles”,        value=len(g.roles),                 inline=True)
+embed.add_field(name=“Boosts”,       value=g.premium_subscription_count, inline=True)
+embed.add_field(name=“Niveau boost”, value=g.premium_tier,               inline=True)
+embed.add_field(name=“Créé le”,      value=g.created_at.strftime(”%d/%m/%Y”), inline=True)
+embed.add_field(name=“Propriétaire”, value=str(g.owner),                 inline=True)
+embed.add_field(name=“ID”,           value=str(g.id),                    inline=True)
+if g.icon: embed.set_thumbnail(url=g.icon.url)
+await ctx.send(embed=embed)
+
+@bot.command(name=“user”)
+async def user_info(ctx, member: discord.Member = None):
+member = member or ctx.author
+embed  = discord.Embed(title=f”👤 {member}”, color=0x7289da, timestamp=datetime.utcnow())
+embed.add_field(name=“ID”,          value=member.id)
+embed.add_field(name=“Bot”,         value=“✅” if member.bot else “❌”)
+embed.add_field(name=“Créé le”,     value=member.created_at.strftime(”%d/%m/%Y”))
+embed.add_field(name=“A rejoint”,   value=member.joined_at.strftime(”%d/%m/%Y”) if member.joined_at else “?”)
+roles = [r.mention for r in member.roles[1:]]
+embed.add_field(name=f”Rôles ({len(roles)})”, value=” “.join(roles[:10]) or “*Aucun*”, inline=False)
+embed.set_thumbnail(url=member.display_avatar.url)
+await ctx.send(embed=embed)
+
+@bot.command(name=“role”)
+async def role_info(ctx, role: discord.Role):
+embed = discord.Embed(title=f”🎭 {role.name}”, color=role.color, timestamp=datetime.utcnow())
+embed.add_field(name=“ID”,           value=role.id)
+embed.add_field(name=“Membres”,      value=len(role.members))
+embed.add_field(name=“Mentionnable”, value=“✅” if role.mentionable else “❌”)
+embed.add_field(name=“Hissé”,        value=“✅” if role.hoist else “❌”)
+embed.add_field(name=“Position”,     value=role.position)
+embed.add_field(name=“Créé le”,      value=role.created_at.strftime(”%d/%m/%Y”))
+await ctx.send(embed=embed)
+
+@bot.command(name=“pic”)
+async def pic(ctx, member: discord.Member = None):
+member = member or ctx.author
+embed  = discord.Embed(color=0x1a0a2e)
+embed.set_image(url=member.display_avatar.url)
+embed.set_footer(text=f”Photo de profil de {member}”)
+await ctx.send(embed=embed)
+
+@bot.command(name=“server_pic”)
+async def server_pic(ctx):
+if not ctx.guild.icon: return await ctx.send(“❌ Ce serveur n’a pas d’icône.”)
+embed = discord.Embed(color=0x1a0a2e)
+embed.set_image(url=ctx.guild.icon.url)
+embed.set_footer(text=f”Icône de {ctx.guild.name}”)
+await ctx.send(embed=embed)
+
+@bot.command(name=“boosters”)
+async def boosters(ctx):
+bl = ctx.guild.premium_subscribers
+if not bl: return await ctx.send(“❌ Aucun booster.”)
+embed = discord.Embed(title=f”💎 Boosters ({len(bl)})”, description=”\n”.join(f”• {b.mention}” for b in bl[:20]), color=0xff73fa)
+await ctx.send(embed=embed)
+
+@bot.command(name=“allbots”)
+async def allbots(ctx):
+bots  = [m for m in ctx.guild.members if m.bot]
+embed = discord.Embed(title=f”🤖 Bots ({len(bots)})”, description=”\n”.join(f”• {b.mention}” for b in bots), color=0x1a0a2e)
+await ctx.send(embed=embed)
+
+@bot.command(name=“alladmins”)
+async def alladmins(ctx):
+admins = [m for m in ctx.guild.members if not m.bot and m.guild_permissions.administrator]
+embed  = discord.Embed(title=f”👑 Admins ({len(admins)})”, description=”\n”.join(f”• {a.mention}” for a in admins), color=0xffd700)
+await ctx.send(embed=embed)
+
+@bot.command(name=“rolemembers”)
+async def rolemembers(ctx, role: discord.Role):
+if not role.members: return await ctx.send(f”❌ Aucun membre avec **{role.name}**.”)
+embed = discord.Embed(title=f”🎭 {role.name} ({len(role.members)})”, description=”\n”.join(f”• {m.mention}” for m in role.members[:20]), color=role.color)
+await ctx.send(embed=embed)
+
+@bot.command(name=“vocinfo”)
+async def vocinfo(ctx):
+embed = discord.Embed(title=“🔊 Activité vocale”, color=0x1a0a2e)
+for vc in ctx.guild.voice_channels:
+if vc.members:
+embed.add_field(name=vc.name, value=”\n”.join(f”• {m.display_name}” for m in vc.members), inline=True)
+if not embed.fields: embed.description = “❌ Aucun membre en vocal.”
+await ctx.send(embed=embed)
+
+@bot.command(name=“say”)
+@commands.has_permissions(manage_messages=True)
+async def say(ctx, *, message: str):
+await ctx.message.delete()
+await ctx.send(message)
+
+@bot.command(name=“perms”)
+async def perms(ctx):
+perm_roles = [r for r in ctx.guild.roles if r.permissions.manage_messages or r.permissions.administrator]
+embed = discord.Embed(title=“🔐 Rôles avec permissions”, description=”\n”.join(f”• {r.mention}” for r in perm_roles) or “*Aucun*”, color=0x1a0a2e)
+await ctx.send(embed=embed)
+
+@bot.command(name=“changelogs”)
+async def changelogs(ctx):
+embed = discord.Embed(title=“📋 Changelogs CrowBot”, description=”**v1.0** — Lancement\n• Modération complète\n• Logs\n• Antiraid\n• Gestion serveur\n• Utilitaire”, color=0x1a0a2e)
+await ctx.send(embed=embed)
+
+# ═══════════════════════════════════════════════════════════════
+
+# GESTION DES ERREURS
+
+# ═══════════════════════════════════════════════════════════════
+
+@bot.event
+async def on_command_error(ctx, error):
+if isinstance(error, commands.MissingPermissions):
+await ctx.send(“❌ Tu n’as pas la permission d’utiliser cette commande.”)
+elif isinstance(error, commands.MemberNotFound):
+await ctx.send(“❌ Membre introuvable.”)
+elif isinstance(error, commands.RoleNotFound):
+await ctx.send(“❌ Rôle introuvable.”)
+elif isinstance(error, commands.MissingRequiredArgument):
+await ctx.send(f”❌ Argument manquant : `{error.param.name}` — utilise `+help`.”)
+elif isinstance(error, commands.CommandNotFound):
+pass  # Custom commands handled in on_message
+else:
+print(f”Erreur non gérée : {error}”)
+
+# ═══════════════════════════════════════════════════════════════
+
+# LANCEMENT
+
+# ═══════════════════════════════════════════════════════════════
+
+bot.run(TOKEN)
