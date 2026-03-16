@@ -1222,4 +1222,4 @@ print(f”Erreur non gérée : {error}”)
 
 # ═══════════════════════════════════════════════════════════════
 
-bot.run(TOKEN)
+bot.run(TOKEN) 
